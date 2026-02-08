@@ -79,12 +79,12 @@ export default function Contact() {
                 {t('KONTAKT / SPOJME SE', 'CONTACT / GET IN TOUCH')}
               </span>
             </motion.div>
-            <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8">
+            <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8 px-4">
               <span className="text-white">{t('Připraveni', 'Ready to')}</span>
               <br />
               <span className="text-white/15">{t('začít?', 'start?')}</span>
             </h2>
-            <p className="text-lg md:text-xl text-white/50 leading-relaxed max-w-2xl">
+            <p className="text-base sm:text-lg md:text-xl text-white/50 leading-relaxed max-w-2xl px-4">
               {t('Spojme síly a vytvořme něco jedinečného. Začněte svůj projekt ještě dnes.', 'Let\'s join forces and create something unique. Start your project today.')}
             </p>
           </div>
@@ -118,10 +118,10 @@ export default function Contact() {
               />
               
               <div className="relative">
-                <div className="text-4xl md:text-6xl lg:text-7xl font-bold text-white space-grotesk tracking-tight group-hover:scale-105 transition-transform duration-300">
+                <div className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white space-grotesk tracking-tight group-hover:scale-105 transition-transform duration-300 px-4">
                   hello@auroriqa.com
                 </div>
-                <div className="flex items-center gap-2 justify-center text-white/40 group-hover:text-white/60 transition-colors text-sm md:text-base mt-4">
+                <div className="flex items-center gap-2 justify-center text-white/40 group-hover:text-white/60 transition-colors text-xs sm:text-sm md:text-base mt-4 px-4">
                   <Mail className="w-4 h-4" />
                   <span>{t('Napište nám', 'Email us')}</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-200" />
@@ -138,12 +138,12 @@ export default function Contact() {
             transition={{ delay: 0.4, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-8"
           >
-            <div className="flex flex-col sm:flex-row gap-6 justify-center">
+            <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
               <motion.a
                 href="mailto:hello@auroriqa.com"
-                whileHover={{ scale: 1.1, y: -6 }}
+                whileHover={{ scale: 1.05, y: -6 }}
                 whileTap={{ scale: 0.96 }}
-                className="group relative px-20 py-8 rounded-full text-white font-bold text-2xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.5)]"
+                className="group relative px-8 sm:px-16 lg:px-20 py-6 sm:py-7 lg:py-8 rounded-full text-white font-bold text-lg sm:text-xl lg:text-2xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.5)]"
               >
                 {/* Multi-layer animated gradient */}
                 <motion.div

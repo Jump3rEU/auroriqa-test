@@ -16,7 +16,19 @@ const spaceGrotesk = Space_Grotesk({
   display: "swap",
 });
 
-export const metadata: Metadata = generateSEO();
+export const metadata: Metadata = {
+  ...generateSEO(),
+  viewport: {
+    width: 'device-width',
+    initialScale: 1,
+    maximumScale: 5,
+    userScalable: true,
+  },
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#10b981' },
+    { media: '(prefers-color-scheme: dark)', color: '#065f46' }
+  ]
+};
 
 export default function RootLayout({
   children,

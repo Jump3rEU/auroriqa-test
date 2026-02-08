@@ -153,7 +153,7 @@ const Hero: React.FC = () => {
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           className="space-y-12"
         >
-          <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold text-white leading-tight space-grotesk">
+          <h1 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-9xl font-bold text-white leading-[1.1] space-grotesk">
             <div className="relative inline-block mb-6">
               {/* Aurora effect behind text */}
               <motion.div
@@ -242,7 +242,7 @@ const Hero: React.FC = () => {
             transition={{ duration: 1, delay: 1, ease: [0.16, 1, 0.3, 1] }}
             className="space-y-6"
           >
-            <p className="text-xl md:text-2xl text-white/70 max-w-4xl mx-auto leading-relaxed font-medium">
+            <p className="text-lg sm:text-xl md:text-2xl text-white/70 max-w-4xl mx-auto leading-relaxed font-medium px-4">
               {t(
                 'Digitální produkty, které fungují.',
                 'Digital products that work.'
@@ -254,7 +254,7 @@ const Hero: React.FC = () => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 1.3 }}
-              className="flex items-center justify-center gap-8 text-sm text-white/40"
+              className="flex flex-col sm:flex-row items-center justify-center gap-4 sm:gap-8 text-sm text-white/40 px-4"
             >
               <motion.div
                 whileHover={{ scale: 1.1, color: "rgba(255,255,255,0.7)" }}
@@ -307,13 +307,13 @@ const Hero: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-6 justify-center pt-12"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center pt-8 sm:pt-12 px-4"
           >
             <motion.a
               href="#contact"
-              whileHover={{ scale: 1.08, y: -4 }}
+              whileHover={{ scale: 1.05, y: -4 }}
               whileTap={{ scale: 0.96 }}
-              className="group relative px-16 py-7 rounded-full text-white font-bold text-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+              className="group relative px-8 sm:px-12 md:px-16 py-4 sm:py-6 md:py-7 rounded-full text-white font-bold text-lg sm:text-xl md:text-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
             >
               {/* Multi-layer animated gradient */}
               <motion.div

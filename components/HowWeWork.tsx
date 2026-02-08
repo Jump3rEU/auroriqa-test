@@ -120,7 +120,7 @@ export default function HowWeWork() {
                   {t('PROCES / METODOLOGIE', 'PROCESS / METHODOLOGY')}
                 </span>
               </motion.div>
-              <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-6">
+              <h2 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-[10rem] font-bold space-grotesk leading-[0.85] mb-6 px-4">
                 <span className="text-white">{t('Jak', 'How')}</span>
                 <br />
                 <span className="text-white/15">{t('pracujeme', 'we work')}</span>
@@ -133,7 +133,7 @@ export default function HowWeWork() {
               transition={{ delay: 0.3, type: "spring" }}
               className="md:text-right max-w-md"
             >
-              <p className="text-lg md:text-xl text-white/50 leading-relaxed mb-8">
+              <p className="text-base sm:text-lg md:text-xl text-white/50 leading-relaxed mb-8 px-4">
                 {t('Agilní metodologie s důrazem na transparentnost, rychlost a špičkovou kvalitu. Od discovery po launch.', 'Agile methodology focused on transparency, speed and top quality. From discovery to launch.')}
               </p>
               <div className="grid grid-cols-2 gap-6">
