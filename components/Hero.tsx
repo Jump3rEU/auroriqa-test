@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useEffect, useRef, useState, Suspense } from 'react';
+import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -10,8 +10,8 @@ const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false });
 const Hero: React.FC = () => {
   const { language, t } = useLanguage();
   
-  const wordsCS = ['TVOŘÍME.', 'INOVUJEME.', 'DODÁVÁME.', 'EXCELUJEME.'];
-  const wordsEN = ['WE CREATE.', 'WE INNOVATE.', 'WE DELIVER.', 'WE EXCEL.'];
+  const wordsCS = useMemo(() => ['TVOŘÍME.', 'INOVUJEME.', 'DODÁVÁME.', 'EXCELUJEME.'], []);
+  const wordsEN = useMemo(() => ['WE CREATE.', 'WE INNOVATE.', 'WE DELIVER.', 'WE EXCEL.'], []);
   const [words, setWords] = useState(language === 'CS' ? wordsCS : wordsEN);
   const [currentWordIndex, setCurrentWordIndex] = useState(0);
   const containerRef = useRef<HTMLElement>(null);
@@ -23,7 +23,7 @@ const Hero: React.FC = () => {
   useEffect(() => {
     setWords(language === 'CS' ? wordsCS : wordsEN);
     setCurrentWordIndex(0); // Reset to first word
-  }, [language]);
+  }, [language, wordsCS, wordsEN]);
 
   useEffect(() => {
     const interval = setInterval(() => {

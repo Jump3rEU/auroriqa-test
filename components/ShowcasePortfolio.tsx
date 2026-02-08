@@ -2,10 +2,11 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ChevronLeft, ChevronRight, Sparkles, Lock, Check, ArrowRight, Zap, Star, TrendingUp, Users, Globe, MessageSquare } from "lucide-react";
+import { ExternalLink, ChevronLeft, ChevronRight, Sparkles, Check, ArrowRight, Zap, Star, TrendingUp, Users, Globe, MessageSquare } from "lucide-react";
+import { LucideIcon } from "lucide-react";
 
 interface Stat {
-  icon: any;
+  icon: LucideIcon;
   labelCS: string;
   labelEN?: string;
   value: string;

@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Layers, Rocket, Globe, Cpu, Shield, Zap } from "lucide-react";
+import { Layers, Rocket, Globe, Cpu } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 

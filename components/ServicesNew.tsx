@@ -216,7 +216,7 @@ export default function ServicesNew() {
                     onClick={() => setActiveService(index)}
                     onHoverStart={() => setHoveredService(index)}
                     onHoverEnd={() => setHoveredService(null)}
-                    className="w-full text-left group relative"
+                    className={`w-full text-left group relative ${hoveredService === index ? 'scale-[1.02]' : ''}`}
                   >
                     {/* Glass card */}
                     <div className={`

@@ -6,8 +6,18 @@ import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useLanguage } from "@/contexts/LanguageContext";
 
+interface BlogPost {
+  titleCS: string;
+  titleEN: string;
+  date: string;
+  readTime: string;
+  category: string;
+  contentCS: string;
+  contentEN: string;
+}
+
 // Temporary mock data - v produkci načtěte z CMS nebo databáze
-const blogContent: Record<string, any> = {
+const blogContent: Record<string, BlogPost> = {
   "webovy-design-trendy-2026": {
     titleCS: "Webový Design Trendy 2026",
     titleEN: "Web Design Trends 2026",

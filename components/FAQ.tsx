@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { Plus, Minus, ArrowRight } from "lucide-react";
+import { Plus, ArrowRight } from "lucide-react";
 import { useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
@@ -13,7 +13,6 @@ export default function FAQ() {
     offset: ["start end", "end start"]
   });
 
-  const y = useTransform(scrollYProgress, [0, 1], [100, -100]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);

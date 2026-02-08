@@ -190,21 +190,76 @@ export default function BlogPage() {
           ))}
         </div>
 
-        {/* SEO Content - Hidden but crawlable */}
-        <div className="mt-20 max-w-4xl mx-auto opacity-0 h-0 overflow-hidden" aria-hidden="true">
-          <h2>Webová agentura Auroriqa - Blog</h2>
-          <p>
-            Přinášíme vám nejnovější trendy a postupy ve webovém vývoji, designu a digitálním marketingu.
-            Naše články pokrývají témata jako React, Next.js, SEO optimalizace, UI/UX design, a mnoho dalšího.
-          </p>
-          <ul>
-            <li>Webový design - moderní trendy a best practices</li>
-            <li>Vývoj webových aplikací - React, Next.js, TypeScript</li>
-            <li>SEO optimalizace - jak zlepšit viditelnost vašeho webu</li>
-            <li>Performance optimization - rychlost načítání stránek</li>
-            <li>UI/UX design - uživatelská zkušenost a přístupnost</li>
-          </ul>
-        </div>
+        {/* SEO Content - Now visible and styled */}
+        <motion.div 
+          className="mt-32 max-w-6xl mx-auto relative overflow-hidden"
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
+        >
+          {/* Aurora background */}
+          <div className="absolute inset-0 opacity-30 pointer-events-none">
+            <motion.div
+              className="absolute top-0 left-1/4 w-96 h-96 bg-gradient-to-br from-emerald-400/30 to-teal-400/30 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.2, 1],
+                x: [0, 50, 0],
+              }}
+              transition={{ duration: 8, repeat: Infinity, ease: "easeInOut" }}
+            />
+            <motion.div
+              className="absolute bottom-0 right-1/4 w-96 h-96 bg-gradient-to-br from-blue-400/30 to-purple-400/30 rounded-full blur-3xl"
+              animate={{
+                scale: [1, 1.3, 1],
+                x: [0, -50, 0],
+              }}
+              transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </div>
+
+          {/* Content Card */}
+          <div className="relative backdrop-blur-xl bg-white/5 border border-white/10 rounded-3xl p-12 shadow-2xl">
+            <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 space-grotesk">
+              {t('Webová agentura Auroriqa - Blog', 'Auroriqa Web Agency - Blog')}
+            </h2>
+            <p className="text-xl text-white/80 mb-8 leading-relaxed">
+              {t(
+                'Přinášíme vám nejnovější trendy a postupy ve webovém vývoji, designu a digitálním marketingu. Naše články pokrývají témata jako React, Next.js, SEO optimalizace, UI/UX design, a mnoho dalšího.',
+                'We bring you the latest trends and practices in web development, design and digital marketing. Our articles cover topics such as React, Next.js, SEO optimization, UI/UX design, and much more.'
+              )}
+            </p>
+
+            {/* Topics Grid */}
+            <div className="grid md:grid-cols-2 gap-4">
+              {[
+                { cs: 'Webový design - moderní trendy a best practices', en: 'Web design - modern trends and best practices' },
+                { cs: 'Vývoj webových aplikací - React, Next.js, TypeScript', en: 'Web application development - React, Next.js, TypeScript' },
+                { cs: 'SEO optimalizace - jak zlepšit viditelnost vašeho webu', en: 'SEO optimization - how to improve your website visibility' },
+                { cs: 'Performance optimization - rychlost načítání stránek', en: 'Performance optimization - page loading speed' },
+                { cs: 'UI/UX design - uživatelská zkušenost a přístupnost', en: 'UI/UX design - user experience and accessibility' },
+                { cs: 'Digitální marketing a webová analytika', en: 'Digital marketing and web analytics' }
+              ].map((topic, index) => (
+                <motion.div
+                  key={index}
+                  className="group relative bg-gradient-to-br from-white/5 to-white/0 border border-white/10 rounded-xl p-5 hover:bg-white/10 transition-all duration-300"
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: index * 0.1 }}
+                  whileHover={{ scale: 1.02, borderColor: 'rgba(16, 185, 129, 0.3)' }}
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-2 h-2 bg-emerald-400 rounded-full mt-2 group-hover:scale-125 transition-transform" />
+                    <p className="text-white/80 group-hover:text-white transition-colors">
+                      {t(topic.cs, topic.en)}
+                    </p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.div>
       </div>
     </div>
   );
