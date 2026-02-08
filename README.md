@@ -1,44 +1,75 @@
-# Auroriqa - Personal Developer Portfolio
+# Auroriqa - Prémiová Webová Agentura
 
-Moderní, interaktivní portfolio web s 3D efekty, custom cursorem, glassmorphic designem a pokročilými animacemi.
+Moderní, SEO-optimalizovaný web prezentující prémiové webové služby s pokročilými animacemi, aurora efekty a fulltextovým blogem.
 
 ## ✨ Features
 
-- 🎨 **Čistý Hero Layout** s animovanými slovy a 3D efekty
-- 🌟 **3D Three.js Animace** - animované koule a částice
-- 💎 **Glassmorphic UI** - průhledné komponenty s blur efekty po celém webu
-- 🖱️ **Custom Cursor** - interaktivní kurzor reagující na hover
-- 📊 **Scroll Progress Bar** - gradient progress bar při scrollování
-- 🎭 **Framer Motion Animace** - plynulé přechody a hover efekty
-- ✨ **Floating Particles** - animované částice v pozadí
+### Design & UX
+- 🎨 **Premium Aurora Effects** - dynamické barevné přechody a světelné efekty
+- 💎 **Glassmorphic UI** - moderní průhledné komponenty s blur efekty
+- 🎭 **Framer Motion Animace** - plynulé přechody, hover efekty a scroll animace
+- 🖱️ **Interactive Elements** - pokročilé UI interakce a mikroanimace
 - 📱 **Plně responzivní** - optimalizováno pro všechna zařízení
-- ⚡ **Next.js 14** - rychlý, moderní framework
-- 🎯 **TypeScript** - typová bezpečnost
-- 🌈 **Tailwind CSS** - moderní styling
+- 🌈 **Multi-layer Effects** - komplexní vrstevné efekty na tlačítkách a kartách
+
+### SEO & Performance
+- 🔍 **Full SEO Optimization**
+  - Dynamický sitemap.xml
+  - Robots.txt
+  - Meta tags (Open Graph, Twitter Cards)
+  - Structured Data (JSON-LD)
+  - Canonical URLs
+  - Language alternates (CS/EN)
+- 📝 **Blog System** - SEO-optimalizovaný blog s dynamickým routingem
+- ⚡ **Next.js 14 Performance** - server-side rendering, image optimization
+- 🚀 **Core Web Vitals Optimized** - rychlé načítání, nízký CLS
+- 📊 **Analytics Ready** - připraveno pro Google Analytics & GTM
+
+### Sections
+- 🏠 **Hero** - impozantní úvodní sekce s premium CTA tlačítky
+- 💼 **Services** - prezentace služeb s animovanými kartami
+- 📂 **Portfolio** - showcase projektů
+- 👥 **About** - o týmu a společnosti
+- 📰 **Blog** - fulltext blog pro SEO
+- 💬 **Contact** - kontaktní formulář s animacemi
+- ❓ **FAQ** - často kladené otázky
+- 📄 **Footer** - komplexní footer s odkazy
 
 ## 🛠️ Tech Stack
 
-- **Framework:** Next.js 14
+- **Framework:** Next.js 14 (App Router)
 - **Language:** TypeScript
 - **Styling:** Tailwind CSS
-- **3D Graphics:** Three.js, React Three Fiber, @react-three/drei
 - **Animations:** Framer Motion
-- **Effects:** React Parallax Tilt
 - **Icons:** Lucide React
+- **SEO:** Next.js Metadata API, JSON-LD
+- **i18n:** Custom Language Context (CS/EN)
 
 ## 🚀 Instalace a spuštění
 
-1. **Nainstalujte dependencies:**
+1. **Clone repository:**
+```bash
+git clone https://github.com/Jump3rEU/Auroriqa.git
+cd Auroriqa
+```
+
+2. **Nainstalujte dependencies:**
 ```bash
 npm install
 ```
 
-2. **Spusťte development server:**
+3. **Nastavte environment variables:**
+```bash
+cp .env.example .env.local
+# Upravte .env.local s vašimi hodnotami
+```
+
+4. **Spusťte development server:**
 ```bash
 npm run dev
 ```
 
-3. **Otevřete prohlížeč:**
+5. **Otevřete prohlížeč:**
 Přejděte na [http://localhost:3000](http://localhost:3000)
 
 ## 📦 Build pro produkci
@@ -47,6 +78,32 @@ Přejděte na [http://localhost:3000](http://localhost:3000)
 npm run build
 npm start
 ```
+
+## 🔍 SEO Features
+
+### Automaticky generované
+- ✅ Sitemap: `/sitemap.xml`
+- ✅ Robots: `/robots.txt`
+- ✅ Manifest: `/manifest.json`
+- ✅ Structured Data pro všechny stránky
+
+### Optimalizace
+- Meta tags na každé stránce
+- Open Graph pro social sharing
+- Twitter Cards
+- Canonical URLs
+- Language alternates
+- Image optimization
+- Code splitting
+- Lazy loading
+
+### Blog SEO
+- Dynamické routy `/blog/[slug]`
+- SEO-optimalizované URL slugs
+- Kategorie a tagy
+- Reading time
+- Social sharing
+- Structured data pro články
 
 ## 📁 Struktura projektu
 
