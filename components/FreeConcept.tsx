@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { Sparkles, Rocket, Trophy, Lightbulb } from "lucide-react";
+import Button from "@/components/Button";
 
 export default function FreeConcept() {
   const features = [
@@ -113,22 +114,22 @@ export default function FreeConcept() {
 
               {/* Dual CTAs */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <motion.a
+                <Button
+                  variant="primary"
+                  size="lg"
                   href="#contact"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink rounded-full text-white font-semibold shadow-lg glow-purple text-lg inline-block"
+                  fullWidth
                 >
                   Získat Free Concept
-                </motion.a>
-                <motion.a
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="lg"
                   href="#contact"
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="px-8 py-4 glass rounded-full text-white font-semibold text-lg hover:bg-white/10 transition-colors inline-block"
+                  fullWidth
                 >
                   Napište nám
-                </motion.a>
+                </Button>
               </div>
 
               <p className="text-sm text-white/50 mt-8">

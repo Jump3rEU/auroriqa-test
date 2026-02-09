@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
-import { Plus, ArrowRight } from "lucide-react";
+import { Plus } from "lucide-react";
 import { useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Button from "@/components/Button";
 
 export default function FAQ() {
   const { t } = useLanguage();
@@ -289,57 +290,14 @@ export default function FAQ() {
               <p className="text-white/50 mb-8 text-base">
                 {t('Napište nám a my vám rádi odpovíme', 'Write to us and we\'ll be happy to answer')}
               </p>
-              <motion.a
+              <Button
+                variant="primary"
+                size="lg"
                 href="#contact"
-                whileHover={{ scale: 1.1, y: -5 }}
-                whileTap={{ scale: 0.96 }}
-                className="group relative inline-flex items-center gap-4 px-14 py-6 rounded-full text-white font-bold text-xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+                showArrow
               >
-                {/* Animated gradient background */}
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    scale: [1, 1.06, 1]
-                  }}
-                  transition={{
-                    backgroundPosition: { duration: 3, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                  }}
-                  style={{
-                    background: 'linear-gradient(90deg, #06b6d4, #3b82f6, #8b5cf6, #06b6d4)',
-                    backgroundSize: '300% 100%'
-                  }}
-                />
-                
-                {/* Mega glow */}
-                <div className="absolute -inset-4 bg-gradient-to-r from-cyan-500/60 via-blue-500/60 to-purple-500/60 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-                <div className="absolute -inset-7 bg-gradient-to-r from-cyan-400/40 via-blue-400/40 to-purple-400/40 rounded-full blur-3xl opacity-0 group-hover:opacity-80 transition-opacity duration-700 -z-20" />
-                
-                {/* Shine overlay */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                  animate={{ x: ["-200%", "200%"] }}
-                  transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.8 }}
-                  style={{
-                    background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)'
-                  }}
-                />
-                
-                <span className="relative z-10">{t('Kontaktujte nás', 'Contact us')}</span>
-                <motion.div
-                  animate={{ x: [0, 6, 0], scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                  className="relative z-10"
-                >
-                  <motion.div
-                    animate={{ scale: [1, 1.6, 1], opacity: [0.5, 1, 0.5] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="absolute inset-0 bg-white/50 rounded-full blur-lg"
-                  />
-                  <ArrowRight className="w-6 h-6 relative" />
-                </motion.div>
-              </motion.a>
+                {t('Kontaktujte nás', 'Contact us')}
+              </Button>
             </div>
           </div>
         </motion.div>

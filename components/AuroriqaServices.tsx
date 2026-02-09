@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Smartphone, Globe, Monitor } from "lucide-react";
+import Button from "@/components/Button";
 
 export default function AuroriqaServices() {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
@@ -108,15 +109,14 @@ export default function AuroriqaServices() {
           viewport={{ once: true }}
           className="text-center mt-24"
         >
-          <motion.a
+          <Button
+            variant="primary"
+            size="xl"
             href="#contact"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="group relative inline-block px-12 py-6 bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink rounded-full text-white font-bold text-xl overflow-hidden"
+            showArrow
           >
-            <div className="absolute inset-0 bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink opacity-0 group-hover:opacity-100 blur-xl transition-opacity duration-300" />
-            <span className="relative z-10">Začít projekt →</span>
-          </motion.a>
+            Začít projekt
+          </Button>
         </motion.div>
       </div>
     </section>

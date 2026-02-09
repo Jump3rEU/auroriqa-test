@@ -2,6 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { useState } from 'react';
+import Button from '@/components/Button';
 
 export default function Clients() {
   const [hoveredClient, setHoveredClient] = useState<number | null>(null);
@@ -181,14 +182,13 @@ export default function Clients() {
             Společně vytvoříme řešení, které překoná vaše očekávání
           </motion.p>
           
-          <motion.a
+          <Button
+            variant="primary"
+            size="lg"
             href="#contact"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-gradient-to-r from-brand-blue to-brand-purple rounded-full text-white font-semibold text-lg"
           >
             Diskutujme váš projekt
-          </motion.a>
+          </Button>
         </motion.div>
       </div>
     </section>

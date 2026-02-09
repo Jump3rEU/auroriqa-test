@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState, Suspense, useMemo } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { useLanguage } from '@/contexts/LanguageContext';
+import Button from '@/components/Button';
 
 const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false });
 
@@ -307,63 +308,25 @@ const Hero: React.FC = () => {
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 1, delay: 1.5, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center pt-8 sm:pt-12 px-4"
+            className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center items-center pt-8 sm:pt-12 px-4"
           >
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -4 }}
-              whileTap={{ scale: 0.96 }}
-              className="group relative px-8 sm:px-12 md:px-16 py-4 sm:py-6 md:py-7 rounded-full text-white font-bold text-lg sm:text-xl md:text-2xl overflow-hidden shadow-[0_20px_60px_rgba(0,0,0,0.4)]"
+            <Button 
+              variant="primary" 
+              size="xl" 
+              href="#contact" 
+              showArrow
+              fullWidth
             >
-              {/* Multi-layer animated gradient */}
-              <motion.div
-                className="absolute inset-0"
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                  scale: [1, 1.05, 1]
-                }}
-                transition={{
-                  backgroundPosition: { duration: 3, repeat: Infinity, ease: "linear" },
-                  scale: { duration: 2, repeat: Infinity, ease: "easeInOut" }
-                }}
-                style={{
-                  background: "linear-gradient(90deg, #3b82f6, #8b5cf6, #ec4899, #3b82f6)",
-                  backgroundSize: "300% 100%"
-                }}
-              />
-              
-              {/* Mega outer glow */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-blue-500/60 via-purple-500/60 to-pink-500/60 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-              <div className="absolute -inset-6 bg-gradient-to-r from-blue-400/40 via-purple-400/40 to-pink-400/40 rounded-full blur-3xl opacity-0 group-hover:opacity-80 transition-opacity duration-700 -z-20" />
-              
-              {/* Shine overlay */}
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                animate={{ x: ["-200%", "200%"] }}
-                transition={{ duration: 1.5, repeat: Infinity, repeatDelay: 0.8 }}
-                style={{
-                  background: "linear-gradient(90deg, transparent, rgba(255,255,255,0.6), transparent)"
-                }}
-              />
-              
-              <span className="relative z-10 flex items-center gap-3">
-                {t('Začít projekt', 'Start project')}
-                <motion.span
-                  animate={{ x: [0, 5, 0], scale: [1, 1.2, 1] }}
-                  transition={{ duration: 1.5, repeat: Infinity }}
-                >
-                  →
-                </motion.span>
-              </span>
-            </motion.a>
-            <motion.a
+              {t('Začít projekt', 'Start project')}
+            </Button>
+            <Button 
+              variant="secondary" 
+              size="xl" 
               href="#services"
-              whileHover={{ scale: 1.05, y: -2 }}
-              whileTap={{ scale: 0.97 }}
-              className="px-14 py-7 bg-white/[0.08] hover:bg-white/[0.15] border-2 border-white/30 hover:border-white/50 rounded-full text-white font-bold text-xl backdrop-blur-xl transition-all duration-300 shadow-[0_10px_40px_rgba(255,255,255,0.1)]"
+              fullWidth
             >
               {t('Naše práce', 'Our work')}
-            </motion.a>
+            </Button>
           </motion.div>
         </motion.div>
       </div>

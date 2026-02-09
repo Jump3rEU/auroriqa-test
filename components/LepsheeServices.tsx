@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { Smartphone, Globe, Lightbulb, Monitor, Rocket } from "lucide-react";
+import Button from "@/components/Button";
 
 export default function LepsheeServices() {
   const [hoveredService, setHoveredService] = useState<number | null>(null);
@@ -156,14 +157,13 @@ export default function LepsheeServices() {
           viewport={{ once: true }}
           className="text-center mt-20"
         >
-          <motion.a
+          <Button
+            variant="primary"
+            size="lg"
             href="#contact"
-            whileHover={{ scale: 1.05, y: -2 }}
-            whileTap={{ scale: 0.95 }}
-            className="inline-block px-8 py-4 bg-gradient-to-r from-brand-blue to-brand-purple rounded-full text-white font-semibold text-lg"
           >
             Připoj se k nám
-          </motion.a>
+          </Button>
         </motion.div>
       </div>
     </section>

@@ -1,9 +1,10 @@
 "use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Sparkles, Clock, MessageSquare, Shield, ArrowRight, CheckCircle2, Zap, Target } from "lucide-react";
+import { Sparkles, Clock, MessageSquare, Shield, CheckCircle2, Zap, Target } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Button from "@/components/Button";
 
 export default function FreeProposal() {
   const { t } = useLanguage();
@@ -143,7 +144,7 @@ export default function FreeProposal() {
           </motion.div>
           
           {/* Main Title */}
-          <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold space-grotesk leading-tight mb-6 md:mb-10 px-4">
+          <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold space-grotesk leading-tight mb-4 sm:mb-6 md:mb-8 lg:mb-10 px-4">
             <motion.span 
               className="text-white"
               initial={{ opacity: 0, y: 20 }}
@@ -167,7 +168,7 @@ export default function FreeProposal() {
           
           {/* Subtitle */}
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/60 leading-relaxed max-w-4xl mx-auto font-light px-4"
+            className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/60 leading-relaxed max-w-4xl mx-auto font-light px-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -179,35 +180,45 @@ export default function FreeProposal() {
 
         {/* Benefits Grid */}
         <motion.div
-          initial={{ y: 20, opacity: 0 }}
-          whileInView={{ y: 0, opacity: 1 }}
-          viewport={{ once: true, amount: 0.2 }}
-          transition={{ delay: 0.3, duration: 0.8 }}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-12 md:mb-20"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.1 }}
+          transition={{ duration: 0.6 }}
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 xl:gap-8 mb-12 md:mb-20 px-2 sm:px-4"
         >
           {benefits.map((benefit, index) => {
             const Icon = benefit.icon;
             return (
               <motion.div
                 key={benefit.titleCS}
-                initial={{ scale: 0.9, opacity: 0, y: 30 }}
+                initial={{ scale: 0.8, opacity: 0, y: 50 }}
                 whileInView={{ scale: 1, opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.3 }}
+                viewport={{ once: true, amount: 0.2 }}
                 transition={{
-                  delay: 0.4 + index * 0.1,
-                  duration: 0.6,
+                  delay: 0.15 * index,
+                  duration: 0.7,
                   type: "spring",
-                  stiffness: 100,
+                  stiffness: 120,
+                  damping: 15,
                 }}
-                whileHover={{ y: -8, scale: 1.03 }}
-                className="group relative p-6 sm:p-8 lg:p-10 text-center rounded-2xl sm:rounded-3xl bg-white/[0.05] backdrop-blur-xl border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.08] shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500"
+                whileHover={{ 
+                  y: -12, 
+                  scale: 1.05,
+                  transition: { duration: 0.3, ease: "easeOut" }
+                }}
+                className="group relative p-5 sm:p-6 lg:p-8 xl:p-10 text-center rounded-2xl sm:rounded-3xl bg-white/[0.05] backdrop-blur-xl border border-white/10 hover:border-emerald-400/60 hover:bg-white/[0.1] shadow-2xl hover:shadow-emerald-500/30 transition-all duration-500"
               >
                 {/* Hover glow effect */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-10 blur-2xl transition-all duration-500 rounded-2xl sm:rounded-3xl`} />
+                <motion.div 
+                  className={`absolute inset-0 bg-gradient-to-br ${benefit.color} rounded-2xl sm:rounded-3xl blur-2xl`}
+                  initial={{ opacity: 0 }}
+                  whileHover={{ opacity: 0.15 }}
+                  transition={{ duration: 0.4 }}
+                />
                 
                 {/* Shine effect */}
                 <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-40 rounded-2xl sm:rounded-3xl overflow-hidden"
+                  className="absolute inset-0 opacity-0 group-hover:opacity-50 rounded-2xl sm:rounded-3xl overflow-hidden"
                   animate={{
                     backgroundPosition: ["-200% -200%", "200% 200%"],
                   }}
@@ -224,20 +235,23 @@ export default function FreeProposal() {
                 
                 {/* Icon */}
                 <motion.div
-                  whileHover={{ rotate: 360, scale: 1.15 }}
-                  transition={{ duration: 0.6, ease: "easeOut" }}
-                  className={`relative inline-flex w-16 h-16 sm:w-20 sm:h-20 lg:w-24 lg:h-24 bg-gradient-to-br ${benefit.color} rounded-xl sm:rounded-2xl items-center justify-center mb-4 sm:mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500`}
+                  whileHover={{ 
+                    rotate: 360, 
+                    scale: 1.2,
+                    transition: { duration: 0.6, ease: "easeOut" }
+                  }}
+                  className={`relative inline-flex w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br ${benefit.color} rounded-xl sm:rounded-2xl items-center justify-center mb-3 sm:mb-4 lg:mb-5 xl:mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500`}
                 >
-                  <Icon className="w-8 h-8 sm:w-10 sm:h-10 lg:w-12 lg:h-12 text-white relative z-10" />
+                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white relative z-10" />
                 </motion.div>
                 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 space-grotesk">
+                <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-1.5 sm:mb-2 lg:mb-3 space-grotesk">
                   {t(benefit.titleCS, benefit.titleEN)}
                 </h3>
                 
                 {/* Description */}
-                <p className="text-sm sm:text-base lg:text-lg text-white/60 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
+                <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white/60 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
                   {t(benefit.descriptionCS, benefit.descriptionEN)}
                 </p>
               </motion.div>
@@ -254,76 +268,26 @@ export default function FreeProposal() {
           className="text-center"
         >
           {/* CTA Title */}
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 md:mb-8 space-grotesk leading-tight px-4">
+          <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 space-grotesk leading-tight px-4">
             {t('Připraveni začít?', 'Ready to start?')}
           </h3>
           
           {/* CTA Subtitle */}
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-4">
+          <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/70 mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-4">
             {t('Jeden krok k vašemu novému projektu. Kontaktujeme vás do 24h.', 'One step to your new project. We contact you within 24h.')}
           </p>
 
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 lg:gap-8 justify-center items-center px-4">
-            {/* Primary CTA Button */}
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.05, y: -4 }}
-              whileTap={{ scale: 0.98 }}
-              transition={{ type: "spring", stiffness: 300, damping: 20 }}
-              className="group relative w-full sm:w-auto px-8 sm:px-12 lg:px-16 py-4 sm:py-5 lg:py-6 rounded-full font-bold text-lg sm:text-xl lg:text-2xl overflow-hidden shadow-[0_10px_40px_rgba(0,0,0,0.15)] hover:shadow-[0_20px_60px_rgba(0,0,0,0.25),0_0_80px_rgba(16,185,129,0.3)] transition-all duration-500"
+            <Button 
+              variant="primary" 
+              size="xl" 
+              href="#contact" 
+              showArrow
+              fullWidth
             >
-              {/* Animated gradient background */}
-              <motion.div
-                animate={{
-                  backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                }}
-                transition={{
-                  duration: 3,
-                  repeat: Infinity,
-                  ease: "linear",
-                }}
-                className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-cyan-500 via-blue-500 to-emerald-500"
-                style={{ backgroundSize: "200% 100%" }}
-              />
-              
-              {/* Outer glow layers */}
-              <div className="absolute -inset-4 bg-gradient-to-r from-emerald-400/40 via-cyan-400/40 to-blue-400/40 rounded-full blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-              
-              {/* Shine effect */}
-              <motion.div
-                className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                animate={{
-                  x: ["-200%", "200%"],
-                }}
-                transition={{
-                  duration: 1.5,
-                  repeat: Infinity,
-                  repeatDelay: 0.5,
-                  ease: "easeInOut",
-                }}
-                style={{
-                  background: 'linear-gradient(90deg, transparent 20%, rgba(255,255,255,0.6) 50%, transparent 80%)',
-                }}
-              />
-              
-              {/* Button text */}
-              <span className="relative z-10 flex items-center justify-center gap-3 text-white drop-shadow-lg">
-                {t('Získat návrh zdarma', 'Get free proposal')}
-                <motion.div
-                  animate={{
-                    x: [0, 5, 0],
-                  }}
-                  transition={{
-                    duration: 1.5,
-                    repeat: Infinity,
-                    ease: "easeInOut",
-                  }}
-                >
-                  <ArrowRight className="w-5 h-5 sm:w-6 sm:h-6" />
-                </motion.div>
-              </span>
-            </motion.a>
+              {t('Získat návrh zdarma', 'Get free proposal')}
+            </Button>
 
             {/* Trust Badge */}
             <motion.div 

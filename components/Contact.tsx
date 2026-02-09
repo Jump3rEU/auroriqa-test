@@ -4,6 +4,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import Button from "@/components/Button";
 
 export default function Contact() {
   const { t } = useLanguage();
@@ -139,77 +140,24 @@ export default function Contact() {
             className="space-y-8"
           >
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
-              <motion.a
+              <Button
+                variant="primary"
+                size="xl"
                 href="mailto:hello@auroriqa.com"
-                whileHover={{ scale: 1.05, y: -6 }}
-                whileTap={{ scale: 0.96 }}
-                className="group relative px-8 sm:px-16 lg:px-20 py-6 sm:py-7 lg:py-8 rounded-full text-white font-bold text-lg sm:text-xl lg:text-2xl overflow-hidden shadow-[0_25px_70px_rgba(0,0,0,0.5)]"
+                showArrow
+                fullWidth
               >
-                {/* Multi-layer animated gradient */}
-                <motion.div
-                  className="absolute inset-0"
-                  animate={{
-                    backgroundPosition: ["0% 50%", "100% 50%", "0% 50%"],
-                    scale: [1, 1.08, 1]
-                  }}
-                  transition={{
-                    backgroundPosition: { duration: 3.5, repeat: Infinity, ease: "linear" },
-                    scale: { duration: 2.5, repeat: Infinity, ease: "easeInOut" }
-                  }}
-                  style={{
-                    background: 'linear-gradient(90deg, #8b5cf6, #ec4899, #3b82f6, #8b5cf6)',
-                    backgroundSize: '300% 100%'
-                  }}
-                />
-                
-                {/* Triple outer glow */}
-                <div className="absolute -inset-5 bg-gradient-to-r from-purple-500/70 via-pink-500/70 to-blue-500/70 rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-500 -z-10" />
-                <div className="absolute -inset-8 bg-gradient-to-r from-purple-400/50 via-pink-400/50 to-blue-400/50 rounded-full blur-[50px] opacity-0 group-hover:opacity-90 transition-opacity duration-700 -z-20" />
-                <div className="absolute -inset-10 bg-gradient-to-r from-purple-300/30 via-pink-300/30 to-blue-300/30 rounded-full blur-[70px] opacity-0 group-hover:opacity-70 transition-opacity duration-1000 -z-30" />
-                
-                {/* Double shine effect */}
-                <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-100"
-                  animate={{ x: ['-250%', '250%'] }}
-                  transition={{ duration: 1.8, repeat: Infinity, repeatDelay: 0.6 }}
-                  style={{
-                    background: 'linear-gradient(110deg, transparent 20%, rgba(255,255,255,0.7) 50%, transparent 80%)'
-                  }}
-                />
-                <motion.div
-                  className="absolute inset-0 opacity-40"
-                  animate={{ rotate: [0, 360] }}
-                  transition={{ duration: 5, repeat: Infinity, ease: "linear" }}
-                  style={{
-                    background: 'conic-gradient(from 0deg, transparent 0deg, rgba(255,255,255,0.5) 50deg, transparent 100deg)'
-                  }}
-                />
-                
-                <span className="relative z-10 flex items-center gap-4">
-                  {t('Začít projekt', 'Start project')}
-                  <motion.div
-                    animate={{ x: [0, 8, 0], scale: [1, 1.3, 1] }}
-                    transition={{ duration: 1.5, repeat: Infinity }}
-                    className="relative"
-                  >
-                    <motion.div
-                      animate={{ scale: [1, 1.8, 1], opacity: [0.5, 1, 0.5] }}
-                      transition={{ duration: 1.8, repeat: Infinity }}
-                      className="absolute inset-0 bg-white/60 rounded-full blur-lg"
-                    />
-                    <ArrowRight className="w-7 h-7 relative z-10" />
-                  </motion.div>
-                </span>
-              </motion.a>
+                {t('Začít projekt', 'Start project')}
+              </Button>
               
-              <motion.a
+              <Button
+                variant="secondary"
+                size="xl"
                 href="#services"
-                whileHover={{ scale: 1.05, y: -4 }}
-                whileTap={{ scale: 0.98 }}
-                className="px-18 py-8 bg-white/[0.08] hover:bg-white/[0.15] border-2 border-white/30 hover:border-white/60 rounded-full text-white font-bold text-xl transition-all duration-300 backdrop-blur-xl shadow-[0_15px_50px_rgba(255,255,255,0.15)]"
+                fullWidth
               >
                 {t('Naše služby', 'Our services')}
-              </motion.a>
+              </Button>
             </div>
             
             <p className="text-white/40 text-sm text-center">
