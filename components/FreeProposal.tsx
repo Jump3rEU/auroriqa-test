@@ -53,73 +53,62 @@ export default function FreeProposal() {
   return (
     <motion.section 
       ref={containerRef}
-      className="relative overflow-hidden py-20 md:py-32"
+      className="relative overflow-hidden py-32 md:py-40"
       style={{ opacity }}
     >
-      {/* Gradient Background Transition - Seamless from dark to white with aurora */}
-      <div className="absolute inset-0">
-        {/* Top dark gradient blending */}
-        <div className="absolute top-0 left-0 right-0 h-64 md:h-80 bg-gradient-to-b from-slate-950 via-slate-900/70 via-slate-800/40 via-slate-700/20 to-white z-10" />
-        
-        {/* Main white background */}
-        <div className="absolute inset-0 bg-white" />
-        
-        {/* Bottom dark gradient blending */}
-        <div className="absolute bottom-0 left-0 right-0 h-64 md:h-80 bg-gradient-to-t from-slate-950 via-slate-900/70 via-slate-800/40 via-slate-700/20 to-white z-10" />
-        
-        {/* Aurora effects on white - subtle and elegant */}
-        <div className="absolute inset-0 opacity-30">
-          <motion.div
-            animate={{
-              scale: [1, 1.15, 1],
-              x: [0, 60, 0],
-              y: [0, -40, 0],
-            }}
-            transition={{
-              duration: 18,
-              repeat: Infinity,
-              ease: "easeInOut",
-            }}
-            className="absolute top-0 left-0 w-full h-full"
-            style={{
-              background: 'radial-gradient(ellipse 900px 700px at 20% 30%, rgba(16, 185, 129, 0.12), transparent 65%)'
-            }}
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.25, 1],
-              x: [0, -50, 0],
-              y: [0, 50, 0],
-            }}
-            transition={{
-              duration: 22,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 4,
-            }}
-            className="absolute bottom-0 right-0 w-full h-full"
-            style={{
-              background: 'radial-gradient(ellipse 1000px 800px at 80% 70%, rgba(59, 130, 246, 0.1), transparent 65%)'
-            }}
-          />
-          <motion.div
-            animate={{
-              scale: [1, 1.2, 1],
-              rotate: [0, 180, 360],
-              opacity: [0.5, 0.8, 0.5],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "easeInOut",
-              delay: 8,
-            }}
-            className="absolute inset-0"
-            style={{
-              background: 'radial-gradient(ellipse 800px 600px at 50% 50%, rgba(139, 92, 246, 0.08), transparent 65%)'
-            }}
-          />
-        </div>
+      {/* Background Aurora - stejný styl jako ostatní sekce */}
+      <div className="absolute inset-0 opacity-40">
+        <motion.div
+          animate={{
+            scale: [1, 1.2, 1],
+            x: [0, 50, 0],
+            y: [0, -30, 0],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="absolute top-1/4 left-1/4 w-[600px] h-[600px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(16, 185, 129, 0.4), rgba(6, 182, 212, 0.2), transparent 70%)',
+            filter: 'blur(60px)',
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.3, 1],
+            x: [0, -40, 0],
+            y: [0, 40, 0],
+          }}
+          transition={{
+            duration: 25,
+            repeat: Infinity,
+            ease: "easeInOut",
+            delay: 5,
+          }}
+          className="absolute bottom-1/4 right-1/4 w-[700px] h-[700px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(59, 130, 246, 0.35), rgba(139, 92, 246, 0.2), transparent 70%)',
+            filter: 'blur(70px)',
+          }}
+        />
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            rotate: [0, 180, 360],
+          }}
+          transition={{
+            duration: 30,
+            repeat: Infinity,
+            ease: "linear",
+          }}
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] rounded-full"
+          style={{
+            background: 'radial-gradient(circle, rgba(236, 72, 153, 0.25), rgba(168, 85, 247, 0.15), transparent 70%)',
+            filter: 'blur(80px)',
+          }}
+        />
       </div>
 
       {/* Content */}
@@ -140,14 +129,14 @@ export default function FreeProposal() {
             transition={{ delay: 0.2, type: "spring", stiffness: 200 }}
             className="inline-block mb-6 md:mb-8"
           >
-            <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 rounded-full bg-gradient-to-r from-emerald-500/20 to-cyan-500/20 border border-emerald-400/40 backdrop-blur-sm shadow-lg">
+            <div className="inline-flex items-center gap-2 md:gap-3 px-4 md:px-8 py-2 md:py-4 rounded-full bg-white/[0.08] border border-white/20 backdrop-blur-xl shadow-lg">
               <motion.div
                 animate={{ rotate: [0, 360] }}
                 transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
               >
-                <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-emerald-600" />
+                <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-emerald-400" />
               </motion.div>
-              <span className="text-sm md:text-base lg:text-lg font-bold text-emerald-700 tracking-widest uppercase">
+              <span className="text-sm md:text-base lg:text-lg font-bold text-emerald-400 tracking-widest uppercase">
                 {t('ZDARMA NÁVRH', 'FREE PROPOSAL')}
               </span>
             </div>
@@ -156,7 +145,7 @@ export default function FreeProposal() {
           {/* Main Title */}
           <h2 className="text-4xl sm:text-5xl md:text-7xl lg:text-8xl xl:text-9xl font-bold space-grotesk leading-tight mb-6 md:mb-10 px-4">
             <motion.span 
-              className="text-gray-900"
+              className="text-white"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -178,7 +167,7 @@ export default function FreeProposal() {
           
           {/* Subtitle */}
           <motion.p 
-            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-600 leading-relaxed max-w-4xl mx-auto font-light px-4"
+            className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/60 leading-relaxed max-w-4xl mx-auto font-light px-4"
             initial={{ opacity: 0 }}
             whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
@@ -211,7 +200,7 @@ export default function FreeProposal() {
                   stiffness: 100,
                 }}
                 whileHover={{ y: -8, scale: 1.03 }}
-                className="group relative p-6 sm:p-8 lg:p-10 text-center rounded-2xl sm:rounded-3xl bg-white border-2 border-gray-200/80 hover:border-emerald-300/80 shadow-xl hover:shadow-2xl transition-all duration-500"
+                className="group relative p-6 sm:p-8 lg:p-10 text-center rounded-2xl sm:rounded-3xl bg-white/[0.05] backdrop-blur-xl border border-white/10 hover:border-emerald-400/50 hover:bg-white/[0.08] shadow-2xl hover:shadow-emerald-500/20 transition-all duration-500"
               >
                 {/* Hover glow effect */}
                 <div className={`absolute inset-0 bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-10 blur-2xl transition-all duration-500 rounded-2xl sm:rounded-3xl`} />
@@ -243,12 +232,12 @@ export default function FreeProposal() {
                 </motion.div>
                 
                 {/* Title */}
-                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900 mb-2 sm:mb-3 space-grotesk">
+                <h3 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white mb-2 sm:mb-3 space-grotesk">
                   {t(benefit.titleCS, benefit.titleEN)}
                 </h3>
                 
                 {/* Description */}
-                <p className="text-sm sm:text-base lg:text-lg text-gray-600 group-hover:text-gray-800 transition-colors duration-300 leading-relaxed">
+                <p className="text-sm sm:text-base lg:text-lg text-white/60 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
                   {t(benefit.descriptionCS, benefit.descriptionEN)}
                 </p>
               </motion.div>
@@ -265,12 +254,12 @@ export default function FreeProposal() {
           className="text-center"
         >
           {/* CTA Title */}
-          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-gray-900 mb-6 md:mb-8 space-grotesk leading-tight px-4">
+          <h3 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white mb-6 md:mb-8 space-grotesk leading-tight px-4">
             {t('Připraveni začít?', 'Ready to start?')}
           </h3>
           
           {/* CTA Subtitle */}
-          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-gray-700 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-4">
+          <p className="text-lg sm:text-xl md:text-2xl lg:text-3xl text-white/70 mb-8 md:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-4">
             {t('Jeden krok k vašemu novému projektu. Kontaktujeme vás do 24h.', 'One step to your new project. We contact you within 24h.')}
           </p>
 
@@ -342,7 +331,7 @@ export default function FreeProposal() {
               whileInView={{ opacity: 1, scale: 1 }}
               viewport={{ once: true }}
               transition={{ delay: 0.8, duration: 0.5 }}
-              className="flex items-center gap-3 px-6 py-3 sm:py-4 rounded-full bg-gradient-to-r from-gray-50 to-gray-100 border border-gray-200 shadow-lg"
+              className="flex items-center gap-3 px-6 py-3 sm:py-4 rounded-full bg-white/[0.08] backdrop-blur-xl border border-white/20 shadow-lg"
             >
               <motion.div
                 animate={{
@@ -355,9 +344,9 @@ export default function FreeProposal() {
                   ease: "easeInOut",
                 }}
               >
-                <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-500" />
+                <CheckCircle2 className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
               </motion.div>
-              <span className="font-bold text-gray-800 text-sm sm:text-base lg:text-lg whitespace-nowrap">
+              <span className="font-bold text-white text-sm sm:text-base lg:text-lg whitespace-nowrap">
                 {t('Bez závazků • Rychlá odpověď', 'No obligations • Fast response')}
               </span>
             </motion.div>
@@ -387,8 +376,8 @@ export default function FreeProposal() {
                   transition={{ delay: 1 + index * 0.1, duration: 0.4 }}
                   className="flex items-center gap-2 sm:gap-3 justify-center"
                 >
-                  <ItemIcon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
-                  <span className="text-sm sm:text-base lg:text-lg font-bold text-gray-900">{t(item.textCS, item.textEN)}</span>
+                  <ItemIcon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-400" />
+                  <span className="text-sm sm:text-base lg:text-lg font-bold text-white">{t(item.textCS, item.textEN)}</span>
                 </motion.div>
               );
             })}
