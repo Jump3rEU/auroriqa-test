@@ -165,3 +165,84 @@ export const jsonLdService = {
     ],
   },
 }
+
+// Blog-specific structured data
+export const jsonLdBlogPage = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Auroriqa Blog',
+  description: 'Blog o webovém vývoji, designu a digitálním marketingu',
+  url: 'https://auroriqa.com/blog',
+  inLanguage: ['cs-CZ', 'en-US'],
+  publisher: {
+    '@type': 'Organization',
+    name: 'Auroriqa',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://auroriqa.com/logo.png',
+    },
+  },
+}
+
+export const jsonLdBlogPost = (
+  title: string,
+  description: string,
+  slug: string,
+  datePublished: string,
+  dateModified: string,
+  authorName: string = 'Auroriqa Team',
+  keywords: string[] = []
+) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: title,
+  description,
+  image: `https://auroriqa.com/blog/${slug}/og-image.jpg`,
+  datePublished,
+  dateModified,
+  author: {
+    '@type': 'Person',
+    name: authorName,
+    url: 'https://auroriqa.com',
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Auroriqa',
+    logo: {
+      '@type': 'ImageObject',
+      url: 'https://auroriqa.com/logo.png',
+    },
+  },
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': `https://auroriqa.com/blog/${slug}`,
+  },
+  keywords: keywords.join(', '),
+  inLanguage: 'cs-CZ',
+})
+
+// Breadcrumb structured data
+export const jsonLdBreadcrumb = (items: { name: string; url: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, index) => ({
+    '@type': 'ListItem',
+    position: index + 1,
+    name: item.name,
+    item: item.url,
+  })),
+})
+
+// FAQ structured data
+export const jsonLdFAQ = (faqs: { question: string; answer: string }[]) => ({
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+})
