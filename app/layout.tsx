@@ -18,6 +18,14 @@ const spaceGrotesk = Space_Grotesk({
 
 export const metadata: Metadata = {
   ...generateSEO(),
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+  },
   viewport: {
     width: 'device-width',
     initialScale: 1,
