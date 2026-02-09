@@ -75,6 +75,8 @@
     /* Reduce excessive padding on tablets */
     .py-40 { padding-top: 6rem !important; padding-bottom: 6rem !important; }
   }
+
+  .card-modern {
     @apply bg-white/[0.03] backdrop-blur-xl border border-white/[0.08] rounded-3xl;
     box-shadow: 
       0 2px 8px -2px rgba(0, 0, 0, 0.1),
