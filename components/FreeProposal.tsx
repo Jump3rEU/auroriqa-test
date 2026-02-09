@@ -59,13 +59,13 @@ export default function FreeProposal() {
       {/* Gradient Background Transition - Seamless from dark to white with aurora */}
       <div className="absolute inset-0">
         {/* Top dark gradient blending */}
-        <div className="absolute top-0 left-0 right-0 h-48 md:h-64 bg-gradient-to-b from-slate-950 via-slate-900/80 to-transparent z-10" />
+        <div className="absolute top-0 left-0 right-0 h-64 md:h-80 bg-gradient-to-b from-slate-950 via-slate-900/70 via-slate-800/40 via-slate-700/20 to-white z-10" />
         
         {/* Main white background */}
         <div className="absolute inset-0 bg-white" />
         
         {/* Bottom dark gradient blending */}
-        <div className="absolute bottom-0 left-0 right-0 h-48 md:h-64 bg-gradient-to-t from-slate-950 via-slate-900/80 to-transparent z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-64 md:h-80 bg-gradient-to-t from-slate-950 via-slate-900/70 via-slate-800/40 via-slate-700/20 to-white z-10" />
         
         {/* Aurora effects on white - subtle and elegant */}
         <div className="absolute inset-0 opacity-30">
@@ -385,10 +385,10 @@ export default function FreeProposal() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ delay: 1 + index * 0.1, duration: 0.4 }}
-                  className="flex items-center gap-2 justify-center text-gray-600"
+                  className="flex items-center gap-2 sm:gap-3 justify-center"
                 >
-                  <ItemIcon className="w-4 h-4 sm:w-5 sm:h-5 text-emerald-500" />
-                  <span className="text-sm sm:text-base font-medium">{t(item.textCS, item.textEN)}</span>
+                  <ItemIcon className="w-5 h-5 sm:w-6 sm:h-6 text-emerald-600" />
+                  <span className="text-sm sm:text-base lg:text-lg font-bold text-gray-900">{t(item.textCS, item.textEN)}</span>
                 </motion.div>
               );
             })}
