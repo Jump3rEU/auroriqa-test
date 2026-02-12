@@ -15,7 +15,7 @@ export const projects: Record<string, ProjectConfig> = {
     name: 'Endoria',
     client: 'Endoria',
     description: 'Endoria Minecraft Server',
-    active: true,
+    active: false,
     password: 'umon2026',
     createdAt: '2026-02-12',
     template: 'custom'
