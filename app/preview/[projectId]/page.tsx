@@ -4,12 +4,8 @@ import { useParams } from 'next/navigation';
 import { getProject } from '@/lib/projects';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
-import dynamic from 'next/dynamic';
 import { motion } from 'framer-motion';
 import { Eye, Lock } from 'lucide-react';
-
-// Dynamicky importuj demo komponenty
-const DemoEndoria = dynamic(() => import('@/demos/endoria/preview-page'), { ssr: false });
 
 export default function ProjectPreview() {
   const params = useParams();
@@ -214,21 +210,16 @@ export default function ProjectPreview() {
 
   // Načti správný template podle projektu
   const renderProject = () => {
-    switch (project.id) {
-      case 'endoria':
-        return <DemoEndoria />;
-      default:
-        return (
-          <div className="min-h-screen flex items-center justify-center bg-slate-900">
-            <div className="text-center text-white">
-              <h2 className="text-2xl font-bold mb-4">Template není dostupný</h2>
-              <p className="text-gray-400">
-                Pro tento projekt není ještě vytvořen template.
-              </p>
-            </div>
-          </div>
-        );
-    }
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-slate-900">
+        <div className="text-center text-white">
+          <h2 className="text-2xl font-bold mb-4">Template není dostupný</h2>
+          <p className="text-gray-400">
+            Pro tento projekt není ještě vytvořen template.
+          </p>
+        </div>
+      </div>
+    );
   };
 
   return (
