@@ -9,7 +9,7 @@ import { motion } from 'framer-motion';
 import { Eye, Lock } from 'lucide-react';
 
 // Dynamicky importuj demo komponenty
-const DemoEndoria = dynamic(() => import('@/demos/endoria/page'), { ssr: false });
+const DemoEndoria = dynamic(() => import('@/demos/endoria/preview-page'), { ssr: false });
 
 export default function ProjectPreview() {
   const params = useParams();
