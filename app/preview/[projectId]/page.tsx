@@ -1,6 +1,6 @@
 'use client';
 
-import { useParams, useRouter } from 'next/navigation';
+import { useParams } from 'next/navigation';
 import { getProject } from '@/lib/projects';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -13,7 +13,6 @@ const DemoEndoria = dynamic(() => import('@/demos/endoria/page'), { ssr: false }
 
 export default function ProjectPreview() {
   const params = useParams();
-  const router = useRouter();
   const projectId = params.projectId as string;
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState('');
@@ -46,7 +45,7 @@ export default function ProjectPreview() {
             Projekt nenalezen
           </h1>
           <p className="text-gray-400 mb-8 text-lg">
-            Projekt s ID "{projectId}" neexistuje nebo není aktivní.
+            Projekt s ID &ldquo;{projectId}&rdquo; neexistuje nebo není aktivní.
           </p>
           <Link 
             href="/preview"
