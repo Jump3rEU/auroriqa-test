@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://endoria.eu/sitemap.xml
+
+# Disallow admin areas if any
+User-agent: *
+Disallow: /api/
