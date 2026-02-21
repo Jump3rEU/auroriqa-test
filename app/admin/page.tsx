@@ -28,7 +28,7 @@ import {
   FileText,
   Zap,
 } from "lucide-react";
-import { getAllActiveProjects, projects, ProjectConfig } from "@/lib/projects";
+import { projects, ProjectConfig } from "@/lib/projects";
 
 const ADMIN_PASSWORD = "auroriqa2026";
 
