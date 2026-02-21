@@ -188,7 +188,7 @@ export default function ShowcasePortfolio() {
           transition={{ duration: 0.8 }}
           className="max-w-7xl mx-auto mb-16"
         >
-          <div className="flex items-start justify-between gap-8">
+          <div className="flex flex-col md:flex-row items-start justify-between gap-8">
             <div>
               <motion.div
                 initial={{ opacity: 0, x: -20 }}
@@ -201,10 +201,10 @@ export default function ShowcasePortfolio() {
                   SHOWCASE / PROJEKTY
                 </span>
               </motion.div>
-              <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8">
-                <span className="text-white">Our</span>
+              <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-4 md:mb-8">
+                <span className="text-white">Naše</span>
                 <br />
-                <span className="text-white/15">work</span>
+                <span className="text-white/15">práce</span>
               </h2>
             </div>
 
@@ -212,20 +212,20 @@ export default function ShowcasePortfolio() {
               initial={{ opacity: 0, scale: 0.8 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ delay: 0.4, type: "spring" }}
-              className="text-right"
+              className="md:text-right"
             >
-              <p className="text-xl text-white/50 leading-relaxed mb-8 max-w-md">
+              <p className="text-base sm:text-lg text-white/50 leading-relaxed mb-6 max-w-md">
                 Od prvního designu po finální launch. Projekty, které mění pravidla hry.
               </p>
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 sm:gap-6">
                 <div>
-                  <div className="text-4xl font-bold text-gradient bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-pink-400 to-purple-400 bg-clip-text text-transparent mb-1">
                     3+
                   </div>
                   <div className="text-sm text-white/40 uppercase tracking-wider">Projekty</div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-gradient bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1">
+                  <div className="text-3xl sm:text-4xl font-bold bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent mb-1">
                     2026
                   </div>
                   <div className="text-sm text-white/40 uppercase tracking-wider">Est.</div>
@@ -255,11 +255,11 @@ export default function ShowcasePortfolio() {
 
         {/* Carousel */}
         <div className="relative max-w-7xl mx-auto">
-          {/* Glassmorphism Navigation Arrows */}
+          {/* Glassmorphism Navigation Arrows — hidden on mobile, shown on xl+ */}
           <button
             onClick={prevProject}
             type="button"
-            className="absolute -left-24 top-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:bg-white/[0.18] hover:border-white/60 hover:shadow-[0_8px_40px_rgba(255,255,255,0.2)] hover:scale-105 transition-all duration-200 z-10"
+            className="hidden xl:flex absolute -left-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:bg-white/[0.18] hover:border-white/60 hover:shadow-[0_8px_40px_rgba(255,255,255,0.2)] hover:scale-105 transition-all duration-200 z-10"
           >
             <ChevronLeft className="w-6 h-6 text-white" />
           </button>
@@ -267,7 +267,7 @@ export default function ShowcasePortfolio() {
           <button
             onClick={nextProject}
             type="button"
-            className="absolute -right-24 top-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 flex items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:bg-white/[0.18] hover:border-white/60 hover:shadow-[0_8px_40px_rgba(255,255,255,0.2)] hover:scale-105 transition-all duration-200 z-10"
+            className="hidden xl:flex absolute -right-20 top-1/2 -translate-y-1/2 w-14 h-14 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 items-center justify-center shadow-[0_8px_32px_rgba(0,0,0,0.3)] hover:bg-white/[0.18] hover:border-white/60 hover:shadow-[0_8px_40px_rgba(255,255,255,0.2)] hover:scale-105 transition-all duration-200 z-10"
           >
             <ChevronRight className="w-6 h-6 text-white" />
           </button>
@@ -469,6 +469,24 @@ export default function ShowcasePortfolio() {
               </div>
             </motion.div>
           </AnimatePresence>
+        </div>
+
+        {/* Mobile Navigation Arrows */}
+        <div className="flex xl:hidden justify-center gap-4 mt-8">
+          <button
+            onClick={prevProject}
+            type="button"
+            className="w-12 h-12 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 flex items-center justify-center hover:bg-white/[0.18] hover:scale-105 transition-all duration-200"
+          >
+            <ChevronLeft className="w-5 h-5 text-white" />
+          </button>
+          <button
+            onClick={nextProject}
+            type="button"
+            className="w-12 h-12 rounded-2xl bg-white/[0.12] backdrop-blur-2xl border border-white/40 flex items-center justify-center hover:bg-white/[0.18] hover:scale-105 transition-all duration-200"
+          >
+            <ChevronRight className="w-5 h-5 text-white" />
+          </button>
         </div>
 
         {/* Project Indicators - Below Carousel */}

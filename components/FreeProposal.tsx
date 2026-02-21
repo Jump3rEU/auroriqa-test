@@ -191,69 +191,76 @@ export default function FreeProposal() {
             return (
               <motion.div
                 key={benefit.titleCS}
-                initial={{ scale: 0.8, opacity: 0, y: 50 }}
-                whileInView={{ scale: 1, opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
+                initial={{ opacity: 0, y: 60 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.15 }}
                 transition={{
-                  delay: 0.15 * index,
-                  duration: 0.7,
-                  type: "spring",
-                  stiffness: 120,
-                  damping: 15,
+                  delay: 0.12 * index,
+                  duration: 0.8,
+                  ease: [0.16, 1, 0.3, 1],
                 }}
-                whileHover={{ 
-                  y: -12, 
-                  scale: 1.05,
-                  transition: { duration: 0.3, ease: "easeOut" }
-                }}
-                className="group relative p-5 sm:p-6 lg:p-8 xl:p-10 text-center rounded-2xl sm:rounded-3xl bg-white/[0.05] backdrop-blur-xl border border-white/10 hover:border-emerald-400/60 hover:bg-white/[0.1] shadow-2xl hover:shadow-emerald-500/30 transition-all duration-500"
+                className="group relative"
               >
-                {/* Hover glow effect */}
-                <motion.div 
-                  className={`absolute inset-0 bg-gradient-to-br ${benefit.color} rounded-2xl sm:rounded-3xl blur-2xl`}
-                  initial={{ opacity: 0 }}
-                  whileHover={{ opacity: 0.15 }}
-                  transition={{ duration: 0.4 }}
-                />
-                
-                {/* Shine effect */}
+                {/* Animated gradient border */}
                 <motion.div
-                  className="absolute inset-0 opacity-0 group-hover:opacity-50 rounded-2xl sm:rounded-3xl overflow-hidden"
-                  animate={{
-                    backgroundPosition: ["-200% -200%", "200% 200%"],
-                  }}
-                  transition={{
-                    duration: 2,
-                    repeat: Infinity,
-                    ease: "linear",
-                  }}
-                  style={{
-                    background: 'linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.8) 50%, transparent 70%)',
-                    backgroundSize: '200% 200%',
-                  }}
+                  className={`absolute -inset-[1px] rounded-2xl sm:rounded-3xl bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-60`}
+                  animate={{ opacity: [0, 0.2, 0] }}
+                  transition={{ duration: 3, repeat: Infinity, delay: index * 0.5 }}
+                  style={{ filter: 'blur(1px)' }}
                 />
-                
-                {/* Icon */}
-                <motion.div
-                  whileHover={{ 
-                    rotate: 360, 
-                    scale: 1.2,
-                    transition: { duration: 0.6, ease: "easeOut" }
-                  }}
-                  className={`relative inline-flex w-14 h-14 sm:w-16 sm:h-16 lg:w-20 lg:h-20 xl:w-24 xl:h-24 bg-gradient-to-br ${benefit.color} rounded-xl sm:rounded-2xl items-center justify-center mb-3 sm:mb-4 lg:mb-5 xl:mb-6 shadow-lg group-hover:shadow-2xl transition-all duration-500`}
-                >
-                  <Icon className="w-7 h-7 sm:w-8 sm:h-8 lg:w-10 lg:h-10 xl:w-12 xl:h-12 text-white relative z-10" />
-                </motion.div>
-                
-                {/* Title */}
-                <h3 className="text-lg sm:text-xl lg:text-2xl xl:text-3xl font-bold text-white mb-1.5 sm:mb-2 lg:mb-3 space-grotesk">
-                  {t(benefit.titleCS, benefit.titleEN)}
-                </h3>
-                
-                {/* Description */}
-                <p className="text-xs sm:text-sm lg:text-base xl:text-lg text-white/60 group-hover:text-white/80 transition-colors duration-300 leading-relaxed">
-                  {t(benefit.descriptionCS, benefit.descriptionEN)}
-                </p>
+
+                {/* Card body */}
+                <div className="relative h-full p-6 sm:p-8 rounded-2xl sm:rounded-3xl bg-white/[0.04] backdrop-blur-xl border border-white/[0.08] group-hover:border-white/20 transition-all duration-500 overflow-hidden">
+
+                  {/* Watermark number */}
+                  <div className={`absolute -right-3 -top-4 text-[7rem] sm:text-[8rem] font-black leading-none bg-gradient-to-br ${benefit.color} bg-clip-text text-transparent opacity-[0.06] group-hover:opacity-[0.12] transition-opacity duration-500 select-none pointer-events-none`}>
+                    {String(index + 1).padStart(2, '0')}
+                  </div>
+
+                  {/* Hover glow */}
+                  <motion.div
+                    className={`absolute inset-0 rounded-2xl sm:rounded-3xl bg-gradient-to-br ${benefit.color} opacity-0 group-hover:opacity-[0.07] transition-opacity duration-500`}
+                  />
+
+                  <div className="relative z-10 flex flex-col gap-4">
+                    {/* Top row: icon + pill */}
+                    <div className="flex items-start justify-between">
+                      <motion.div
+                        whileHover={{ rotate: 15, scale: 1.1 }}
+                        transition={{ duration: 0.3 }}
+                        className={`w-12 h-12 sm:w-14 sm:h-14 rounded-xl sm:rounded-2xl bg-gradient-to-br ${benefit.color} flex items-center justify-center shadow-lg`}
+                      >
+                        <Icon className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
+                      </motion.div>
+
+                      {/* Animated indicator dot */}
+                      <motion.div
+                        animate={{ scale: [1, 1.4, 1], opacity: [0.5, 1, 0.5] }}
+                        transition={{ duration: 2 + index * 0.3, repeat: Infinity }}
+                        className={`mt-1 w-2.5 h-2.5 rounded-full bg-gradient-to-br ${benefit.color}`}
+                      />
+                    </div>
+
+                    {/* Content */}
+                    <div>
+                      <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight">
+                        {benefit.titleCS}
+                      </h3>
+                      <p className="text-sm sm:text-base text-white/50 group-hover:text-white/70 transition-colors duration-300 leading-relaxed">
+                        {benefit.descriptionCS}
+                      </p>
+                    </div>
+
+                    {/* Bottom animated line */}
+                    <motion.div
+                      className={`h-[2px] rounded-full bg-gradient-to-r ${benefit.color}`}
+                      initial={{ width: '0%' }}
+                      whileInView={{ width: '40%' }}
+                      viewport={{ once: true }}
+                      transition={{ delay: 0.2 * index + 0.5, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+                    />
+                  </div>
+                </div>
               </motion.div>
             );
           })}

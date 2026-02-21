@@ -3,10 +3,8 @@
 import { motion } from "framer-motion";
 // import { useState } from "react";
 // import { Menu, X } from "lucide-react";
-import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function Navigation() {
-  const { language, setLanguage, t } = useLanguage();
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -133,62 +131,15 @@ export default function Navigation() {
           {/* Spacer */}
           <div className="flex-1" />
 
-          {/* Language + Connect */}
-          <div className="flex items-center gap-4">
-            {/* Language Switcher */}
-            <div className="relative glass rounded-full px-1 py-1">
-              <div className="relative flex gap-1">
-                <motion.button
-                  onClick={() => setLanguage("CS")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-5 py-2 rounded-full text-sm font-bold transition-colors duration-300 ${
-                    language === "CS"
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/70"
-                  }`}
-                >
-                  {language === "CS" && (
-                    <motion.div
-                      layoutId="language-bg"
-                      className="absolute inset-0 glass bg-white/10 rounded-full border border-white/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <span className="relative z-10">CS</span>
-                </motion.button>
-                <motion.button
-                  onClick={() => setLanguage("EN")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-5 py-2 rounded-full text-sm font-bold transition-colors duration-300 ${
-                    language === "EN"
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/70"
-                  }`}
-                >
-                  {language === "EN" && (
-                    <motion.div
-                      layoutId="language-bg"
-                      className="absolute inset-0 glass bg-white/10 rounded-full border border-white/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <span className="relative z-10">EN</span>
-                </motion.button>
-              </div>
-            </div>
-
-            {/* Connect Button */}
-            <motion.a
-              href="#contact"
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-modern px-6 py-2.5 font-semibold text-white"
-            >
-              {t('Kontakt', 'Connect')}
-            </motion.a>
-          </div>
+          {/* Connect Button */}
+          <motion.a
+            href="#contact"
+            whileHover={{ scale: 1.03, y: -1 }}
+            whileTap={{ scale: 0.97 }}
+            className="btn-modern px-6 py-2.5 font-semibold text-white"
+          >
+            Kontakt
+          </motion.a>
 
         </div>
       </div>

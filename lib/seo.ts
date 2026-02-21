@@ -88,7 +88,7 @@ export const jsonLdWebsite = {
     '@type': 'ContactPoint',
     telephone: '+420-XXX-XXX-XXX',
     contactType: 'customer service',
-    email: 'hello@auroriqa.com',
+    email: 'hello@auroriqa.cz',
     availableLanguage: ['cs', 'en'],
   },
   sameAs: [

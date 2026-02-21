@@ -86,8 +86,8 @@ export default function Footer() {
             >
               <div className="space-y-4">
                 <h4 className="text-white/90 font-semibold text-lg mb-6">{t('Kontakt', 'Contact')}</h4>
-                <a href="mailto:hello@auroriqa.com" className="block text-white/60 hover:text-white transition-colors duration-300 text-base">
-                  hello@auroriqa.com
+                <a href="mailto:hello@auroriqa.cz" className="block text-white/60 hover:text-white transition-colors duration-300 text-base">
+                  hello@auroriqa.cz
                 </a>
                 <a href="#services" className="block text-white/60 hover:text-white transition-colors duration-300 text-base">
                   {t('Naše služby', 'Our services')}

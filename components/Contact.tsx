@@ -100,7 +100,7 @@ export default function Contact() {
             className="mb-20 flex justify-center"
           >
             <a
-              href="mailto:hello@auroriqa.com"
+              href="mailto:hello@auroriqa.cz"
               className="group relative inline-block"
             >
               {/* Background glow effect */}
@@ -120,7 +120,7 @@ export default function Contact() {
               
               <div className="relative">
                 <div className="text-2xl sm:text-3xl md:text-5xl lg:text-6xl xl:text-7xl font-bold text-white space-grotesk tracking-tight group-hover:scale-105 transition-transform duration-300 px-4">
-                  hello@auroriqa.com
+                  hello@auroriqa.cz
                 </div>
                 <div className="flex items-center gap-2 justify-center text-white/40 group-hover:text-white/60 transition-colors text-xs sm:text-sm md:text-base mt-4 px-4">
                   <Mail className="w-4 h-4" />
@@ -143,7 +143,7 @@ export default function Contact() {
               <Button
                 variant="primary"
                 size="xl"
-                href="mailto:hello@auroriqa.com"
+                href="mailto:hello@auroriqa.cz"
                 showArrow
                 fullWidth
               >

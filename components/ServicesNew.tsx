@@ -138,7 +138,7 @@ export default function ServicesNew() {
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           className="max-w-6xl mx-auto mb-24"
         >
-          <div className="flex items-start justify-between gap-12">
+          <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12">
             {/* Left - Headline */}
             <div className="flex-1">
               <motion.div
@@ -149,14 +149,14 @@ export default function ServicesNew() {
               >
                 <Sparkles className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-medium text-white/40 tracking-[0.25em] uppercase">
-                  {t('Naše služby', 'Our services')}
+                  Naše služby
                 </span>
               </motion.div>
 
-              <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8">
+              <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-6">
                 <span className="text-white">Build</span>
                 <br />
-                <span className="text-white/15">{t('anything', 'anything')}</span>
+                <span className="text-white/15">anything</span>
               </h2>
             </div>
 
@@ -165,31 +165,28 @@ export default function ServicesNew() {
               initial={{ opacity: 0, x: 20 }}
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ delay: 0.4 }}
-              className="max-w-md pt-12"
+              className="w-full lg:max-w-md lg:pt-12"
             >
-              <p className="text-xl text-white/50 leading-relaxed mb-8">
-                {t(
-                  'Od prvního návrhu po finální launch. Děláme digitální produkty, které fungují.',
-                  'From initial design to final launch. We build digital products that work.'
-                )}
+              <p className="text-base sm:text-lg lg:text-xl text-white/50 leading-relaxed mb-6 lg:mb-8">
+                Od prvního návrhu po finální launch. Děláme digitální produkty, které fungují.
               </p>
               
               {/* Quick stats */}
-              <div className="grid grid-cols-2 gap-6">
+              <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 <div>
-                  <div className="text-4xl font-bold text-gradient bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-1">
+                  <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-1">
                     50+
                   </div>
                   <div className="text-sm text-white/40">
-                    {t('Projektů', 'Projects')}
+                    Projektů
                   </div>
                 </div>
                 <div>
-                  <div className="text-4xl font-bold text-gradient bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent mb-1">
+                  <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent mb-1">
                     100%
                   </div>
                   <div className="text-sm text-white/40">
-                    {t('Spokojenost', 'Satisfaction')}
+                    Spokojenost
                   </div>
                 </div>
               </div>
@@ -310,7 +307,7 @@ export default function ServicesNew() {
                   animate={{ opacity: 1, y: 0, scale: 1 }}
                   exit={{ opacity: 0, y: -40, scale: 0.95 }}
                   transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                  className="sticky top-24"
+                    className="lg:sticky lg:top-24"
                 >
                   {/* Main showcase card */}
                   <div className="relative rounded-3xl overflow-hidden bg-white/[0.03] backdrop-blur-2xl border border-white/10 p-8 md:p-12">
@@ -449,7 +446,7 @@ export default function ServicesNew() {
           className="mt-32 text-center"
         >
           <p className="text-white/40 mb-6">
-            {t('Nevíte si rady? Rádi poradíme.', 'Not sure? We\'re happy to advise.')}
+            Nevíte si rady? Rádi poradíme.
           </p>
           <motion.a
             href="#contact"
@@ -458,7 +455,7 @@ export default function ServicesNew() {
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/[0.05] border border-white/10 text-white/80 hover:bg-white/[0.08] hover:text-white transition-all backdrop-blur-xl"
           >
             <Zap className="w-5 h-5" />
-            <span className="font-medium">{t('Rezervovat konzultaci', 'Book consultation')}</span>
+            <span className="font-medium">Rezervovat konzultaci</span>
             <ArrowRight className="w-4 h-4" />
           </motion.a>
         </motion.div>
