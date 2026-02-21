@@ -149,7 +149,7 @@ export default function ServicesNew() {
               >
                 <Sparkles className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-medium text-white/40 tracking-[0.25em] uppercase">
-                  Naše služby
+                  {t('Naše služby', 'Our services')}
                 </span>
               </motion.div>
 
@@ -168,7 +168,7 @@ export default function ServicesNew() {
               className="w-full lg:max-w-md lg:pt-12"
             >
               <p className="text-base sm:text-lg lg:text-xl text-white/50 leading-relaxed mb-6 lg:mb-8">
-                Od prvního návrhu po finální launch. Děláme digitální produkty, které fungují.
+                {t('Od prvního návrhu po finální launch. Děláme digitální produkty, které fungují.', 'From the first design to the final launch. We build digital products that work.')}
               </p>
               
               {/* Quick stats */}
@@ -178,7 +178,7 @@ export default function ServicesNew() {
                     50+
                   </div>
                   <div className="text-sm text-white/40">
-                    Projektů
+                    {t('Projektů', 'Projects')}
                   </div>
                 </div>
                 <div>
@@ -186,7 +186,7 @@ export default function ServicesNew() {
                     100%
                   </div>
                   <div className="text-sm text-white/40">
-                    Spokojenost
+                    {t('Spokojenost', 'Satisfaction')}
                   </div>
                 </div>
               </div>
@@ -446,7 +446,7 @@ export default function ServicesNew() {
           className="mt-32 text-center"
         >
           <p className="text-white/40 mb-6">
-            Nevíte si rady? Rádi poradíme.
+            {t('Nevíte si rady? Rádi poradíme.', "Not sure? We're happy to help.")}
           </p>
           <motion.a
             href="#contact"
@@ -455,7 +455,7 @@ export default function ServicesNew() {
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/[0.05] border border-white/10 text-white/80 hover:bg-white/[0.08] hover:text-white transition-all backdrop-blur-xl"
           >
             <Zap className="w-5 h-5" />
-            <span className="font-medium">Rezervovat konzultaci</span>
+            <span className="font-medium">{t('Rezervovat konzultaci', 'Book a consultation')}</span>
             <ArrowRight className="w-4 h-4" />
           </motion.a>
         </motion.div>

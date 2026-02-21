@@ -244,10 +244,10 @@ export default function FreeProposal() {
                     {/* Content */}
                     <div>
                       <h3 className="text-lg sm:text-xl font-bold text-white mb-2 leading-tight">
-                        {benefit.titleCS}
+                        {t(benefit.titleCS, benefit.titleEN)}
                       </h3>
                       <p className="text-sm sm:text-base text-white/50 group-hover:text-white/70 transition-colors duration-300 leading-relaxed">
-                        {benefit.descriptionCS}
+                        {t(benefit.descriptionCS, benefit.descriptionEN)}
                       </p>
                     </div>
 

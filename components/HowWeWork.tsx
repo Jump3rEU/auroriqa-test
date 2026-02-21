@@ -3,14 +3,20 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Search, Code2, FlaskConical, Rocket, ArrowRight } from "lucide-react";
 import { useRef } from "react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 const steps = [
   {
     number: "01",
     icon: Search,
-    title: "Discovery",
-    subtitle: "& Design",
-    description: "Hluboká analýza vašeho byznysu, cílů a uživatelů. Interaktivní prototyp za 57 dní s okamžitou zpětnou vazbou.",
+    titleCS: "Discovery",
+    titleEN: "Discovery",
+    subtitleCS: "& Design",
+    subtitleEN: "& Design",
+    stepLabelCS: "Krok",
+    stepLabelEN: "Step",
+    descriptionCS: "Hluboká analýza vašeho byznysu, cílů a uživatelů. Interaktivní prototyp za 5–7 dní s okamžitou zpětnou vazbou.",
+    descriptionEN: "Deep analysis of your business, goals and users. Interactive prototype in 5–7 days with instant feedback loop.",
     gradient: "from-emerald-400 to-teal-500",
     glow: "rgba(16, 185, 129, 0.4)",
     accent: "text-emerald-400",
@@ -18,9 +24,14 @@ const steps = [
   {
     number: "02",
     icon: Code2,
-    title: "Rychlý",
-    subtitle: "vývoj",
-    description: "Agilní sprint s denními updaty a transparentní komunikací. Moderní stack, clean code a průběžné testování.",
+    titleCS: "Rychlý",
+    titleEN: "Fast",
+    subtitleCS: "vývoj",
+    subtitleEN: "Development",
+    stepLabelCS: "Krok",
+    stepLabelEN: "Step",
+    descriptionCS: "Agilní sprint s denními updaty a transparentní komunikací. Moderní stack, clean code a průběžné testování.",
+    descriptionEN: "Agile sprint with daily updates and transparent communication. Modern stack, clean code and continuous testing.",
     gradient: "from-violet-400 to-purple-500",
     glow: "rgba(139, 92, 246, 0.4)",
     accent: "text-violet-400",
@@ -28,9 +39,14 @@ const steps = [
   {
     number: "03",
     icon: FlaskConical,
-    title: "Testing",
-    subtitle: "& QA",
-    description: "Komplexní testování na všech zařízeních a prohlížečích. Performance audit, security check a finální polish.",
+    titleCS: "Testing",
+    titleEN: "Testing",
+    subtitleCS: "& QA",
+    subtitleEN: "& QA",
+    stepLabelCS: "Krok",
+    stepLabelEN: "Step",
+    descriptionCS: "Komplexní testování na všech zařízeních a prohlížečích. Performance audit, security check a finální polish.",
+    descriptionEN: "Comprehensive testing on all devices and browsers. Performance audit, security check and final polish.",
     gradient: "from-pink-400 to-rose-500",
     glow: "rgba(236, 72, 153, 0.4)",
     accent: "text-pink-400",
@@ -38,9 +54,14 @@ const steps = [
   {
     number: "04",
     icon: Rocket,
-    title: "Launch",
-    subtitle: "& podpora",
-    description: "Bezproblémové nasazení s full monitoringem. Dokumentace, trénink týmu a dlouhodobá podpora.",
+    titleCS: "Launch",
+    titleEN: "Launch",
+    subtitleCS: "& podpora",
+    subtitleEN: "& Support",
+    stepLabelCS: "Krok",
+    stepLabelEN: "Step",
+    descriptionCS: "Bezproblémové nasazení s full monitoringem. Dokumentace, trénink týmu a dlouhodobá podpora.",
+    descriptionEN: "Seamless deployment with full monitoring. Documentation, team training and long-term support.",
     gradient: "from-blue-400 to-cyan-500",
     glow: "rgba(59, 130, 246, 0.4)",
     accent: "text-blue-400",
@@ -48,6 +69,7 @@ const steps = [
 ];
 
 export default function HowWeWork() {
+  const { t } = useLanguage();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -95,13 +117,13 @@ export default function HowWeWork() {
               <div className="flex items-center gap-3 mb-5">
                 <Rocket className="w-4 h-4 text-emerald-400" />
                 <span className="text-xs font-medium text-white/40 tracking-[0.25em] uppercase">
-                  Proces / Metodologie
+                  {t('Proces / Metodologie', 'Process / Methodology')}
                 </span>
               </div>
               <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] font-bold space-grotesk leading-[0.85]">
-                <span className="text-white">Jak</span>
+                <span className="text-white">{t('Jak', 'How')}</span>
                 <br />
-                <span className="text-white/15">pracujeme</span>
+                <span className="text-white/15">{t('pracujeme', 'we work')}</span>
               </h2>
             </div>
 
@@ -113,16 +135,16 @@ export default function HowWeWork() {
               className="md:max-w-sm md:pt-10"
             >
               <p className="text-base sm:text-lg text-white/50 leading-relaxed mb-8">
-                Agilní metodologie s důrazem na transparentnost, rychlost a špičkovou kvalitu. Od discovery po launch.
+                {t('Agilní metodologie s důrazem na transparentnost, rychlost a špičkovou kvalitu. Od discovery po launch.', 'Agile methodology focused on transparency, speed and top quality. From discovery to launch.')}
               </p>
               <div className="flex gap-8">
                 <div>
                   <div className="text-3xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">4</div>
-                  <div className="text-xs text-white/40 uppercase tracking-wider mt-1">Fáze</div>
+                  <div className="text-xs text-white/40 uppercase tracking-wider mt-1">{t('Fáze', 'Phases')}</div>
                 </div>
                 <div>
-                  <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">26</div>
-                  <div className="text-xs text-white/40 uppercase tracking-wider mt-1">Týdnů</div>
+                  <div className="text-3xl font-bold bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">2–6</div>
+                  <div className="text-xs text-white/40 uppercase tracking-wider mt-1">{t('Týdnů', 'Weeks')}</div>
                 </div>
               </div>
             </motion.div>
@@ -154,7 +176,7 @@ export default function HowWeWork() {
                   <div className="relative z-10 flex flex-col gap-5 h-full">
                     <div className="flex items-start justify-between">
                       <span className={`text-xs font-bold tracking-[0.2em] uppercase ${step.accent}`}>
-                        Krok {step.number}
+                        {t(step.stepLabelCS, step.stepLabelEN)} {step.number}
                       </span>
                       <motion.div
                         whileHover={{ rotate: 12, scale: 1.1 }}
@@ -166,12 +188,12 @@ export default function HowWeWork() {
                     </div>
                     <div>
                       <h3 className="text-2xl sm:text-3xl font-bold text-white leading-tight space-grotesk">
-                        {step.title}
-                        <span className="text-white/30"> {step.subtitle}</span>
+                        {t(step.titleCS, step.titleEN)}
+                        <span className="text-white/30"> {t(step.subtitleCS, step.subtitleEN)}</span>
                       </h3>
                     </div>
                     <p className="text-sm sm:text-base text-white/50 group-hover:text-white/70 transition-colors duration-300 leading-relaxed flex-1">
-                      {step.description}
+                      {t(step.descriptionCS, step.descriptionEN)}
                     </p>
                     <motion.div
                       className={`h-[2px] rounded-full bg-gradient-to-r ${step.gradient}`}
@@ -204,10 +226,10 @@ export default function HowWeWork() {
             />
             <div className="relative z-10">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white space-grotesk mb-4">
-                Připraveni začít váš projekt?
+                {t('Připraveni začít váš projekt?', 'Ready to start your project?')}
               </h3>
               <p className="text-white/50 mb-8 text-base sm:text-lg max-w-xl mx-auto">
-                Pojďme společně vytvořit něco výjimečného.
+                {t('Pojďme společně vytvořit něco výjimečného.', "Let's create something exceptional together.")}
               </p>
               <motion.a
                 href="#contact"
@@ -215,7 +237,7 @@ export default function HowWeWork() {
                 whileTap={{ scale: 0.97 }}
                 className="inline-flex items-center gap-3 px-8 sm:px-12 py-4 sm:py-5 bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 rounded-full text-white font-bold text-base sm:text-lg hover:shadow-[0_20px_60px_-15px_rgba(16,185,129,0.5)] transition-all duration-300 group/btn"
               >
-                <span>Začněme spolupracovat</span>
+                <span>{t('Začněme spolupracovat', "Let's work together")}</span>
                 <ArrowRight className="w-5 h-5 group-hover/btn:translate-x-2 transition-transform duration-300" />
               </motion.a>
             </div>
