@@ -10,14 +10,11 @@ import {
   Lock,
   Unlock,
   ExternalLink,
-  Plus,
   Copy,
   Check,
   Globe,
-  Mail,
   Code2,
   Rocket,
-  TrendingUp,
   Activity,
   Settings,
   LogOut,
@@ -27,6 +24,11 @@ import {
   Clock,
   FileText,
   Zap,
+  BarChart3,
+  BookOpen,
+  ArrowUpRight,
+  Layers,
+  RefreshCw,
 } from "lucide-react";
 import { projects, ProjectConfig } from "@/lib/projects";
 
@@ -207,13 +209,15 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
 // ─── Main Dashboard ──────────────────────────────────────────────────────────
 function Dashboard({ onLogout }: { onLogout: () => void }) {
-  const [activeTab, setActiveTab] = useState<"overview" | "clients" | "content" | "settings">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "clients" | "analytics" | "cms" | "content" | "settings">("overview");
   const allProjects = Object.values(projects);
   const activeProjects = allProjects.filter((p) => p.active);
 
   const tabs = [
     { id: "overview", label: "Přehled", icon: LayoutDashboard },
     { id: "clients", label: "Klienti", icon: Users },
+    { id: "analytics", label: "Analytics", icon: BarChart3 },
+    { id: "cms", label: "Obsah webu", icon: FileText },
     { id: "content", label: "Obsah", icon: FileText },
     { id: "settings", label: "Nastavení", icon: Settings },
   ] as const;
@@ -248,7 +252,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
               <Shield className="w-4 h-4 text-white" />
             </div>
             <span className="font-bold text-sm">Auroriqa Admin</span>
-            <span className="hidden sm:block text-white/20 text-xs">v1.0</span>
+            <span className="hidden sm:block text-white/20 text-xs">v2.0</span>
           </div>
 
           <div className="flex items-center gap-4">
@@ -317,6 +321,8 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
           {activeTab === "clients" && (
             <ClientsTab key="clients" projects={allProjects} />
           )}
+          {activeTab === "analytics" && <AnalyticsTab key="analytics" />}
+          {activeTab === "cms" && <CmsTab key="cms" />}
           {activeTab === "content" && <ContentTab key="content" />}
           {activeTab === "settings" && <SettingsTab key="settings" />}
         </AnimatePresence>
@@ -331,13 +337,13 @@ function OverviewTab({ totalProjects, activeProjects }: { totalProjects: number;
     { icon: Users, label: "Celkem projektů", value: totalProjects, sub: "v databázi", gradient: "from-violet-500 to-purple-600" },
     { icon: Activity, label: "Aktivních preview", value: activeProjects, sub: "dostupných klientům", gradient: "from-emerald-500 to-teal-600" },
     { icon: Globe, label: "Web status", value: "LIVE", sub: "auroriqa.cz", gradient: "from-blue-500 to-cyan-600" },
-    { icon: Zap, label: "Deploy platforma", value: "Vercel", sub: "auto-deploy z GH", gradient: "from-pink-500 to-rose-600" },
+    { icon: FileText, label: "lib/content.ts", value: "Aktivní", sub: "5 sekcí obsahu", gradient: "from-emerald-500 to-teal-600" },
   ];
 
   const quickActions = [
-    { icon: Plus, label: "Nový klient", desc: "Přidat projekt do preview", href: "/preview", accent: "text-emerald-400", bg: "from-emerald-500/20 to-teal-500/10" },
-    { icon: Eye, label: "Preview přehledy", desc: "Zobrazit všechny náhledy", href: "/preview", accent: "text-blue-400", bg: "from-blue-500/20 to-cyan-500/10" },
-    { icon: Mail, label: "Kontakt", desc: "hello@auroriqa.cz", href: "mailto:hello@auroriqa.cz", accent: "text-purple-400", bg: "from-purple-500/20 to-pink-500/10" },
+    { icon: FileText, label: "Editovat obsah", desc: "lib/content.ts — FAQ, služby...", href: "vscode://file/lib/content.ts", accent: "text-emerald-400", bg: "from-emerald-500/20 to-teal-500/10" },
+    { icon: Eye, label: "Preview náhledy", desc: "Zobrazit všechny náhledy", href: "/preview", accent: "text-blue-400", bg: "from-blue-500/20 to-cyan-500/10" },
+    { icon: BarChart3, label: "Analytics", desc: "Návštěvnost, Web Vitals", href: "https://vercel.com/jump3reu/auroriqa/analytics", accent: "text-violet-400", bg: "from-violet-500/20 to-purple-500/10" },
     { icon: Code2, label: "GitHub repo", desc: "Jump3rEU/Auroriqa", href: "https://github.com/Jump3rEU/Auroriqa", accent: "text-orange-400", bg: "from-orange-500/20 to-amber-500/10" },
   ];
 
@@ -589,6 +595,282 @@ function ClientsTab({ projects }: { projects: ProjectConfig[] }) {
   );
 }
 
+// ─── Analytics Tab ──────────────────────────────────────────────────
+function AnalyticsTab() {
+  const [pageViews, setPageViews] = useState<Record<string, number>>({});
+  const [totalViews, setTotalViews] = useState(0);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Load custom page-view data stored via our tracking API
+    fetch("/api/analytics")
+      .then((r) => r.json())
+      .then((data) => {
+        if (data?.pages) {
+          setPageViews(data.pages);
+          setTotalViews(Object.values(data.pages as Record<string, number>).reduce((a, b) => a + b, 0));
+        }
+      })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  }, []);
+
+  const vercelLinks = [
+    { label: "Vercel Analytics", href: "https://vercel.com/jump3reu/auroriqa/analytics", desc: "Zobrazení návštěvnosti, Web Vitals" },
+    { label: "Google Analytics", href: "https://analytics.google.com", desc: "GA4 dashboard – full data" },
+    { label: "Vercel Speed Insights", href: "https://vercel.com/jump3reu/auroriqa/speed-insights", desc: "Core Web Vitals, LCP, CLS, FID" },
+    { label: "Google Search Console", href: "https://search.google.com/search-console", desc: "SEO, indexace, klíčová slova" },
+  ];
+
+  const pages = [
+    { path: "/", label: "Hlavní stránka", gradient: "from-emerald-500 to-teal-500" },
+    { path: "/blog", label: "Blog", gradient: "from-violet-500 to-purple-500" },
+    { path: "/preview", label: "Preview", gradient: "from-pink-500 to-rose-500" },
+    { path: "/admin", label: "Admin", gradient: "from-blue-500 to-cyan-500" },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="space-y-8"
+    >
+      <div>
+        <h2 className="text-2xl font-bold text-white mb-1">Analytics</h2>
+        <p className="text-white/40 text-sm">Návštěvnost, výkon a SEO měření</p>
+      </div>
+
+      {/* Custom tracking stats */}
+      <div>
+        <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <Activity className="w-3.5 h-3.5" />
+          Vlastní sledování návštěvnosti
+        </h3>
+        {loading ? (
+          <div className="flex items-center gap-3 p-5 rounded-2xl bg-white/[0.03] border border-white/[0.07]">
+            <RefreshCw className="w-4 h-4 text-white/40 animate-spin" />
+            <span className="text-white/40 text-sm">Načítání dat...</span>
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95 }}
+              animate={{ opacity: 1, scale: 1 }}
+              className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/20"
+            >
+              <p className="text-xs text-white/40 uppercase tracking-wider mb-2">Celkem zobrazení</p>
+              <p className="text-3xl font-black text-white">{totalViews > 0 ? totalViews.toLocaleString() : "—"}</p>
+              <p className="text-xs text-emerald-400/70 mt-1">všechny stránky</p>
+            </motion.div>
+            {pages.map((page, i) => (
+              <motion.div
+                key={page.path}
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: (i + 1) * 0.07 }}
+                className="p-5 rounded-2xl bg-white/[0.03] border border-white/[0.07]"
+              >
+                <p className="text-xs text-white/40 uppercase tracking-wider mb-2 font-mono">{page.path}</p>
+                <p className="text-2xl font-black text-white">{pageViews[page.path] ?? "—"}</p>
+                <p className="text-xs text-white/30 mt-1">{page.label}</p>
+              </motion.div>
+            ))}
+          </div>
+        )}
+        {!loading && totalViews === 0 && (
+          <div className="mt-3 p-4 rounded-xl bg-white/[0.02] border border-white/[0.05] text-xs text-white/40">
+            Jedná se o vlastní sledování přes <code className="text-purple-400">/api/analytics</code>. Pokud jsou data prázdná, návštěvnost je teprve sbrána nebo API není nastaveno.
+          </div>
+        )}
+      </div>
+
+      {/* External analytics links */}
+      <div>
+        <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4 flex items-center gap-2">
+          <BarChart3 className="w-3.5 h-3.5" />
+          Externí nástroje
+        </h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {vercelLinks.map((link, i) => (
+            <motion.a
+              key={link.label}
+              href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: i * 0.07 }}
+              whileHover={{ y: -2, scale: 1.01 }}
+              className="group flex items-center justify-between p-4 rounded-2xl bg-white/[0.03] border border-white/[0.07] hover:border-white/20 transition-all duration-300"
+            >
+              <div>
+                <p className="font-semibold text-sm text-white">{link.label}</p>
+                <p className="text-xs text-white/40 mt-0.5">{link.desc}</p>
+              </div>
+              <ArrowUpRight className="w-4 h-4 text-white/20 group-hover:text-white/60 transition-colors" />
+            </motion.a>
+          ))}
+        </div>
+      </div>
+
+      {/* Custom analytics setup info */}
+      <div className="p-5 rounded-2xl bg-blue-500/[0.06] border border-blue-500/20">
+        <h4 className="text-sm font-semibold text-blue-400 mb-2 flex items-center gap-2">
+          <Code2 className="w-4 h-4" />
+          Vlastní analytics API
+        </h4>
+        <p className="text-xs text-white/50 mb-3">
+          Vlastní sledování běží přes <code className="text-purple-400">app/api/analytics/route.ts</code>. Každá stránka volá
+          <code className="text-emerald-400"> POST /api/analytics</code> při prvním zobrazení.
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 text-xs text-white/40 font-mono">
+          <div className="p-2 rounded-lg bg-white/[0.03]">GET /api/analytics → stats</div>
+          <div className="p-2 rounded-lg bg-white/[0.03]">POST /api/analytics → track</div>
+          <div className="p-2 rounded-lg bg-white/[0.03]">Data: Vercel KV / Edge Config</div>
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── CMS Tab (Custom content system) ─────────────────────────────────────────
+function CmsTab() {
+  const sections = [
+    {
+      label: "Nastavení webu",
+      desc: "Název společnosti, tagline, popis, email, telefon, sociální sítě",
+      key: "siteSettings",
+      icon: Globe,
+      color: "text-emerald-400",
+      count: "1 sekce",
+    },
+    {
+      label: "Statistiky",
+      desc: "Počet projektů, spokojenost klientů, roky zkušeností, doby dodaní",
+      key: "stats",
+      icon: BarChart3,
+      color: "text-blue-400",
+      count: "4 hodnoty",
+    },
+    {
+      label: "Služby",
+      desc: "Nazvy, popisy, features (CS/EN), barvy gradientů, statistiky sloužeb",
+      key: "services",
+      icon: Layers,
+      color: "text-violet-400",
+      count: "4 služby",
+    },
+    {
+      label: "FAQ",
+      desc: "Otázky a odpovědi (CS/EN) — zobrazují se v FAQ sekci na webu",
+      key: "faqs",
+      icon: BookOpen,
+      color: "text-pink-400",
+      count: "6 otázek",
+    },
+    {
+      label: "Portfolio projekty",
+      desc: "Názvy, kategorie, tech stack, popis (CS/EN), URL, barvy",
+      key: "portfolioProjects",
+      icon: Star,
+      color: "text-yellow-400",
+      count: "1+ projektů",
+    },
+  ];
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      className="space-y-8"
+    >
+      <div>
+        <h2 className="text-2xl font-bold text-white mb-1">Obsah webu</h2>
+        <p className="text-white/40 text-sm">Všechen editovatelný obsah je v jedném souboru</p>
+      </div>
+
+      {/* Main file card */}
+      <div className="p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-teal-500/5 border border-emerald-500/20">
+        <div className="flex items-start justify-between gap-4">
+          <div>
+            <div className="flex items-center gap-2 mb-2">
+              <FileText className="w-5 h-5 text-emerald-400" />
+              <code className="text-emerald-400 font-mono font-bold">lib/content.ts</code>
+            </div>
+            <p className="text-white/60 text-sm">
+              Jediný soubor pro — služby, FAQ, portfolio, nastavení webu, statistiky.
+              Uprav a pushni na GitHub → Vercel nasadí změny automaticky.
+            </p>
+          </div>
+          <CopyButton text="lib/content.ts" />
+        </div>
+
+        <div className="mt-5 space-y-2 text-xs font-mono">
+          {[
+            { cmd: "code \"lib/content.ts\"", comment: "# Otevří soubor ve VS Code" },
+            { cmd: "git add lib/content.ts && git commit -m \"update content\" && git push", comment: "# Deploy" },
+          ].map((line) => (
+            <div key={line.cmd} className="flex items-center gap-3 p-2.5 rounded-lg bg-black/30 border border-white/[0.06]">
+              <span className="text-white/30">$</span>
+              <span className="text-emerald-400 flex-1">{line.cmd}</span>
+              <span className="text-white/20 hidden sm:block">{line.comment}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Sections */}
+      <div>
+        <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4">Editovatelné sekce</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+          {sections.map((s, i) => {
+            const Icon = s.icon;
+            return (
+              <motion.div
+                key={s.key}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.06 }}
+                className="group p-4 rounded-2xl bg-white/[0.03] border border-white/[0.07] hover:border-white/20 transition-all duration-300"
+              >
+                <div className="flex items-start justify-between mb-3">
+                  <div className={s.color}><Icon className="w-5 h-5" /></div>
+                  <span className="text-xs text-white/25 font-mono">{s.count}</span>
+                </div>
+                <p className="font-semibold text-sm text-white mb-1">{s.label}</p>
+                <p className="text-xs text-white/40 leading-relaxed">{s.desc}</p>
+                <code className="mt-2 inline-block text-xs text-white/20 font-mono">content.{s.key}</code>
+              </motion.div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* How to workflow */}
+      <div>
+        <h3 className="text-xs font-semibold text-white/40 uppercase tracking-wider mb-4">Jak editovat</h3>
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+          {[
+            { step: "1", title: "Otevří soubor", desc: "lib/content.ts ve VS Code nebo GitHub", color: "from-emerald-500 to-teal-500" },
+            { step: "2", title: "Uprav obsah", desc: "Změň text, přidej položky, uprav data", color: "from-violet-500 to-purple-500" },
+            { step: "3", title: "Push + deploy", desc: "git push → Vercel nasadí do 30 sekund", color: "from-blue-500 to-cyan-500" },
+          ].map((s) => (
+            <div key={s.step} className="flex gap-3 p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+              <div className={`w-7 h-7 rounded-full bg-gradient-to-br ${s.color} flex-shrink-0 flex items-center justify-center text-xs font-bold text-white`}>{s.step}</div>
+              <div>
+                <p className="text-sm font-semibold text-white">{s.title}</p>
+                <p className="text-xs text-white/40 mt-0.5">{s.desc}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </motion.div>
+  );
+}
+
 // ─── Content Tab ──────────────────────────────────────────────────────────────
 function ContentTab() {
   const contentItems = [
@@ -663,10 +945,12 @@ function ContentTab() {
         ))}
       </div>
 
-      <div className="p-5 rounded-2xl bg-amber-500/[0.06] border border-amber-500/20">
-        <p className="text-amber-400/80 text-xs flex items-start gap-2">
-          <TrendingUp className="w-4 h-4 flex-shrink-0 mt-0.5" />
-          Chceš editovat obsah přímo v prohlížeči? Integruj Sanity CMS nebo Contentful pro plnou editaci bez kódu.
+      <div className="p-5 rounded-2xl bg-emerald-500/[0.06] border border-emerald-500/20">
+        <p className="text-emerald-400/80 text-xs flex items-start gap-2">
+          <FileText className="w-4 h-4 flex-shrink-0 mt-0.5" />
+          Hlavní obsah webu (FAQ, služby, portfolio, nastavení) je v{" "}
+          <code className="text-white/60">lib/content.ts</code>. Edituj přímo v kódu, pushni → Vercel auto-deploy.
+          Podrobnosti v záložce <strong className="text-white/70">Obsah</strong>.
         </p>
       </div>
     </motion.div>

@@ -5,86 +5,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Cpu, Layers, Rocket, Sparkles, ArrowRight, Check, Zap } from "lucide-react";
 import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { services as contentServices } from "@/lib/content";
+
+// Icon map — matches service id to Lucide icon
+const iconMap: Record<string, React.ElementType> = {
+  web: Globe,
+  webapp: Cpu,
+  mobile: Layers,
+  ecommerce: Rocket,
+};
 
 export default function ServicesNew() {
   const { t, language } = useLanguage();
   const [activeService, setActiveService] = useState<number>(0);
   const [hoveredService, setHoveredService] = useState<number | null>(null);
 
-  const services = [
-    {
-      icon: Globe,
-      titleCS: "Webové stránky",
-      titleEN: "Websites",
-      descriptionCS: "Prezentační weby, landing pages a corporate identity",
-      descriptionEN: "Presentation websites, landing pages and corporate identity",
-      longDescCS: "Od jednoduchých landing pages až po komplexní corporate weby s vlastním CMS. Moderní design, který osloví vaše zákazníky.",
-      longDescEN: "From simple landing pages to complex corporate websites with custom CMS. Modern design that reaches your customers.",
-      gradient: "from-emerald-500 via-teal-500 to-cyan-500",
-      glowColor: "rgba(16, 185, 129, 0.4)",
-      stats: [
-        { label: "Avg. load time", value: "<1s" },
-        { label: "Mobile score", value: "100/100" },
-        { label: "Projects", value: "50+" }
-      ],
-      features: ["SEO optimalizace", "Responzivní design", "CMS integrace", "Analytics"],
-      featuresEN: ["SEO optimization", "Responsive design", "CMS integration", "Analytics"],
-    },
-    {
-      icon: Cpu,
-      titleCS: "Webové aplikace",
-      titleEN: "Web Applications",
-      descriptionCS: "SaaS platformy, dashboardy a interaktivní aplikace",
-      descriptionEN: "SaaS platforms, dashboards and interactive apps",
-      longDescCS: "Komplexní webové aplikace s real-time funkcionalitou. Od MVP po enterprise řešení s tisíci uživateli.",
-      longDescEN: "Complex web applications with real-time functionality. From MVP to enterprise solutions with thousands of users.",
-      gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
-      glowColor: "rgba(139, 92, 246, 0.4)",
-      stats: [
-        { label: "Uptime", value: "99.9%" },
-        { label: "Response time", value: "<200ms" },
-        { label: "Users", value: "10k+" }
-      ],
-      features: ["Real-time data", "Cloud hosting", "Škálovatelnost", "API integrace"],
-      featuresEN: ["Real-time data", "Cloud hosting", "Scalability", "API integration"],
-    },
-    {
-      icon: Layers,
-      titleCS: "Mobilní aplikace",
-      titleEN: "Mobile Apps",
-      descriptionCS: "Native iOS a Android aplikace pro moderní svět",
-      descriptionEN: "Native iOS and Android apps for modern world",
-      longDescCS: "Nativní mobilní aplikace s perfektním výkonem. Push notifikace, offline režim a bezproblémová synchronizace.",
-      longDescEN: "Native mobile apps with perfect performance. Push notifications, offline mode and seamless sync.",
-      gradient: "from-pink-500 via-rose-500 to-red-500",
-      glowColor: "rgba(236, 72, 153, 0.4)",
-      stats: [
-        { label: "Platforms", value: "iOS+Android" },
-        { label: "Downloads", value: "100k+" },
-        { label: "Rating", value: "4.8★" }
-      ],
-      features: ["Native performance", "Push notifikace", "Offline režim", "Biometrie"],
-      featuresEN: ["Native performance", "Push notifications", "Offline mode", "Biometrics"],
-    },
-    {
-      icon: Rocket,
-      titleCS: "E-commerce",
-      titleEN: "E-commerce",
-      descriptionCS: "Online obchody, které skutečně prodávají",
-      descriptionEN: "Online stores that actually sell",
-      longDescCS: "Komplexní e-shop řešení s platebními bránami, správou skladu a marketing automation pro maximalizaci prodeje.",
-      longDescEN: "Complete e-shop solution with payment gateways, inventory management and marketing automation to maximize sales.",
-      gradient: "from-amber-500 via-orange-500 to-red-500",
-      glowColor: "rgba(251, 191, 36, 0.4)",
-      stats: [
-        { label: "Conversion", value: "3.5%" },
-        { label: "Products", value: "5000+" },
-        { label: "Orders/day", value: "500+" }
-      ],
-      features: ["Platební brány", "Správa skladů", "Marketing tools", "Analytics"],
-      featuresEN: ["Payment gateways", "Inventory mgmt", "Marketing tools", "Analytics"],
-    },
-  ];
+  const services = contentServices.map((s) => ({
+    ...s,
+    icon: iconMap[s.id] ?? Globe,
+  }));
 
   return (
     <section id="services" className="py-32 md:py-48 relative overflow-hidden">

@@ -5,6 +5,7 @@ import { Plus } from "lucide-react";
 import { useState, useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Button from "@/components/Button";
+import { faqs as contentFaqs } from "@/lib/content";
 
 export default function FAQ() {
   const { t } = useLanguage();
@@ -18,44 +19,7 @@ export default function FAQ() {
 
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
-  const faqs = [
-    {
-      questionCS: "Jak dlouho trvá vývoj projektu?",
-      questionEN: "How long does project development take?",
-      answerCS: "Závisí na složitosti projektu. Jednoduchá webová stránka trvá 2-3 týdny, komplexní webová aplikace 1-3 měsíce. První prototyp máte během týdne.",
-      answerEN: "It depends on project complexity. A simple website takes 2-3 weeks, a complex web application 1-3 months. You'll have the first prototype within a week.",
-    },
-    {
-      questionCS: "Jaké technologie používáte?",
-      questionEN: "What technologies do you use?",
-      answerCS: "Pracujeme s moderním stackem: React, Next.js, TypeScript, Node.js, PostgreSQL. Vždy volíme technologie podle konkrétních potřeb projektu.",
-      answerEN: "We work with modern stack: React, Next.js, TypeScript, Node.js, PostgreSQL. We always choose technologies based on specific project needs.",
-    },
-    {
-      questionCS: "Nabízíte podporu po spuštění?",
-      questionEN: "Do you offer post-launch support?",
-      answerCS: "Ano, poskytujeme podporu a údržbu po spuštění. První měsíc je zdarma, poté nabízíme flexibilní plány podle vašich potřeb.",
-      answerEN: "Yes, we provide post-launch support and maintenance. The first month is free, then we offer flexible plans according to your needs.",
-    },
-    {
-      questionCS: "Jak funguje komunikace během projektu?",
-      questionEN: "How does communication work during the project?",
-      answerCS: "Denní updates přes Slack/Discord, týdenní video cally. Máte přístup k projektovému boardu a vidíte průběh v reálném čase.",
-      answerEN: "Daily updates via Slack/Discord, weekly video calls. You have access to the project board and see progress in real-time.",
-    },
-    {
-      questionCS: "Potřebuji přesnou specifikaci předem?",
-      questionEN: "Do I need exact specifications upfront?",
-      answerCS: "Ne. Pomůžeme vám s definicí požadavků během discovery fáze. Stačí obecná představa o tom, co chcete dosáhnout.",
-      answerEN: "No. We'll help you define requirements during the discovery phase. A general idea of what you want to achieve is enough.",
-    },
-    {
-      questionCS: "Jaké jsou platební podmínky?",
-      questionEN: "What are the payment terms?",
-      answerCS: "50% při podpisu smlouvy, 50% při spuštění. U větších projektů nabízíme milníkové platby. Akceptujeme bankovní převod i krypto.",
-      answerEN: "50% upon contract signing, 50% at launch. For larger projects, we offer milestone payments. We accept bank transfer and crypto.",
-    },
-  ];
+  const faqs = contentFaqs;
 
   return (
     <motion.section 

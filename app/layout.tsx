@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Space_Grotesk } from "next/font/google";
 import "./globals.css";
 import ClientLayout from "@/components/ClientLayout";
+import PageTracker from "@/components/PageTracker";
 import { generateSEO, jsonLdWebsite } from "@/lib/seo";
 
 const inter = Inter({ 
@@ -52,6 +53,7 @@ export default function RootLayout({
         />
       </head>
       <body>
+        <PageTracker />
         <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
