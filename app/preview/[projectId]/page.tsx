@@ -210,12 +210,24 @@ export default function ProjectPreview() {
 
   // Načti správný template podle projektu
   const renderProject = () => {
+    if (project.iframeUrl) {
+      return (
+        <iframe
+          src={project.iframeUrl}
+          className="w-full border-0"
+          style={{ height: 'calc(100vh - 60px)' }}
+          allow="fullscreen"
+          title={project.name}
+        />
+      );
+    }
+
     return (
       <div className="min-h-screen flex items-center justify-center bg-slate-900">
         <div className="text-center text-white">
           <h2 className="text-2xl font-bold mb-4">Template není dostupný</h2>
           <p className="text-gray-400">
-            Pro tento projekt není ještě vytvořen template.
+            Pro tento projekt není ještě nastavená URL.
           </p>
         </div>
       </div>
