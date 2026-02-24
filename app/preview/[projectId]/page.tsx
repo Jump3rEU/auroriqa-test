@@ -5,7 +5,7 @@ import { getProject } from '@/lib/projects';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { Eye, Lock } from 'lucide-react';
+import { Eye, Lock, ShieldCheck, ShieldAlert, ExternalLink, ChevronLeft } from 'lucide-react';
 
 export default function ProjectPreview() {
   const params = useParams();
@@ -17,12 +17,16 @@ export default function ProjectPreview() {
   const project = getProject(projectId);
 
   useEffect(() => {
-    if (!project) {
+    if (!project) return;
+
+    if (!project.password) {
+      setIsAuthorized(true);
       return;
     }
-    
-    // Pokud projekt nemá heslo, rovnou autorizuj
-    if (!project.password) {
+
+    // Zkontroluj localStorage
+    const saved = localStorage.getItem(`preview_auth_${project.id}`);
+    if (saved === project.password) {
       setIsAuthorized(true);
     }
   }, [project]);
@@ -87,6 +91,7 @@ export default function ProjectPreview() {
     const handleSubmit = (e: React.FormEvent) => {
       e.preventDefault();
       if (password === project.password) {
+        localStorage.setItem(`preview_auth_${project.id}`, password);
         setIsAuthorized(true);
         setError('');
       } else {
@@ -184,26 +189,64 @@ export default function ProjectPreview() {
 
   // Hlavička s informacemi o projektu
   const PreviewHeader = () => (
-    <div className="fixed top-0 left-0 right-0 z-50 bg-black/80 backdrop-blur-xl border-b border-purple-500/30 shadow-lg shadow-purple-500/10">
-      <div className="container mx-auto px-4 py-4 flex items-center justify-between">
-        <div className="flex items-center gap-4">
-          <Link 
+    <div className="fixed top-0 left-0 right-0 z-50 bg-black/70 backdrop-blur-2xl border-b border-white/10 shadow-[0_1px_30px_rgba(139,92,246,0.15)]">
+      <div className="px-4 py-0 flex items-center justify-between h-14 max-w-[100vw]">
+        {/* Left – back + project name */}
+        <div className="flex items-center gap-3 min-w-0">
+          <Link
             href="/preview"
-            className="flex items-center gap-2 text-white hover:text-purple-400 transition-all group"
+            className="flex items-center gap-1.5 text-gray-400 hover:text-white transition-colors group shrink-0"
           >
-            <span className="group-hover:-translate-x-1 transition-transform">←</span>
-            <span className="font-semibold">Zpět</span>
+            <ChevronLeft className="w-4 h-4 group-hover:-translate-x-0.5 transition-transform" />
+            <span className="text-sm font-medium hidden sm:inline">Projekty</span>
           </Link>
-          <div className="border-l border-purple-500/30 pl-4">
-            <span className="text-xs text-purple-400 uppercase tracking-wider">Preview</span>
-            <span className="text-white font-bold ml-2 text-lg">{project.name}</span>
+          <div className="w-px h-5 bg-white/10 shrink-0" />
+          <div className="flex items-center gap-2 min-w-0">
+            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse shrink-0" />
+            <span className="text-white font-bold text-sm truncate">{project.name}</span>
+            <span className="hidden sm:inline text-xs text-purple-400 bg-purple-500/10 border border-purple-500/20 px-2 py-0.5 rounded-full font-medium shrink-0">
+              Preview
+            </span>
           </div>
         </div>
-        <div className="flex items-center gap-3">
-          <span className="text-xs bg-gradient-to-r from-purple-600 to-blue-600 text-white px-4 py-2 rounded-full font-semibold">
-            {project.template}
-          </span>
-        </div>
+
+        {/* Right – action buttons */}
+        {project.iframeUrl && (
+          <div className="flex items-center gap-2 shrink-0">
+            {/* Admin */}
+            <a
+              href={`${project.iframeUrl.replace(/\/$/, '')}/admin`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/30 hover:border-indigo-400/60 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            >
+              <ShieldCheck className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Admin</span>
+            </a>
+
+            {/* Superadmin */}
+            <a
+              href={`${project.iframeUrl.replace(/\/$/, '')}/admin/superadmin`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 hover:border-purple-400/60 text-purple-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            >
+              <ShieldAlert className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Superadmin</span>
+            </a>
+
+            {/* Original web */}
+            <a
+              href={project.iframeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="group flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Otevřít web</span>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
@@ -215,7 +258,7 @@ export default function ProjectPreview() {
         <iframe
           src={project.iframeUrl}
           className="w-full border-0"
-          style={{ height: 'calc(100vh - 60px)' }}
+          style={{ height: 'calc(100vh - 56px)' }}
           allow="fullscreen"
           title={project.name}
         />
@@ -237,7 +280,7 @@ export default function ProjectPreview() {
   return (
     <>
       <PreviewHeader />
-      <div className="pt-[60px]">
+      <div className="pt-14">
         {renderProject()}
       </div>
     </>
