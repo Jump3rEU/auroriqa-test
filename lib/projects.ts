@@ -20,7 +20,7 @@ export const projects: Record<string, ProjectConfig> = {
     password: 'umon2026',
     createdAt: '2026-02-12',
     template: 'custom',
-    iframeUrl: '' // Doplnit po deploy Endoria na Vercel
+    iframeUrl: 'https://endoria.vercel.app/' // Doplnit po deploy Endoria na Vercel
   },
   // Přidej sem další projekty
 };
