@@ -13,6 +13,7 @@ export default function ProjectPreview() {
   const [isAuthorized, setIsAuthorized] = useState(false);
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
+  const [currentIframeUrl, setCurrentIframeUrl] = useState<string | null>(null);
 
   const project = getProject(projectId);
 
@@ -30,6 +31,12 @@ export default function ProjectPreview() {
       setIsAuthorized(true);
     }
   }, [project]);
+
+  useEffect(() => {
+    if (isAuthorized && project?.iframeUrl) {
+      setCurrentIframeUrl(project.iframeUrl);
+    }
+  }, [isAuthorized, project]);
 
   if (!project) {
     return (
@@ -213,38 +220,44 @@ export default function ProjectPreview() {
         {/* Right – action buttons */}
         {project.iframeUrl && (
           <div className="flex items-center gap-2 shrink-0">
+            {/* Zpět na web */}
+            <button
+              onClick={() => setCurrentIframeUrl(project.iframeUrl!)}
+              className={`group flex items-center gap-1.5 border px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                currentIframeUrl === project.iframeUrl
+                  ? 'bg-white/15 border-white/30 text-white'
+                  : 'bg-white/5 hover:bg-white/10 border-white/10 hover:border-white/25 text-gray-300 hover:text-white'
+              }`}
+            >
+              <ExternalLink className="w-3.5 h-3.5" />
+              <span className="hidden sm:inline">Web</span>
+            </button>
+
             {/* Admin */}
-            <a
-              href={`${project.iframeUrl.replace(/\/$/, '')}/admin`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 bg-indigo-600/20 hover:bg-indigo-600/40 border border-indigo-500/30 hover:border-indigo-400/60 text-indigo-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            <button
+              onClick={() => setCurrentIframeUrl(`${project.iframeUrl!.replace(/\/$/, '')}/admin`)}
+              className={`group flex items-center gap-1.5 border px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                currentIframeUrl?.endsWith('/admin') && !currentIframeUrl?.endsWith('/superadmin')
+                  ? 'bg-indigo-600/50 border-indigo-400/60 text-white'
+                  : 'bg-indigo-600/20 hover:bg-indigo-600/40 border-indigo-500/30 hover:border-indigo-400/60 text-indigo-300 hover:text-white'
+              }`}
             >
               <ShieldCheck className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Admin</span>
-            </a>
+            </button>
 
             {/* Superadmin */}
-            <a
-              href={`${project.iframeUrl.replace(/\/$/, '')}/admin/superadmin`}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 bg-purple-600/20 hover:bg-purple-600/40 border border-purple-500/30 hover:border-purple-400/60 text-purple-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
+            <button
+              onClick={() => setCurrentIframeUrl(`${project.iframeUrl!.replace(/\/$/, '')}/admin/superadmin`)}
+              className={`group flex items-center gap-1.5 border px-3 py-1.5 rounded-lg text-xs font-semibold transition-all ${
+                currentIframeUrl?.endsWith('/superadmin')
+                  ? 'bg-purple-600/50 border-purple-400/60 text-white'
+                  : 'bg-purple-600/20 hover:bg-purple-600/40 border-purple-500/30 hover:border-purple-400/60 text-purple-300 hover:text-white'
+              }`}
             >
               <ShieldAlert className="w-3.5 h-3.5" />
               <span className="hidden sm:inline">Superadmin</span>
-            </a>
-
-            {/* Original web */}
-            <a
-              href={project.iframeUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex items-center gap-1.5 bg-white/5 hover:bg-white/10 border border-white/10 hover:border-white/25 text-gray-300 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition-all"
-            >
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Otevřít web</span>
-            </a>
+            </button>
           </div>
         )}
       </div>
@@ -253,10 +266,10 @@ export default function ProjectPreview() {
 
   // Načti správný template podle projektu
   const renderProject = () => {
-    if (project.iframeUrl) {
+    if (currentIframeUrl) {
       return (
         <iframe
-          src={project.iframeUrl}
+          src={currentIframeUrl}
           className="w-full border-0"
           style={{ height: 'calc(100vh - 56px)' }}
           allow="fullscreen"
