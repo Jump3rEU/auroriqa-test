@@ -27,8 +27,8 @@ export function generateSEO({
     'Praha',
     'Česká republika'
   ],
-  canonical = 'https://auroriqa.com',
-  ogImage = 'https://auroriqa.com/og-image.jpg',
+  canonical = 'https://auroriqa.cz',
+  ogImage = 'https://auroriqa.cz/opengraph-image',
   noindex = false,
 }: SEOProps = {}): Metadata {
   return {
@@ -41,10 +41,6 @@ export function generateSEO({
     robots: noindex ? 'noindex, nofollow' : 'index, follow',
     alternates: {
       canonical,
-      languages: {
-        'cs-CZ': canonical,
-        'en-US': `${canonical}/en`,
-      },
     },
     openGraph: {
       type: 'website',
@@ -69,10 +65,8 @@ export function generateSEO({
       images: [ogImage],
       creator: '@auroriqa',
     },
-    verification: {
-      google: 'your-google-verification-code',
-      yandex: 'your-yandex-verification-code',
-    },
+    verification: {},
+
     category: 'technology',
   }
 }
@@ -82,29 +76,17 @@ export const jsonLdWebsite = {
   '@type': 'Organization',
   name: 'Auroriqa',
   description: 'Prémiová digitální agentura specializující se na tvorbu moderních webových stránek a aplikací',
-  url: 'https://auroriqa.com',
-  logo: 'https://auroriqa.com/logo.png',
+  url: 'https://auroriqa.cz',
+  logo: 'https://auroriqa.cz/icon.svg',
   contactPoint: {
     '@type': 'ContactPoint',
-    telephone: '+420-XXX-XXX-XXX',
     contactType: 'customer service',
     email: 'hello@auroriqa.cz',
     availableLanguage: ['cs', 'en'],
   },
-  sameAs: [
-    'https://www.linkedin.com/company/auroriqa',
-    'https://twitter.com/auroriqa',
-    'https://github.com/auroriqa',
-  ],
   address: {
     '@type': 'PostalAddress',
     addressCountry: 'CZ',
-    addressLocality: 'Praha',
-  },
-  aggregateRating: {
-    '@type': 'AggregateRating',
-    ratingValue: '5',
-    reviewCount: '42',
   },
 }
 
@@ -113,12 +95,12 @@ export const jsonLdWebPage = (title: string, description: string) => ({
   '@type': 'WebPage',
   name: title,
   description,
-  url: 'https://auroriqa.com',
+  url: 'https://auroriqa.cz',
   inLanguage: 'cs-CZ',
   isPartOf: {
     '@type': 'WebSite',
     name: 'Auroriqa',
-    url: 'https://auroriqa.com',
+    url: 'https://auroriqa.cz',
   },
 })
 
@@ -172,14 +154,14 @@ export const jsonLdBlogPage = {
   '@type': 'Blog',
   name: 'Auroriqa Blog',
   description: 'Blog o webovém vývoji, designu a digitálním marketingu',
-  url: 'https://auroriqa.com/blog',
-  inLanguage: ['cs-CZ', 'en-US'],
+  url: 'https://auroriqa.cz/blog',
+  inLanguage: 'cs-CZ',
   publisher: {
     '@type': 'Organization',
     name: 'Auroriqa',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://auroriqa.com/logo.png',
+      url: 'https://auroriqa.cz/icon.svg',
     },
   },
 }
@@ -197,7 +179,7 @@ export const jsonLdBlogPost = (
   '@type': 'BlogPosting',
   headline: title,
   description,
-  image: `https://auroriqa.com/blog/${slug}/og-image.jpg`,
+  image: `https://auroriqa.cz/opengraph-image`,
   datePublished,
   dateModified,
   author: {
@@ -210,12 +192,12 @@ export const jsonLdBlogPost = (
     name: 'Auroriqa',
     logo: {
       '@type': 'ImageObject',
-      url: 'https://auroriqa.com/logo.png',
+      url: 'https://auroriqa.cz/icon.svg',
     },
   },
   mainEntityOfPage: {
     '@type': 'WebPage',
-    '@id': `https://auroriqa.com/blog/${slug}`,
+    '@id': `https://auroriqa.cz/blog/${slug}`,
   },
   keywords: keywords.join(', '),
   inLanguage: 'cs-CZ',

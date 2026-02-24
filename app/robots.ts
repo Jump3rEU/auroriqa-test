@@ -14,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
         disallow: ['/api/', '/admin/'],
       },
     ],
-    sitemap: 'https://auroriqa.com/sitemap.xml',
+    sitemap: 'https://auroriqa.cz/sitemap.xml',
   }
 }
