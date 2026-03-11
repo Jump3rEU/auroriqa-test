@@ -34,9 +34,17 @@ export default function ContactPopup() {
   }, [isOpen, prefillService]);
 
   useEffect(() => {
-    if (isOpen) document.body.style.overflow = "hidden";
-    else document.body.style.overflow = "";
-    return () => { document.body.style.overflow = ""; };
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      document.body.style.paddingRight = "0px"; // prevent layout shift
+    } else {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+      document.body.style.paddingRight = "";
+    };
   }, [isOpen]);
 
   useEffect(() => {
@@ -99,7 +107,7 @@ export default function ContactPopup() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ type: "spring", duration: 0.35, bounce: 0.1 }}
-            className="fixed inset-0 z-[91] flex items-center justify-center p-4"
+            className="fixed inset-0 z-[91] flex items-center justify-center p-4 overflow-hidden"
             onClick={closePopup}
           >
             {/* Scrollable inner shell — stop propagation so clicks inside don't close */}
