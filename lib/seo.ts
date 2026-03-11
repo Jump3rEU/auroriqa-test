@@ -32,6 +32,7 @@ export function generateSEO({
   noindex = false,
 }: SEOProps = {}): Metadata {
   return {
+    metadataBase: new URL('https://auroriqa.cz'),
     title,
     description,
     keywords: keywords.join(', '),

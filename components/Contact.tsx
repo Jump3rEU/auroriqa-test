@@ -4,10 +4,12 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
 import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContactPopup } from "@/contexts/ContactPopupContext";
 import Button from "@/components/Button";
 
 export default function Contact() {
   const { t } = useLanguage();
+  const { openPopup } = useContactPopup();
   const containerRef = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -140,15 +142,15 @@ export default function Contact() {
             className="space-y-8"
           >
             <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center px-4">
-              <Button
-                variant="primary"
-                size="xl"
-                href="mailto:hello@auroriqa.cz"
-                showArrow
-                fullWidth
+              <motion.button
+                onClick={() => openPopup()}
+                whileHover={{ scale: 1.03, y: -2 }}
+                whileTap={{ scale: 0.97 }}
+                className="btn-modern flex items-center justify-center gap-3 px-8 py-4 text-lg font-bold text-white w-full sm:w-auto"
               >
                 {t('Začít projekt', 'Start project')}
-              </Button>
+                <ArrowRight className="w-5 h-5" />
+              </motion.button>
               
               <Button
                 variant="secondary"

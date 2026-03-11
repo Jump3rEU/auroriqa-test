@@ -53,15 +53,20 @@ const nextConfig = {
     ];
   },
 
-  // Redirects (if needed)
+  // Redirects
   async redirects() {
     return [
-      // Example: Redirect old URLs
-      // {
-      //   source: '/old-page',
-      //   destination: '/new-page',
-      //   permanent: true,
-      // },
+      // Trailing slash normalization (prevents duplicate content)
+      {
+        source: '/blog/',
+        destination: '/blog',
+        permanent: true,
+      },
+      {
+        source: '/blog/:slug/',
+        destination: '/blog/:slug',
+        permanent: true,
+      },
     ];
   },
 };

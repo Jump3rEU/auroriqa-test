@@ -29,6 +29,11 @@ import {
   ArrowUpRight,
   Layers,
   RefreshCw,
+  MessageSquare,
+  Mail,
+  Phone,
+  Trash2,
+  MailOpen,
 } from "lucide-react";
 import { projects, ProjectConfig } from "@/lib/projects";
 
@@ -209,7 +214,7 @@ function LoginScreen({ onLogin }: { onLogin: () => void }) {
 
 // ─── Main Dashboard ──────────────────────────────────────────────────────────
 function Dashboard({ onLogout }: { onLogout: () => void }) {
-  const [activeTab, setActiveTab] = useState<"overview" | "clients" | "analytics" | "cms" | "content" | "settings">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "clients" | "analytics" | "messages" | "cms" | "content" | "settings">("overview");
   const allProjects = Object.values(projects);
   const activeProjects = allProjects.filter((p) => p.active);
 
@@ -217,6 +222,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
     { id: "overview", label: "Přehled", icon: LayoutDashboard },
     { id: "clients", label: "Klienti", icon: Users },
     { id: "analytics", label: "Analytics", icon: BarChart3 },
+    { id: "messages", label: "Zprávy", icon: MessageSquare },
     { id: "cms", label: "Obsah webu", icon: FileText },
     { id: "content", label: "Obsah", icon: FileText },
     { id: "settings", label: "Nastavení", icon: Settings },
@@ -322,6 +328,7 @@ function Dashboard({ onLogout }: { onLogout: () => void }) {
             <ClientsTab key="clients" projects={allProjects} />
           )}
           {activeTab === "analytics" && <AnalyticsTab key="analytics" />}
+          {activeTab === "messages" && <MessagesTab key="messages" />}
           {activeTab === "cms" && <CmsTab key="cms" />}
           {activeTab === "content" && <ContentTab key="content" />}
           {activeTab === "settings" && <SettingsTab key="settings" />}
@@ -729,6 +736,206 @@ function AnalyticsTab() {
           <div className="p-2 rounded-lg bg-white/[0.03]">POST /api/analytics → track</div>
           <div className="p-2 rounded-lg bg-white/[0.03]">Data: Vercel KV / Edge Config</div>
         </div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Messages Tab ─────────────────────────────────────────────────────────────
+interface Submission {
+  id: string;
+  name: string;
+  email: string;
+  phone: string;
+  projectType: string;
+  message: string;
+  createdAt: string;
+  read: boolean;
+}
+
+const PROJECT_TYPE_LABELS: Record<string, string> = {
+  web: "Webové stránky",
+  webapp: "Webová aplikace",
+  mobile: "Mobilní aplikace",
+  ecommerce: "E-commerce",
+  seo: "SEO optimalizace",
+  redesign: "Redesign",
+  other: "Jiné / Konzultace",
+};
+
+function MessagesTab() {
+  const [submissions, setSubmissions] = useState<Submission[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [selected, setSelected] = useState<Submission | null>(null);
+
+  const load = () => {
+    setLoading(true);
+    fetch("/api/contact")
+      .then((r) => r.json())
+      .then((d) => { setSubmissions(d.submissions ?? []); })
+      .catch(() => {})
+      .finally(() => setLoading(false));
+  };
+
+  useEffect(() => { load(); }, []);
+
+  const markRead = async (id: string) => {
+    await fetch("/api/contact", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    setSubmissions((s) => s.map((x) => x.id === id ? { ...x, read: true } : x));
+    if (selected?.id === id) setSelected((s) => s ? { ...s, read: true } : s);
+  };
+
+  const remove = async (id: string) => {
+    await fetch("/api/contact", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
+    setSubmissions((s) => s.filter((x) => x.id !== id));
+    if (selected?.id === id) setSelected(null);
+  };
+
+  const unread = submissions.filter((s) => !s.read).length;
+
+  return (
+    <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="space-y-6">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-2xl font-bold text-white mb-1 flex items-center gap-3">
+            Zprávy
+            {unread > 0 && (
+              <span className="px-2.5 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-500/30 text-emerald-400 text-sm font-semibold">
+                {unread} nové
+              </span>
+            )}
+          </h2>
+          <p className="text-white/40 text-sm">Poptávky z kontaktního formuláře</p>
+        </div>
+        <button onClick={load} className="flex items-center gap-1.5 px-3 py-2 rounded-xl bg-white/[0.05] hover:bg-white/[0.08] text-white/50 text-xs transition-colors">
+          <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin" : ""}`} />
+          Obnovit
+        </button>
+      </div>
+
+      {loading ? (
+        <div className="flex items-center gap-3 p-8 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-white/30 text-sm">
+          <RefreshCw className="w-4 h-4 animate-spin" /> Načítám zprávy...
+        </div>
+      ) : submissions.length === 0 ? (
+        <div className="p-12 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-center">
+          <MessageSquare className="w-10 h-10 text-white/15 mx-auto mb-3" />
+          <p className="text-white/30 text-sm">Zatím žádné zprávy.</p>
+          <p className="text-white/15 text-xs mt-1">Zprávy z kontaktního formuláře se zobrazí zde.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 lg:grid-cols-5 gap-4">
+          {/* List */}
+          <div className="lg:col-span-2 space-y-2">
+            {submissions.map((s, i) => (
+              <motion.button
+                key={s.id}
+                initial={{ opacity: 0, x: -10 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: i * 0.04 }}
+                onClick={() => { setSelected(s); if (!s.read) markRead(s.id); }}
+                className={`w-full text-left p-4 rounded-xl border transition-all duration-200 ${
+                  selected?.id === s.id
+                    ? "bg-emerald-500/10 border-emerald-500/30"
+                    : s.read
+                    ? "bg-white/[0.02] border-white/[0.06] hover:border-white/20"
+                    : "bg-white/[0.04] border-emerald-500/20 hover:border-emerald-500/40"
+                }`}
+              >
+                <div className="flex items-start justify-between gap-2">
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center gap-2">
+                      {!s.read && <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 flex-shrink-0" />}
+                      <p className={`font-semibold text-sm truncate ${s.read ? "text-white/70" : "text-white"}`}>{s.name}</p>
+                    </div>
+                    <p className="text-xs text-white/35 truncate mt-0.5">{s.email}</p>
+                    {s.projectType && (
+                      <span className="inline-block mt-1.5 text-xs px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/20">
+                        {PROJECT_TYPE_LABELS[s.projectType] ?? s.projectType}
+                      </span>
+                    )}
+                  </div>
+                  <span className="text-xs text-white/25 flex-shrink-0 mt-0.5">
+                    {new Date(s.createdAt).toLocaleDateString("cs-CZ")}
+                  </span>
+                </div>
+                <p className="text-xs text-white/35 mt-2 line-clamp-2">{s.message}</p>
+              </motion.button>
+            ))}
+          </div>
+
+          {/* Detail */}
+          <div className="lg:col-span-3">
+            {selected ? (
+              <motion.div
+                key={selected.id}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="p-6 rounded-2xl bg-white/[0.03] border border-white/[0.07] space-y-5"
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div>
+                    <h3 className="text-lg font-bold text-white">{selected.name}</h3>
+                    {selected.projectType && (
+                      <span className="inline-block mt-1 text-xs px-2 py-0.5 rounded-full bg-violet-500/15 text-violet-400 border border-violet-500/20">
+                        {PROJECT_TYPE_LABELS[selected.projectType] ?? selected.projectType}
+                      </span>
+                    )}
+                  </div>
+                  <div className="flex gap-2">
+                    {!selected.read && (
+                      <button onClick={() => markRead(selected.id)} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-emerald-500/15 text-emerald-400 text-xs hover:bg-emerald-500/25 transition-colors">
+                        <MailOpen className="w-3.5 h-3.5" /> Přečteno
+                      </button>
+                    )}
+                    <button onClick={() => remove(selected.id)} className="flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-red-500/10 text-red-400 text-xs hover:bg-red-500/20 transition-colors">
+                      <Trash2 className="w-3.5 h-3.5" /> Smazat
+                    </button>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-3">
+                  <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                    <div className="flex items-center gap-2 text-xs text-white/40 mb-1"><Mail className="w-3 h-3" /> Email</div>
+                    <div className="flex items-center gap-2">
+                      <span className="text-sm text-white font-medium break-all">{selected.email}</span>
+                      <CopyButton text={selected.email} />
+                    </div>
+                  </div>
+                  {selected.phone && (
+                    <div className="p-3 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                      <div className="flex items-center gap-2 text-xs text-white/40 mb-1"><Phone className="w-3 h-3" /> Telefon</div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-sm text-white font-medium">{selected.phone}</span>
+                        <CopyButton text={selected.phone} />
+                      </div>
+                    </div>
+                  )}
+                </div>
+
+                <div className="p-4 rounded-xl bg-white/[0.03] border border-white/[0.06]">
+                  <p className="text-xs text-white/40 mb-2 flex items-center gap-1.5"><MessageSquare className="w-3 h-3" /> Zpráva</p>
+                  <p className="text-sm text-white/80 leading-relaxed whitespace-pre-wrap">{selected.message}</p>
+                </div>
+
+                <div className="flex items-center justify-between text-xs text-white/25">
+                  <span>Přijato: {new Date(selected.createdAt).toLocaleString("cs-CZ")}</span>
+                  <a href={`mailto:${selected.email}?subject=Re: Poptávka přes auroriqa.cz`} className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-violet-500/15 text-violet-400 hover:bg-violet-500/25 transition-colors">
+                    <Mail className="w-3.5 h-3.5" /> Odpovědět emailem
+                  </a>
+                </div>
+              </motion.div>
+            ) : (
+              <div className="h-full min-h-48 flex items-center justify-center p-8 rounded-2xl bg-white/[0.02] border border-white/[0.05] text-white/20 text-sm">
+                Vyberte zprávu pro zobrazení detailu
+              </div>
+            )}
+          </div>
+        </div>
+      )}
+
+      <div className="p-4 rounded-xl bg-amber-500/[0.06] border border-amber-500/20 text-xs text-amber-400/70">
+        Zprávy jsou uloženy v paměti serveru. Pro trvalé uložení doporučujeme přidat databázi (Vercel KV, Supabase).
       </div>
     </motion.div>
   );

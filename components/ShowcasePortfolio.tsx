@@ -85,6 +85,30 @@ const projects: Project[] = [
   },
   {
     id: 3,
+    titleCS: "Endoria.eu",
+    categoryCS: "Minecraft Server Web",
+    descriptionCS: "Moderní platforma pro největší český Minecraft server",
+    fullDescCS: "Kompletní redesign a vývoj webu pro Endoria — jeden z největších českých Minecraft serverů. Real-time server status, live statistiky hráčů (500+ online), Discord integrace, správa pravidel a novinek a optimalizovaný CMS systém.",
+    status: "live",
+    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
+    gradient: "from-emerald-500 via-teal-500 to-cyan-500",
+    glowColor: "rgba(16, 185, 129, 0.5)",
+    link: "https://endoria.eu",
+    emoji: "⚡",
+    stats: [
+      { icon: Users, labelCS: "Online hráčů", labelEN: "Online players", value: "500+" },
+      { icon: TrendingUp, labelCS: "Uptime", labelEN: "Uptime", value: "99.9%" },
+      { icon: Star, labelCS: "Verze", labelEN: "Version", value: "1.21" },
+      { icon: Globe, labelCS: "Komunita", labelEN: "Community", value: "CZ/SK" }
+    ],
+    highlights: [
+      { titleCS: "Real-time status", titleEN: "Real-time status", descCS: "Live počet hráčů a ping serveru", descEN: "Live player count and server ping" },
+      { titleCS: "Discord integrace", titleEN: "Discord integration", descCS: "Přímé propojení s komunitou", descEN: "Direct community connection" },
+      { titleCS: "CMS systém", titleEN: "CMS system", descCS: "Správa novinek a pravidel", descEN: "News and rules management" }
+    ]
+  },
+  {
+    id: 4,
     titleCS: "Portfolio Studio",
     categoryCS: "Creative Web",
     descriptionCS: "Interaktivní portfolia pro kreativce",

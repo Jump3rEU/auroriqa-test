@@ -2,11 +2,13 @@
 
 import { motion } from "framer-motion";
 import { useLanguage } from "@/contexts/LanguageContext";
+import { useContactPopup } from "@/contexts/ContactPopupContext";
 // import { useState } from "react";
 // import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
+  const { openPopup } = useContactPopup();
   // const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
@@ -180,14 +182,14 @@ export default function Navigation() {
             </div>
 
             {/* Connect Button */}
-            <motion.a
-              href="#contact"
+            <motion.button
+              onClick={() => openPopup()}
               whileHover={{ scale: 1.03, y: -1 }}
               whileTap={{ scale: 0.97 }}
               className="btn-modern px-6 py-2.5 font-semibold text-white"
             >
               {t('Kontakt', 'Contact')}
-            </motion.a>
+            </motion.button>
           </div>
 
         </div>

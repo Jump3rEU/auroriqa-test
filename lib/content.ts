@@ -172,14 +172,27 @@ export const faqs = [
 export const portfolioProjects = [
   {
     id: "endoria",
-    title: "Endoria",
+    title: "Endoria.eu",
     category: "web" as const,
-    tech: ["Next.js", "TypeScript", "Tailwind", "Framer Motion"],
-    descriptionCS: "Moderní herní platforma s admin systémem, aplikacemi a real-time daty.",
-    descriptionEN: "Modern gaming platform with admin system, applications and real-time data.",
-    url: "",
+    tech: ["Next.js 15", "TypeScript", "Tailwind CSS", "Framer Motion", "Vercel"],
+    descriptionCS: "Moderní webová platforma pro největší český Minecraft server s 500+ online hráči a živou komunitou.",
+    descriptionEN: "Modern web platform for the largest Czech Minecraft server with 500+ online players and a live community.",
+    longDescCS: "Kompletní návrh a vývoj webu pro Endoria — jeden z největších českých Minecraft serverů. Real-time status serveru, live statistiky online hráčů, Discord integrace, správa pravidel a novinek, responzivní design optimalizovaný pro komunitu.",
+    longDescEN: "Complete design and development of the website for Endoria — one of the largest Czech Minecraft servers. Real-time server status, live player count, Discord integration, rules & news management, responsive design optimized for the community.",
+    url: "https://endoria.eu",
     featured: true,
-    color: "from-emerald-500 to-teal-500",
+    color: "from-emerald-500 to-teal-600",
+    stats: {
+      players: "500+",
+      uptime: "99.9%",
+      community: "CZ/SK",
+    },
+    highlights: [
+      "Live server status & player count",
+      "Discord komunitní integrace",
+      "CMS pro novinky a pravidla",
+      "Full-stack Next.js 15 architektura",
+    ],
   },
   // Přidej další projekty sem ↓
 ];
