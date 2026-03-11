@@ -95,16 +95,16 @@ export default function ContactPopup() {
           {/* Panel wrapper — items-end on mobile (bottom sheet), items-center on desktop */}
           <motion.div
             key="panel"
-            initial={{ opacity: 0, y: 60 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 40 }}
-            transition={{ type: "spring", duration: 0.45, bounce: 0.1 }}
-            className="fixed inset-0 z-[91] flex items-end sm:items-center justify-center"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ type: "spring", duration: 0.35, bounce: 0.1 }}
+            className="fixed inset-0 z-[91] flex items-center justify-center p-4"
             onClick={closePopup}
           >
             {/* Scrollable inner shell — stop propagation so clicks inside don't close */}
             <div
-              className="w-full sm:max-w-md bg-[#0d0d1f] border border-white/[0.09] rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto"
+              className="w-full max-w-md bg-[#0d0d1f] border border-white/[0.09] rounded-3xl max-h-[90vh] overflow-y-auto"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Aurora glows — clipped to box */}
@@ -114,9 +114,6 @@ export default function ContactPopup() {
               </div>
 
               <div className="relative px-6 pt-6 pb-8 sm:px-7 sm:pt-7">
-                {/* Drag handle on mobile */}
-                <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-5 sm:hidden" />
-
                 {/* Header */}
                 <div className="flex items-start justify-between mb-5">
                   <div>
