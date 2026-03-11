@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html, body {
+    overflow-x: hidden;
+  }
+
   body {
     @apply bg-dark text-white;
     font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, sans-serif;
