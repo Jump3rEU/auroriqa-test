@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
 
-// ─── In-memory store (persists within a warm serverless instance) ─────────────
+// ─── Types ────────────────────────────────────────────────────────────────────
 export interface ContactSubmission {
   id: string;
   name: string;
@@ -12,8 +13,28 @@ export interface ContactSubmission {
   read: boolean;
 }
 
-// Module-level array — persists per warm instance
-let submissions: ContactSubmission[] = [];
+const REDIS_KEY = "auroriqa:contact:submissions";
+
+// Lazy init — falls back gracefully if env vars not set (local dev)
+function getRedis(): Redis | null {
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
+    return null;
+  }
+  return new Redis({
+    url: process.env.UPSTASH_REDIS_REST_URL,
+    token: process.env.UPSTASH_REDIS_REST_TOKEN,
+  });
+}
+
+async function readAll(redis: Redis): Promise<ContactSubmission[]> {
+  const raw = await redis.get<ContactSubmission[]>(REDIS_KEY);
+  return Array.isArray(raw) ? raw : [];
+}
+
+async function saveAll(redis: Redis, submissions: ContactSubmission[]): Promise<void> {
+  // Keep at most 500, newest first
+  await redis.set(REDIS_KEY, submissions.slice(0, 500));
+}
 
 // ─── POST /api/contact — add new submission ──────────────────────────────────
 export async function POST(req: NextRequest) {
@@ -43,10 +64,12 @@ export async function POST(req: NextRequest) {
       read: false,
     };
 
-    submissions.unshift(submission); // newest first
-
-    // Keep only last 200 submissions in memory
-    if (submissions.length > 200) submissions = submissions.slice(0, 200);
+    const redis = getRedis();
+    if (redis) {
+      const all = await readAll(redis);
+      all.unshift(submission);
+      await saveAll(redis, all);
+    }
 
     return NextResponse.json({ ok: true, id: submission.id });
   } catch {
@@ -56,6 +79,9 @@ export async function POST(req: NextRequest) {
 
 // ─── GET /api/contact — list submissions (admin use) ────────────────────────
 export async function GET() {
+  const redis = getRedis();
+  if (!redis) return NextResponse.json({ submissions: [], total: 0, warning: "Redis not configured" });
+  const submissions = await readAll(redis);
   return NextResponse.json({ submissions, total: submissions.length });
 }
 
@@ -63,8 +89,15 @@ export async function GET() {
 export async function PATCH(req: NextRequest) {
   try {
     const { id } = await req.json();
-    const entry = submissions.find((s) => s.id === id);
-    if (entry) entry.read = true;
+    const redis = getRedis();
+    if (redis) {
+      const all = await readAll(redis);
+      const entry = all.find((s) => s.id === id);
+      if (entry) {
+        entry.read = true;
+        await saveAll(redis, all);
+      }
+    }
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Chyba" }, { status: 500 });
@@ -75,7 +108,11 @@ export async function PATCH(req: NextRequest) {
 export async function DELETE(req: NextRequest) {
   try {
     const { id } = await req.json();
-    submissions = submissions.filter((s) => s.id !== id);
+    const redis = getRedis();
+    if (redis) {
+      const all = await readAll(redis);
+      await saveAll(redis, all.filter((s) => s.id !== id));
+    }
     return NextResponse.json({ ok: true });
   } catch {
     return NextResponse.json({ error: "Chyba" }, { status: 500 });
