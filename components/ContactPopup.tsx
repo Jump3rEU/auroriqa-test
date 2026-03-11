@@ -92,17 +92,21 @@ export default function ContactPopup() {
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[90]"
           />
 
-          {/* Panel — slides up from bottom on mobile, centered on desktop */}
+          {/* Panel wrapper — items-end on mobile (bottom sheet), items-center on desktop */}
           <motion.div
             key="panel"
-            initial={{ opacity: 0, y: 50 }}
+            initial={{ opacity: 0, y: 60 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: 30 }}
+            exit={{ opacity: 0, y: 40 }}
             transition={{ type: "spring", duration: 0.45, bounce: 0.1 }}
-            className="fixed inset-x-0 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-md z-[91] rounded-t-3xl sm:rounded-3xl"
+            className="fixed inset-0 z-[91] flex items-end sm:items-center justify-center"
+            onClick={closePopup}
           >
-            {/* Scrollable inner shell */}
-            <div className="bg-[#0d0d1f] border border-white/[0.09] rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+            {/* Scrollable inner shell — stop propagation so clicks inside don't close */}
+            <div
+              className="w-full sm:max-w-md bg-[#0d0d1f] border border-white/[0.09] rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto"
+              onClick={(e) => e.stopPropagation()}
+            >
               {/* Aurora glows — clipped to box */}
               <div className="sticky top-0 pointer-events-none h-0 overflow-visible z-10">
                 <div className="absolute -top-24 -left-24 w-56 h-56 rounded-full blur-[70px] bg-emerald-500/20" />
