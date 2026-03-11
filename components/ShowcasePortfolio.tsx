@@ -204,7 +204,7 @@ export default function ShowcasePortfolio() {
         </motion.div>
       </AnimatePresence>
 
-      <div className="container mx-auto px-6 relative z-10">
+      <div className="container mx-auto px-6 xl:px-28 relative z-10">
         {/* Header with Navigation */}
         <motion.div
           initial={{ opacity: 0, y: -20 }}

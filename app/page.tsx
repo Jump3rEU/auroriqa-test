@@ -55,7 +55,7 @@ export default function Home() {
     <>
       <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
       {!isLoading && (
-        <main className="relative overflow-hidden">
+        <main className="relative overflow-x-clip">
           {/* Aurora Effects Layer */}
           <AuroraCurtains />
           <StarField />
