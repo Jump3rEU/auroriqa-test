@@ -46,14 +46,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="cs" className={`${inter.variable} ${spaceGrotesk.variable}`}>
+    <html lang="cs" className={`${inter.variable} ${spaceGrotesk.variable} overflow-x-hidden`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdWebsite) }}
         />
       </head>
-      <body>
+      <body className="overflow-x-hidden">
         <PageTracker />
         <ClientLayout>{children}</ClientLayout>
       </body>
