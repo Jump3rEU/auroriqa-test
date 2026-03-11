@@ -112,16 +112,18 @@ export default function ContactPopup() {
           >
             {/* Scrollable inner shell — stop propagation so clicks inside don't close */}
             <div
-              className="w-full max-w-md bg-[#0d0d1f] border border-white/[0.09] rounded-3xl max-h-[90vh] overflow-y-auto"
+              className="relative w-full max-w-md bg-[#0d0d1f] border border-white/[0.09] rounded-3xl max-h-[90vh] overflow-hidden"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Aurora glows — clipped to box */}
-              <div className="sticky top-0 pointer-events-none h-0 overflow-visible z-10">
-                <div className="absolute -top-24 -left-24 w-56 h-56 rounded-full blur-[70px] bg-emerald-500/20" />
-                <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full blur-[70px] bg-violet-500/15" />
+              {/* Aurora glows — contained inside rounded box */}
+              <div className="absolute inset-0 pointer-events-none">
+                <div className="absolute -top-16 -left-16 w-48 h-48 rounded-full blur-[60px] bg-emerald-500/20" />
+                <div className="absolute -bottom-16 -right-16 w-48 h-48 rounded-full blur-[60px] bg-violet-500/15" />
               </div>
 
-              <div className="relative px-6 pt-6 pb-8 sm:px-7 sm:pt-7">
+              {/* Scrollable content */}
+              <div className="overflow-y-auto max-h-[90vh]">
+                <div className="relative px-6 pt-6 pb-8 sm:px-7 sm:pt-7">
                 {/* Header */}
                 <div className="flex items-start justify-between mb-5">
                   <div>
@@ -267,8 +269,9 @@ export default function ContactPopup() {
                     </motion.form>
                   )}
                 </AnimatePresence>
-              </div>
-            </div>
+                </div>{/* end px-6 content */}
+              </div>{/* end scrollable wrapper */}
+            </div>{/* end relative outer */}
           </motion.div>
         </>
       )}
