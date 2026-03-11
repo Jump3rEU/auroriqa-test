@@ -2,17 +2,16 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Check, Loader2, ArrowRight, Mail, Phone, User, MessageSquare, Briefcase, ChevronDown } from "lucide-react";
+import { X, Send, Check, Loader2, ArrowRight, Mail, Phone, User, MessageSquare } from "lucide-react";
 import { useContactPopup } from "@/contexts/ContactPopupContext";
 
 const PROJECT_TYPES = [
-  { value: "web", label: "Webové stránky" },
-  { value: "webapp", label: "Webová aplikace" },
-  { value: "mobile", label: "Mobilní aplikace" },
-  { value: "ecommerce", label: "E-commerce" },
-  { value: "seo", label: "SEO optimalizace" },
-  { value: "redesign", label: "Redesign stávajícího webu" },
-  { value: "other", label: "Jiné / Konzultace" },
+  { value: "web", label: "Web" },
+  { value: "webapp", label: "Webová app" },
+  { value: "ecommerce", label: "E-shop" },
+  { value: "seo", label: "SEO" },
+  { value: "redesign", label: "Redesign" },
+  { value: "other", label: "Jiné" },
 ];
 
 const INPUT_BASE =
@@ -24,10 +23,7 @@ export default function ContactPopup() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const firstInputRef = useRef<HTMLInputElement>(null);
-  const selectRef = useRef<HTMLDivElement>(null);
-  const [selectOpen, setSelectOpen] = useState(false);
 
-  // Pre-fill project type when triggered from service cards
   useEffect(() => {
     if (isOpen) {
       setForm((f) => ({ ...f, projectType: prefillService || "" }));
@@ -37,28 +33,17 @@ export default function ContactPopup() {
     }
   }, [isOpen, prefillService]);
 
-  // Trap scroll
   useEffect(() => {
     if (isOpen) document.body.style.overflow = "hidden";
     else document.body.style.overflow = "";
     return () => { document.body.style.overflow = ""; };
   }, [isOpen]);
 
-  // ESC key
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") closePopup(); };
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [closePopup]);
-
-  // Close custom select on outside click
-  useEffect(() => {
-    const handler = (e: MouseEvent) => {
-      if (selectRef.current && !selectRef.current.contains(e.target as Node)) setSelectOpen(false);
-    };
-    if (selectOpen) document.addEventListener("mousedown", handler);
-    return () => document.removeEventListener("mousedown", handler);
-  }, [selectOpen]);
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -107,31 +92,38 @@ export default function ContactPopup() {
             className="fixed inset-0 bg-black/70 backdrop-blur-sm z-[90]"
           />
 
-          {/* Panel */}
+          {/* Panel — slides up from bottom on mobile, centered on desktop */}
           <motion.div
             key="panel"
-            initial={{ opacity: 0, y: 60, scale: 0.95 }}
-            animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, y: 40, scale: 0.97 }}
-            transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
-            className="fixed inset-x-0 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg z-[91] sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl"
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 30 }}
+            transition={{ type: "spring", duration: 0.45, bounce: 0.1 }}
+            className="fixed inset-x-0 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-md z-[91] rounded-t-3xl sm:rounded-3xl"
           >
-            <div className="relative bg-[#0c0c1a] border border-white/[0.09] overflow-hidden rounded-t-3xl sm:rounded-3xl max-h-[92vh] sm:max-h-[88vh] overflow-y-auto">
-              {/* Aurora shimmer */}
-              <div className="absolute inset-0 pointer-events-none overflow-hidden">
-                <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full blur-[80px] bg-emerald-500/15" />
-                <div className="absolute -bottom-24 -right-24 w-64 h-64 rounded-full blur-[80px] bg-violet-500/10" />
+            {/* Scrollable inner shell */}
+            <div className="bg-[#0d0d1f] border border-white/[0.09] rounded-t-3xl sm:rounded-3xl max-h-[88vh] overflow-y-auto">
+              {/* Aurora glows — clipped to box */}
+              <div className="sticky top-0 pointer-events-none h-0 overflow-visible z-10">
+                <div className="absolute -top-24 -left-24 w-56 h-56 rounded-full blur-[70px] bg-emerald-500/20" />
+                <div className="absolute -top-16 -right-16 w-48 h-48 rounded-full blur-[70px] bg-violet-500/15" />
               </div>
 
-              <div className="relative p-6 sm:p-8">
+              <div className="relative px-6 pt-6 pb-8 sm:px-7 sm:pt-7">
+                {/* Drag handle on mobile */}
+                <div className="w-10 h-1 rounded-full bg-white/20 mx-auto mb-5 sm:hidden" />
+
                 {/* Header */}
-                <div className="flex items-start justify-between mb-6">
+                <div className="flex items-start justify-between mb-5">
                   <div>
-                    <h2 className="text-xl font-bold text-white">Zdarma konzultace</h2>
-                    <p className="text-white/40 text-sm mt-0.5">Popište váš projekt — ozveme se do 24h</p>
+                    <h2 className="text-xl font-bold text-white leading-tight">Zdarma konzultace</h2>
+                    <p className="text-white/40 text-sm mt-0.5">Ozveme se do 24 hodin</p>
                   </div>
-                  <button onClick={closePopup} className="text-white/30 hover:text-white transition-colors p-1">
-                    <X className="w-5 h-5" />
+                  <button
+                    onClick={closePopup}
+                    className="w-8 h-8 rounded-full flex items-center justify-center bg-white/[0.06] hover:bg-white/[0.12] text-white/40 hover:text-white transition-all"
+                  >
+                    <X className="w-4 h-4" />
                   </button>
                 </div>
 
@@ -157,91 +149,78 @@ export default function ContactPopup() {
                     </motion.div>
                   ) : (
                     <motion.form key="form" onSubmit={handleSubmit} className="space-y-4">
-                      {/* Name + Email row */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
-                            <User className="w-3 h-3" /> Jméno *
-                          </label>
-                          <input
-                            ref={firstInputRef}
-                            type="text"
-                            value={form.name}
-                            onChange={(e) => change("name", e.target.value)}
-                            placeholder="Jan Novák"
-                            className={`${INPUT_BASE} ${errors.name ? "border-red-500/50" : ""}`}
-                          />
-                          {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
-                        </div>
-                        <div>
-                          <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
-                            <Mail className="w-3 h-3" /> Email *
-                          </label>
-                          <input
-                            type="email"
-                            value={form.email}
-                            onChange={(e) => change("email", e.target.value)}
-                            placeholder="jan@firma.cz"
-                            className={`${INPUT_BASE} ${errors.email ? "border-red-500/50" : ""}`}
-                          />
-                          {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
-                        </div>
+
+                      {/* Name */}
+                      <div>
+                        <label className="flex items-center gap-1.5 text-xs text-white/35 mb-1.5 font-semibold uppercase tracking-wider">
+                          <User className="w-3 h-3" /> Jméno *
+                        </label>
+                        <input
+                          ref={firstInputRef}
+                          type="text"
+                          value={form.name}
+                          onChange={(e) => change("name", e.target.value)}
+                          placeholder="Jan Novák"
+                          className={`${INPUT_BASE} ${errors.name ? "border-red-500/50" : ""}`}
+                        />
+                        {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
                       </div>
 
-                      {/* Phone + Project type */}
-                      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
-                            <Phone className="w-3 h-3" /> Telefon
-                          </label>
-                          <input
-                            type="tel"
-                            value={form.phone}
-                            onChange={(e) => change("phone", e.target.value)}
-                            placeholder="+420 777 000 000"
-                            className={INPUT_BASE}
-                          />
-                        </div>
-                        <div ref={selectRef} className="relative">
-                          <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
-                            <Briefcase className="w-3 h-3" /> Typ projektu
-                          </label>
-                          <button
-                            type="button"
-                            onClick={() => setSelectOpen((o) => !o)}
-                            className={`${INPUT_BASE} flex items-center justify-between cursor-pointer text-left`}
-                          >
-                            <span className={form.projectType ? "text-white" : "text-white/25"}>
-                              {form.projectType
-                                ? PROJECT_TYPES.find((t) => t.value === form.projectType)?.label
-                                : "Vyberte typ..."}
-                            </span>
-                            <ChevronDown className={`w-4 h-4 text-white/40 flex-shrink-0 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
-                          </button>
-                          {selectOpen && (
-                            <div className="absolute top-full mt-1.5 left-0 right-0 z-20 bg-[#13132b] border border-white/[0.12] rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
-                              {PROJECT_TYPES.map((t) => (
-                                <button
-                                  key={t.value}
-                                  type="button"
-                                  onClick={() => { change("projectType", t.value); setSelectOpen(false); }}
-                                  className={`w-full px-4 py-2.5 text-left text-sm transition-colors ${
-                                    form.projectType === t.value
-                                      ? "text-emerald-400 bg-emerald-500/[0.12]"
-                                      : "text-white/70 hover:text-white hover:bg-white/[0.07]"
-                                  }`}
-                                >
-                                  {t.label}
-                                </button>
-                              ))}
-                            </div>
-                          )}
+                      {/* Email */}
+                      <div>
+                        <label className="flex items-center gap-1.5 text-xs text-white/35 mb-1.5 font-semibold uppercase tracking-wider">
+                          <Mail className="w-3 h-3" /> Email *
+                        </label>
+                        <input
+                          type="email"
+                          value={form.email}
+                          onChange={(e) => change("email", e.target.value)}
+                          placeholder="jan@firma.cz"
+                          className={`${INPUT_BASE} ${errors.email ? "border-red-500/50" : ""}`}
+                        />
+                        {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+                      </div>
+
+                      {/* Phone */}
+                      <div>
+                        <label className="flex items-center gap-1.5 text-xs text-white/35 mb-1.5 font-semibold uppercase tracking-wider">
+                          <Phone className="w-3 h-3" /> Telefon <span className="normal-case text-white/20 font-normal">(nepovinné)</span>
+                        </label>
+                        <input
+                          type="tel"
+                          value={form.phone}
+                          onChange={(e) => change("phone", e.target.value)}
+                          placeholder="+420 777 000 000"
+                          className={INPUT_BASE}
+                        />
+                      </div>
+
+                      {/* Project type — pill buttons */}
+                      <div>
+                        <label className="flex items-center gap-1.5 text-xs text-white/35 mb-2 font-semibold uppercase tracking-wider">
+                          <MessageSquare className="w-3 h-3" /> Typ projektu
+                        </label>
+                        <div className="flex flex-wrap gap-2">
+                          {PROJECT_TYPES.map((t) => (
+                            <button
+                              key={t.value}
+                              type="button"
+                              onClick={() => change("projectType", form.projectType === t.value ? "" : t.value)}
+                              className={`px-3.5 py-1.5 rounded-full text-xs font-semibold border transition-all duration-150 ${
+                                form.projectType === t.value
+                                  ? "bg-emerald-500/20 border-emerald-500/50 text-emerald-300"
+                                  : "bg-white/[0.05] border-white/[0.1] text-white/50 hover:bg-white/[0.09] hover:text-white/80 hover:border-white/20"
+                              }`}
+                            >
+                              {t.label}
+                            </button>
+                          ))}
                         </div>
                       </div>
 
                       {/* Message */}
                       <div>
-                        <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
+                        <label className="flex items-center gap-1.5 text-xs text-white/35 mb-1.5 font-semibold uppercase tracking-wider">
                           <MessageSquare className="w-3 h-3" /> Zpráva *
                         </label>
                         <textarea
