@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Send, Check, Loader2, ArrowRight, Mail, Phone, User, MessageSquare, Briefcase } from "lucide-react";
+import { X, Send, Check, Loader2, ArrowRight, Mail, Phone, User, MessageSquare, Briefcase, ChevronDown } from "lucide-react";
 import { useContactPopup } from "@/contexts/ContactPopupContext";
 
 const PROJECT_TYPES = [
@@ -24,6 +24,8 @@ export default function ContactPopup() {
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
   const firstInputRef = useRef<HTMLInputElement>(null);
+  const selectRef = useRef<HTMLDivElement>(null);
+  const [selectOpen, setSelectOpen] = useState(false);
 
   // Pre-fill project type when triggered from service cards
   useEffect(() => {
@@ -48,6 +50,15 @@ export default function ContactPopup() {
     window.addEventListener("keydown", handler);
     return () => window.removeEventListener("keydown", handler);
   }, [closePopup]);
+
+  // Close custom select on outside click
+  useEffect(() => {
+    const handler = (e: MouseEvent) => {
+      if (selectRef.current && !selectRef.current.contains(e.target as Node)) setSelectOpen(false);
+    };
+    if (selectOpen) document.addEventListener("mousedown", handler);
+    return () => document.removeEventListener("mousedown", handler);
+  }, [selectOpen]);
 
   const validate = () => {
     const errs: Record<string, string> = {};
@@ -103,9 +114,9 @@ export default function ContactPopup() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 40, scale: 0.97 }}
             transition={{ type: "spring", duration: 0.5, bounce: 0.15 }}
-            className="fixed inset-x-4 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg z-[91] max-h-[92vh] overflow-y-auto rounded-t-3xl sm:rounded-3xl"
+            className="fixed inset-x-0 bottom-0 sm:inset-auto sm:top-1/2 sm:left-1/2 sm:-translate-x-1/2 sm:-translate-y-1/2 sm:w-full sm:max-w-lg z-[91] sm:max-h-[90vh] rounded-t-3xl sm:rounded-3xl"
           >
-            <div className="relative bg-[#0c0c1a] border border-white/[0.09] overflow-hidden rounded-t-3xl sm:rounded-3xl">
+            <div className="relative bg-[#0c0c1a] border border-white/[0.09] overflow-hidden rounded-t-3xl sm:rounded-3xl max-h-[92vh] sm:max-h-[88vh] overflow-y-auto">
               {/* Aurora shimmer */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden">
                 <div className="absolute -top-32 -left-32 w-64 h-64 rounded-full blur-[80px] bg-emerald-500/15" />
@@ -191,20 +202,40 @@ export default function ContactPopup() {
                             className={INPUT_BASE}
                           />
                         </div>
-                        <div>
+                        <div ref={selectRef} className="relative">
                           <label className="flex items-center gap-1.5 text-xs text-white/40 mb-1.5 font-medium uppercase tracking-wider">
                             <Briefcase className="w-3 h-3" /> Typ projektu
                           </label>
-                          <select
-                            value={form.projectType}
-                            onChange={(e) => change("projectType", e.target.value)}
-                            className={`${INPUT_BASE} cursor-pointer`}
+                          <button
+                            type="button"
+                            onClick={() => setSelectOpen((o) => !o)}
+                            className={`${INPUT_BASE} flex items-center justify-between cursor-pointer text-left`}
                           >
-                            <option value="" className="bg-[#0c0c1a]">Vyberte typ...</option>
-                            {PROJECT_TYPES.map((t) => (
-                              <option key={t.value} value={t.value} className="bg-[#0c0c1a]">{t.label}</option>
-                            ))}
-                          </select>
+                            <span className={form.projectType ? "text-white" : "text-white/25"}>
+                              {form.projectType
+                                ? PROJECT_TYPES.find((t) => t.value === form.projectType)?.label
+                                : "Vyberte typ..."}
+                            </span>
+                            <ChevronDown className={`w-4 h-4 text-white/40 flex-shrink-0 transition-transform duration-200 ${selectOpen ? "rotate-180" : ""}`} />
+                          </button>
+                          {selectOpen && (
+                            <div className="absolute top-full mt-1.5 left-0 right-0 z-20 bg-[#13132b] border border-white/[0.12] rounded-2xl overflow-hidden shadow-2xl shadow-black/60">
+                              {PROJECT_TYPES.map((t) => (
+                                <button
+                                  key={t.value}
+                                  type="button"
+                                  onClick={() => { change("projectType", t.value); setSelectOpen(false); }}
+                                  className={`w-full px-4 py-2.5 text-left text-sm transition-colors ${
+                                    form.projectType === t.value
+                                      ? "text-emerald-400 bg-emerald-500/[0.12]"
+                                      : "text-white/70 hover:text-white hover:bg-white/[0.07]"
+                                  }`}
+                                >
+                                  {t.label}
+                                </button>
+                              ))}
+                            </div>
+                          )}
                         </div>
                       </div>
 
@@ -217,7 +248,7 @@ export default function ContactPopup() {
                           value={form.message}
                           onChange={(e) => change("message", e.target.value)}
                           placeholder="Popište váš projekt, cíle a přibližný rozpočet..."
-                          rows={4}
+                          rows={3}
                           className={`${INPUT_BASE} resize-none ${errors.message ? "border-red-500/50" : ""}`}
                         />
                         {errors.message && <p className="text-red-400 text-xs mt-1">{errors.message}</p>}
