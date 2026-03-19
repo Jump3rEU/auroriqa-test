@@ -763,6 +763,16 @@ const PROJECT_TYPE_LABELS: Record<string, string> = {
   other: "Jiné / Konzultace",
 };
 
+const LS_KEY = "auroriqa:contact:submissions";
+
+function lsRead(): Submission[] {
+  if (typeof window === "undefined") return [];
+  try { return JSON.parse(localStorage.getItem(LS_KEY) ?? "[]") ?? []; } catch { return []; }
+}
+function lsSave(subs: Submission[]) {
+  localStorage.setItem(LS_KEY, JSON.stringify(subs.slice(0, 500)));
+}
+
 function MessagesTab() {
   const [submissions, setSubmissions] = useState<Submission[]>([]);
   const [loading, setLoading] = useState(true);
@@ -770,24 +780,23 @@ function MessagesTab() {
 
   const load = () => {
     setLoading(true);
-    fetch("/api/contact")
-      .then((r) => r.json())
-      .then((d) => { setSubmissions(d.submissions ?? []); })
-      .catch(() => {})
-      .finally(() => setLoading(false));
+    setSubmissions(lsRead());
+    setLoading(false);
   };
 
   useEffect(() => { load(); }, []);
 
-  const markRead = async (id: string) => {
-    await fetch("/api/contact", { method: "PATCH", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
-    setSubmissions((s) => s.map((x) => x.id === id ? { ...x, read: true } : x));
+  const markRead = (id: string) => {
+    const updated = lsRead().map((x) => x.id === id ? { ...x, read: true } : x);
+    lsSave(updated);
+    setSubmissions(updated);
     if (selected?.id === id) setSelected((s) => s ? { ...s, read: true } : s);
   };
 
-  const remove = async (id: string) => {
-    await fetch("/api/contact", { method: "DELETE", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ id }) });
-    setSubmissions((s) => s.filter((x) => x.id !== id));
+  const remove = (id: string) => {
+    const updated = lsRead().filter((x) => x.id !== id);
+    lsSave(updated);
+    setSubmissions(updated);
     if (selected?.id === id) setSelected(null);
   };
 

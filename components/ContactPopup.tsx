@@ -68,12 +68,19 @@ export default function ContactPopup() {
     if (Object.keys(errs).length) { setErrors(errs); return; }
     setStatus("loading");
     try {
-      const res = await fetch("/api/contact", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
-      });
-      if (!res.ok) throw new Error("server error");
+      const LS_KEY = "auroriqa:contact:submissions";
+      const existing = (() => { try { return JSON.parse(localStorage.getItem(LS_KEY) ?? "[]") ?? []; } catch { return []; } })();
+      const submission = {
+        id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+        name: form.name.trim(),
+        email: form.email.trim().toLowerCase(),
+        phone: form.phone.trim(),
+        projectType: form.projectType || "other",
+        message: form.message.trim(),
+        createdAt: new Date().toISOString(),
+        read: false,
+      };
+      localStorage.setItem(LS_KEY, JSON.stringify([submission, ...existing].slice(0, 500)));
       setStatus("success");
       setForm({ name: "", email: "", phone: "", projectType: "", message: "" });
     } catch {
