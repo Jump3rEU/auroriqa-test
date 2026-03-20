@@ -38,17 +38,19 @@ export default function PageClient({ children }: { children: React.ReactNode }) 
   return (
     <>
       <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-      {!isLoading && (
-        <main className="relative overflow-x-clip">
-          <AuroraCurtains />
-          <StarField />
-          <FloatingGeometry />
-          <MeshGradientOverlay />
-          <ScrollProgress />
-          <FloatingParticles />
-          {children}
-        </main>
-      )}
+      <main className="relative overflow-x-clip">
+        {!isLoading && (
+          <>
+            <AuroraCurtains />
+            <StarField />
+            <FloatingGeometry />
+            <MeshGradientOverlay />
+            <ScrollProgress />
+            <FloatingParticles />
+          </>
+        )}
+        {children}
+      </main>
     </>
   );
 }
