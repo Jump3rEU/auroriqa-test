@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import LoadingScreen from "@/components/LoadingScreen";
 import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
@@ -20,6 +20,7 @@ import MeshGradientOverlay from "@/components/MeshGradientOverlay";
 
 export default function Home() {
   const [isLoading, setIsLoading] = useState(true);
+  const handleLoadingComplete = useCallback(() => setIsLoading(false), []);
 
   useEffect(() => {
     // Smooth scroll handler for anchor links
@@ -53,7 +54,7 @@ export default function Home() {
 
   return (
     <>
-      <LoadingScreen onLoadingComplete={() => setIsLoading(false)} />
+      <LoadingScreen onLoadingComplete={handleLoadingComplete} />
       {!isLoading && (
         <main className="relative overflow-x-clip">
           {/* Aurora Effects Layer */}
