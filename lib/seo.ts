@@ -186,7 +186,7 @@ export const jsonLdBlogPost = (
   author: {
     '@type': 'Person',
     name: authorName,
-    url: 'https://auroriqa.com',
+    url: 'https://auroriqa.cz',
   },
   publisher: {
     '@type': 'Organization',
