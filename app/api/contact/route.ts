@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import { Redis } from "@upstash/redis";
 
-// ─── Types ────────────────────────────────────────────────────────────────────
 export interface ContactSubmission {
   id: string;
   name: string;
@@ -11,19 +10,28 @@ export interface ContactSubmission {
   message: string;
   createdAt: string;
   read: boolean;
+  sourceIp?: string;
 }
 
 const REDIS_KEY = "auroriqa:contact:submissions";
+const RATE_WINDOW_SECONDS = 60;
+const MAX_REQUESTS_PER_WINDOW = 5;
 
-// Lazy init — falls back gracefully if env vars not set (local dev)
 function getRedis(): Redis | null {
-  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) {
-    return null;
-  }
+  if (!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN) return null;
   return new Redis({
     url: process.env.UPSTASH_REDIS_REST_URL,
     token: process.env.UPSTASH_REDIS_REST_TOKEN,
   });
+}
+
+function clientIp(req: NextRequest): string {
+  const forwarded = req.headers.get("x-forwarded-for") || "";
+  return forwarded.split(",")[0]?.trim() || "unknown";
+}
+
+function emailValid(email: string): boolean {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
 }
 
 async function readAll(redis: Redis): Promise<ContactSubmission[]> {
@@ -32,39 +40,63 @@ async function readAll(redis: Redis): Promise<ContactSubmission[]> {
 }
 
 async function saveAll(redis: Redis, submissions: ContactSubmission[]): Promise<void> {
-  // Keep at most 500, newest first
   await redis.set(REDIS_KEY, submissions.slice(0, 500));
 }
 
-// ─── POST /api/contact — add new submission ──────────────────────────────────
+async function rateLimit(redis: Redis, ip: string): Promise<boolean> {
+  const key = `auroriqa:contact:rate:${ip}`;
+  const count = await redis.incr(key);
+  if (count === 1) {
+    await redis.expire(key, RATE_WINDOW_SECONDS);
+  }
+  return count <= MAX_REQUESTS_PER_WINDOW;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
 
-    // Validate required fields
-    const { name, email, message } = body;
-    if (!name || typeof name !== "string" || name.length > 200) {
-      return NextResponse.json({ error: "Jméno je povinné" }, { status: 400 });
+    // anti-spam honeypot
+    if (typeof body.website === "string" && body.website.trim().length > 0) {
+      return NextResponse.json({ ok: true }, { status: 200 });
     }
-    if (!email || typeof email !== "string" || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      return NextResponse.json({ error: "Neplatný email" }, { status: 400 });
+
+    const startedAt = Number(body.startedAt || 0);
+    if (!Number.isFinite(startedAt) || Date.now() - startedAt < 1200) {
+      return NextResponse.json({ error: "Podezřelé odeslání formuláře" }, { status: 400 });
     }
-    if (!message || typeof message !== "string" || message.length > 5000) {
-      return NextResponse.json({ error: "Zpráva je povinná" }, { status: 400 });
+
+    const name = String(body.name || "").trim();
+    const email = String(body.email || "").trim().toLowerCase();
+    const message = String(body.message || "").trim();
+    const phone = String(body.phone || "").trim();
+    const projectType = String(body.projectType || "other").trim();
+
+    if (!name || name.length > 200) return NextResponse.json({ error: "Jméno je povinné" }, { status: 400 });
+    if (!email || email.length > 320 || !emailValid(email)) return NextResponse.json({ error: "Neplatný email" }, { status: 400 });
+    if (!message || message.length < 10 || message.length > 5000) return NextResponse.json({ error: "Neplatná zpráva" }, { status: 400 });
+    if (phone && !/^[+()\d\s-]{7,20}$/.test(phone)) return NextResponse.json({ error: "Neplatné telefonní číslo" }, { status: 400 });
+
+    const redis = getRedis();
+    const ip = clientIp(req);
+
+    if (redis) {
+      const allowed = await rateLimit(redis, ip);
+      if (!allowed) return NextResponse.json({ error: "Příliš mnoho požadavků, zkus to prosím za chvíli" }, { status: 429 });
     }
 
     const submission: ContactSubmission = {
       id: `${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      name: name.trim().slice(0, 200),
-      email: email.trim().toLowerCase().slice(0, 320),
-      phone: (body.phone ?? "").trim().slice(0, 30),
-      projectType: (body.projectType ?? "other").slice(0, 50),
-      message: message.trim().slice(0, 5000),
+      name: name.slice(0, 200),
+      email,
+      phone: phone.slice(0, 30),
+      projectType: projectType.slice(0, 50) || "other",
+      message: message.slice(0, 5000),
       createdAt: new Date().toISOString(),
       read: false,
+      sourceIp: ip,
     };
 
-    const redis = getRedis();
     if (redis) {
       const all = await readAll(redis);
       all.unshift(submission);
@@ -77,7 +109,6 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// ─── GET /api/contact — list submissions (admin use) ────────────────────────
 export async function GET() {
   const redis = getRedis();
   if (!redis) return NextResponse.json({ submissions: [], total: 0, warning: "Redis not configured" });
@@ -85,7 +116,6 @@ export async function GET() {
   return NextResponse.json({ submissions, total: submissions.length });
 }
 
-// ─── PATCH /api/contact — mark as read ──────────────────────────────────────
 export async function PATCH(req: NextRequest) {
   try {
     const { id } = await req.json();
@@ -104,7 +134,6 @@ export async function PATCH(req: NextRequest) {
   }
 }
 
-// ─── DELETE /api/contact — delete one submission ─────────────────────────────
 export async function DELETE(req: NextRequest) {
   try {
     const { id } = await req.json();

@@ -1,0 +1,37 @@
+[
+  {
+    "name": "Initial load screenshot",
+    "ok": true,
+    "details": "01-initial-load.png"
+  },
+  {
+    "name": "Scrolled header screenshot",
+    "ok": true,
+    "details": "02-scrolled-header.png"
+  },
+  {
+    "name": "Anchor link #services works",
+    "ok": true,
+    "details": "scrollY=545"
+  },
+  {
+    "name": "Contact popup opens",
+    "ok": false,
+    "details": "03-contact-popup.png"
+  },
+  {
+    "name": "Privacy page loads",
+    "ok": true,
+    "details": "04-legal-privacy.png"
+  },
+  {
+    "name": "Cookies page loads",
+    "ok": true,
+    "details": "05-legal-cookies.png"
+  },
+  {
+    "name": "Mobile nav screenshot",
+    "ok": true,
+    "details": "06-mobile-nav.png"
+  }
+]
