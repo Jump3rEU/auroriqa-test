@@ -52,7 +52,7 @@ export default function ShowcasePortfolio() {
   const { t } = useLanguage();
 
   return (
-    <section id="portfolio" className="relative py-24 md:py-32 overflow-hidden">
+    <section id="portfolio" className="relative py-16 md:py-20 overflow-hidden">
       <div className="max-w-7xl mx-auto px-6 xl:px-12">
 
         {/* Section header */}
@@ -61,7 +61,7 @@ export default function ShowcasePortfolio() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="flex items-end justify-between mb-20"
+          className="flex items-end justify-between mb-10"
         >
           <div>
             <span className="text-xs font-medium text-white/25 tracking-[0.25em] uppercase mb-4 block">
@@ -89,7 +89,7 @@ export default function ShowcasePortfolio() {
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
           className="border-t border-white/10"
         >
-          <div className="grid lg:grid-cols-2 gap-12 lg:gap-20 py-14">
+          <div className="grid lg:grid-cols-2 gap-12 lg:gap-16 py-10">
             {/* Left: info */}
             <div className="space-y-8">
               <div className="flex items-center gap-4">

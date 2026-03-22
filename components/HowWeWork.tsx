@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Search, Code2, FlaskConical, Rocket, ArrowRight } from "lucide-react";
-import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 const steps = [
@@ -70,18 +69,10 @@ const steps = [
 
 export default function HowWeWork() {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"],
-  });
-  const opacity = useTransform(scrollYProgress, [0, 0.15, 0.85, 1], [0, 1, 1, 0]);
 
   return (
-    <motion.section
-      ref={containerRef}
+    <section
       id="process" className="py-20 md:py-28 relative overflow-hidden"
-      style={{ opacity }}
     >
       {/* Background aurora */}
       <div className="absolute inset-0 pointer-events-none">
@@ -244,7 +235,7 @@ export default function HowWeWork() {
           </div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

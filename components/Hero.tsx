@@ -27,7 +27,7 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24">
+    <section className="relative min-h-screen flex items-center overflow-hidden pt-24 pb-12 sm:pt-28 sm:pb-16">
       {/* Single subtle background — reduced from 3 radials */}
       <div className="absolute inset-0 pointer-events-none">
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_55%_45%_at_15%_15%,rgba(16,185,129,0.10),transparent_60%)]" />
@@ -55,7 +55,7 @@ export default function Hero() {
             {t('Pro ty, co chtějí víc než průměr · Praha', 'For brands that refuse to blend in · Prague')}
           </motion.div>
 
-          <h1 className="space-grotesk text-[2.75rem] sm:text-6xl lg:text-[5.25rem] font-black leading-[1.0] tracking-tight">
+          <h1 className="space-grotesk text-[2.75rem] sm:text-6xl lg:text-[5.5rem] font-black leading-[1.0] tracking-tight">
             <span className="text-white/45 font-light">
               {t('Záříte, nebo jste jen', 'Are you shining, or just')}
             </span>
@@ -100,23 +100,6 @@ export default function Hero() {
             </Button>
           </motion.div>
 
-          <motion.div
-            initial={{ opacity: 0, y: 8 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5, delay: 0.45 }}
-            className="mt-8 flex flex-col sm:flex-row gap-6 max-w-xl"
-          >
-            {[
-              t('80 000+ unikátních návštěv', '80K+ unique visits generated'),
-              t('4.4 / 5 spokojenost klientů', '4.4/5 client satisfaction'),
-              t('Cena jasná před startem', 'Price clear before start'),
-            ].map((item, i) => (
-              <div key={item} className="flex items-center gap-2 text-sm text-white/35">
-                {i > 0 && <span className="hidden sm:block w-px h-3 bg-white/15 shrink-0" />}
-                <span>{item}</span>
-              </div>
-            ))}
-          </motion.div>
         </motion.div>
       </div>
     </section>

@@ -1,20 +1,12 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Sparkles, Clock, MessageSquare, Shield, CheckCircle2, Zap, Target } from "lucide-react";
-import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Button from "@/components/Button";
 
 export default function FreeProposal() {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   const benefits = [
     {
@@ -52,10 +44,8 @@ export default function FreeProposal() {
   ];
 
   return (
-    <motion.section
-      ref={containerRef}
+    <section
       className="relative overflow-hidden py-20 md:py-28"
-      style={{ opacity }}
     >
       {/* Light-contrast block #2 — premium section lift before final CTA */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] via-white/[0.016] to-transparent pointer-events-none" />
@@ -359,6 +349,6 @@ export default function FreeProposal() {
           </motion.div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }

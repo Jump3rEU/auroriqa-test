@@ -1,32 +1,22 @@
 "use client";
 
-import { motion, AnimatePresence, useScroll, useTransform } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Plus } from "lucide-react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import Button from "@/components/Button";
 import { faqs as contentFaqs } from "@/lib/content";
 
 export default function FAQ() {
   const { t } = useLanguage();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = contentFaqs;
 
   return (
-    <motion.section 
-      ref={containerRef}
-      id="faq" 
+    <section
+      id="faq"
       className="py-20 md:py-28 relative overflow-hidden"
-      style={{ opacity }}
     >
       {/* Background Aurora - Seamless */}
       <div className="absolute inset-0 opacity-40">
@@ -235,7 +225,7 @@ export default function FAQ() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-24 max-w-3xl mx-auto"
+          className="mt-12 max-w-3xl mx-auto"
         >
           <div className="relative card-modern p-10 text-center overflow-hidden group">
             <motion.div
@@ -266,7 +256,7 @@ export default function FAQ() {
           </div>
         </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

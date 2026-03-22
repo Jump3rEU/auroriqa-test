@@ -75,7 +75,7 @@ export default function ServicesNew() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-6xl mx-auto mb-24"
+          className="max-w-6xl mx-auto mb-12"
         >
           <div className="flex flex-col lg:flex-row items-start justify-between gap-8 lg:gap-12">
             {/* Left - Headline */}
@@ -382,7 +382,7 @@ export default function ServicesNew() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.4 }}
-          className="mt-32 text-center"
+          className="mt-14 text-center"
         >
           <p className="text-white/40 mb-6">
             {t('Máte vizi. My víme, jak ji postavit.', "You have the vision. We know how to build it.")}
