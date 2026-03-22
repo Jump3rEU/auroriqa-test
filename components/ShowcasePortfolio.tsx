@@ -2,8 +2,9 @@
 
 import { useState, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { ExternalLink, ChevronLeft, ChevronRight, Sparkles, Check, ArrowRight, Zap, Star, TrendingUp, Users, Globe, MessageSquare } from "lucide-react";
+import { ExternalLink, ChevronLeft, ChevronRight, Sparkles, Check, ArrowRight, Zap, Star, TrendingUp, Users, Globe, MessageSquare, Award } from "lucide-react";
 import { LucideIcon } from "lucide-react";
+import { useLanguage } from "@/contexts/LanguageContext";
 
 interface Stat {
   icon: LucideIcon;
@@ -133,6 +134,7 @@ const projects: Project[] = [
 ];
 
 export default function ShowcasePortfolio() {
+  const { t } = useLanguage();
   const sectionRef = useRef<HTMLElement>(null);
   const [selectedProject, setSelectedProject] = useState<number>(0);
   const [direction, setDirection] = useState<number>(0);
@@ -258,6 +260,46 @@ export default function ShowcasePortfolio() {
             </motion.div>
           </div>
         </motion.div>
+
+        {/* Featured project film-like banner — only for first project */}
+        <AnimatePresence>
+          {selectedProject === 0 && (
+            <motion.div
+              key="featured-banner"
+              initial={{ opacity: 0, y: -12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="max-w-7xl mx-auto mb-10"
+            >
+              <div className="relative rounded-2xl overflow-hidden border border-pink-500/20 bg-gradient-to-r from-pink-950/35 via-rose-950/20 to-transparent p-6 sm:p-8">
+                <div className="absolute inset-0 bg-gradient-to-r from-pink-500/[0.07] to-transparent pointer-events-none" />
+                <div className="relative z-10 flex flex-col sm:flex-row items-start sm:items-center gap-6">
+                  <div className="flex-1">
+                    <div className="flex items-center gap-2 mb-2">
+                      <Award className="w-4 h-4 text-pink-400" />
+                      <span className="text-xs font-bold text-pink-400 uppercase tracking-widest">
+                        {t('Flagship projekt', 'Flagship project')}
+                      </span>
+                    </div>
+                    <div className="text-5xl sm:text-6xl font-black text-white leading-none mb-2">50K+</div>
+                    <div className="text-white/50 text-sm sm:text-base leading-relaxed max-w-sm">
+                      {t(
+                        'aktivních uživatelů · emocionální platforma spuštěna, roste organicky',
+                        'active users · emotional platform live, growing organically'
+                      )}
+                    </div>
+                  </div>
+                  <div className="sm:text-right shrink-0">
+                    <div className="text-white/30 text-xs uppercase tracking-widest mb-1">{t('Meziroční růst', 'YoY Growth')}</div>
+                    <div className="text-3xl font-black text-pink-400">+120%</div>
+                    <div className="text-white/35 text-xs mt-1">hrtly.eu</div>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
 
         {/* Progress Counter - Top Center */}
         <motion.div

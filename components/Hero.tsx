@@ -1,7 +1,7 @@
 'use client';
 
-import React, { Suspense } from 'react';
-import { motion } from 'framer-motion';
+import React, { Suspense, useState, useEffect } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 import dynamic from 'next/dynamic';
 import { CheckCircle2 } from 'lucide-react';
 import { useLanguage } from '@/contexts/LanguageContext';
@@ -9,8 +9,23 @@ import Button from '@/components/Button';
 
 const Scene3D = dynamic(() => import('./Scene3D'), { ssr: false });
 
+const rotatingWordPairs = [
+  { cs: 'online?', en: 'online?' },
+  { cs: 'průměr?', en: 'average?' },
+  { cs: 'jen šedí?', en: 'just grey?' },
+  { cs: 'zapomenutí?', en: 'forgotten?' },
+];
+
 export default function Hero() {
   const { t } = useLanguage();
+  const [wordIndex, setWordIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setWordIndex(prev => (prev + 1) % rotatingWordPairs.length);
+    }, 2400);
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <section className="relative min-h-screen flex items-center overflow-hidden pt-28 pb-16 sm:pt-32 sm:pb-24">
@@ -35,13 +50,24 @@ export default function Hero() {
             {t('Pro ty, co chtějí víc než průměr · Praha', 'For brands that refuse to blend in · Prague')}
           </div>
 
-          <h1 className="space-grotesk text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
+          <h1 className="space-grotesk text-4xl sm:text-6xl lg:text-7xl font-black leading-[1.05] tracking-tight text-white">
             {t('Záříte, nebo jste jen', 'Are you shining, or just')}
             <br />
-            <span className="text-white/75">{t('online?', 'online?')}</span>
+            <AnimatePresence mode="wait">
+              <motion.span
+                key={wordIndex}
+                initial={{ opacity: 0, y: 28, filter: 'blur(10px)' }}
+                animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+                exit={{ opacity: 0, y: -28, filter: 'blur(10px)' }}
+                transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                className="inline-block text-white/60"
+              >
+                {t(rotatingWordPairs[wordIndex].cs, rotatingWordPairs[wordIndex].en)}
+              </motion.span>
+            </AnimatePresence>
           </h1>
 
-          <p className="mt-6 text-base sm:text-xl text-white/72 leading-relaxed max-w-2xl">
+          <p className="mt-6 text-base sm:text-xl text-white/65 leading-relaxed max-w-2xl">
             {t(
               'Navrhujeme a spouštíme weby, e-shopy a SaaS aplikace. 80 000+ unikátních návštěv generujeme pro klienty ročně. Prototyp vidíte do 5 dní.',
               'We design and ship websites, e-commerce and SaaS apps. 80K+ unique visits generated for clients annually. Prototype in 5 days.'
@@ -58,8 +84,12 @@ export default function Hero() {
           </div>
 
           <div className="mt-8 grid sm:grid-cols-3 gap-3 max-w-3xl">
-            {[t('80 000+ unikátních návštěv', '80K+ unique visits generated'), t('4.4 / 5 spokojenost klientů', '4.4/5 client satisfaction'), t('Cena jasná před startem', 'Price clear before start')].map((item) => (
-              <div key={item} className="rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white/85 flex items-center gap-2">
+            {[
+              t('80 000+ unikátních návštěv', '80K+ unique visits generated'),
+              t('4.4 / 5 spokojenost klientů', '4.4/5 client satisfaction'),
+              t('Cena jasná před startem', 'Price clear before start'),
+            ].map((item) => (
+              <div key={item} className="rounded-xl border border-white/10 bg-white/5 px-4 py-3 text-sm text-white/80 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>{item}</span>
               </div>

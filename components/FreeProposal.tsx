@@ -52,12 +52,16 @@ export default function FreeProposal() {
   ];
 
   return (
-    <motion.section 
+    <motion.section
       ref={containerRef}
       className="relative overflow-hidden py-20 md:py-28"
       style={{ opacity }}
     >
-      {/* Background Aurora - stejný styl jako ostatní sekce */}
+      {/* Light-contrast block #2 — premium section lift before final CTA */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] via-white/[0.016] to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
+
+      {/* Background Aurora */}
       <div className="absolute inset-0 opacity-40">
         <motion.div
           animate={{

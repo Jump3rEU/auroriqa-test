@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, MessageCircle, Mail } from "lucide-react";
 import { useLanguage } from "@/contexts/LanguageContext";
 
 export default function AboutFounder() {
@@ -9,6 +9,11 @@ export default function AboutFounder() {
 
   return (
     <section className="py-20 md:py-28 relative overflow-hidden">
+      {/* Light-contrast block #1 — subtle premium lift */}
+      <div className="absolute inset-0 bg-gradient-to-b from-white/[0.028] via-white/[0.018] to-transparent pointer-events-none" />
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.1] to-transparent" />
+      <div className="absolute bottom-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white/[0.07] to-transparent" />
+
       {/* Background aurora */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -25,7 +30,7 @@ export default function AboutFounder() {
       <div className="container mx-auto px-6 relative z-10">
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 items-center">
-            {/* Left — founder avatar + quote */}
+            {/* Left — founder avatar */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
@@ -33,7 +38,6 @@ export default function AboutFounder() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              {/* Founder monogram */}
               <div className="relative w-full max-w-sm mx-auto lg:mx-0">
                 {/* Outer aurora glow */}
                 <motion.div
@@ -47,7 +51,6 @@ export default function AboutFounder() {
                   }}
                 />
                 <div className="aspect-square rounded-3xl bg-gradient-to-br from-emerald-950/70 via-teal-950/50 to-black/80 border border-emerald-500/25 flex items-center justify-center overflow-hidden relative">
-                  {/* Subtle grid */}
                   <div
                     className="absolute inset-0 opacity-[0.035]"
                     style={{
@@ -56,7 +59,6 @@ export default function AboutFounder() {
                       backgroundSize: "44px 44px",
                     }}
                   />
-                  {/* Rotating decorative rings */}
                   <motion.div
                     animate={{ rotate: [0, 360] }}
                     transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
@@ -67,9 +69,7 @@ export default function AboutFounder() {
                     transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
                     className="absolute inset-[4.5rem] rounded-full border border-teal-400/15"
                   />
-                  {/* Bottom gradient wash */}
                   <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-emerald-500/10 to-transparent" />
-                  {/* Monogram */}
                   <span
                     className="relative z-10 text-[9rem] font-black space-grotesk select-none leading-none"
                     style={{
@@ -113,7 +113,7 @@ export default function AboutFounder() {
                     {t("Příběh / Zakladatel", "Story / Founder")}
                   </span>
                 </div>
-                <h2 className="text-4xl sm:text-5xl font-bold space-grotesk leading-[0.9] mb-6">
+                <h2 className="text-4xl sm:text-5xl font-black space-grotesk leading-[0.9] mb-6">
                   <span className="text-white">{t("Jmenuji se Svjéťa", "My name is Svjéťa")}</span>
                   <br />
                   <span className="text-white/20">{t("a tohle je Auroriqa", "and this is Auroriqa")}</span>
@@ -141,14 +141,30 @@ export default function AboutFounder() {
                 </p>
               </div>
 
-              <motion.a
-                href="#contact"
-                whileHover={{ x: 4 }}
-                className="inline-flex items-center gap-3 text-emerald-400 hover:text-emerald-300 transition-colors font-medium group"
-              >
-                <span>{t("Napište mi přímo", "Message me directly")}</span>
-                <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </motion.a>
+              {/* Conversion CTAs */}
+              <div className="flex flex-col sm:flex-row gap-3 pt-2">
+                <motion.a
+                  href="https://wa.me/420776497222?text=Ahoj%20Svjéťo%2C%20mám%20zájem%20o%20spolupráci"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
+                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 text-emerald-400 hover:bg-emerald-500/22 hover:border-emerald-500/50 transition-all duration-200 font-semibold text-sm"
+                >
+                  <MessageCircle className="w-4 h-4 shrink-0" />
+                  <span>{t("Napsat na WhatsApp", "Message on WhatsApp")}</span>
+                </motion.a>
+
+                <motion.a
+                  href="mailto:hello@auroriqa.cz"
+                  whileHover={{ x: 4 }}
+                  className="inline-flex items-center gap-2.5 px-5 py-3 rounded-xl text-white/55 hover:text-white/80 transition-colors font-medium text-sm group"
+                >
+                  <Mail className="w-4 h-4 shrink-0" />
+                  <span>{t("Nebo emailem", "Or via email")}</span>
+                  <ArrowRight className="w-3.5 h-3.5 group-hover:translate-x-1 transition-transform" />
+                </motion.a>
+              </div>
             </motion.div>
           </div>
         </div>

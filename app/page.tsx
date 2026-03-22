@@ -16,8 +16,8 @@ export default function Home() {
       <Navigation />
       <Hero />
       <ServicesNew />
-      <ShowcasePortfolio />
       <AboutFounder />
+      <ShowcasePortfolio />
       <HowWeWork />
       <FAQ />
       <FreeProposal />
