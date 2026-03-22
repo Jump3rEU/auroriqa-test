@@ -225,7 +225,7 @@ export default function ShowcasePortfolio() {
                   SHOWCASE / PROJEKTY
                 </span>
               </motion.div>
-              <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-4 md:mb-8">
+              <h2 className="text-5xl sm:text-7xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85] mb-4 md:mb-8">
                 <span className="text-white">Naše</span>
                 <br />
                 <span className="text-white/15">práce</span>
@@ -560,3 +560,4 @@ export default function ShowcasePortfolio() {
     </section>
   );
 }
+

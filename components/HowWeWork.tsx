@@ -1,4 +1,4 @@
-﻿"use client";
+"use client";
 
 import { motion, useScroll, useTransform } from "framer-motion";
 import { Search, Code2, FlaskConical, Rocket, ArrowRight } from "lucide-react";
@@ -80,7 +80,7 @@ export default function HowWeWork() {
   return (
     <motion.section
       ref={containerRef}
-      className="py-24 md:py-40 relative overflow-hidden"
+      id="process" className="py-24 md:py-32 relative overflow-hidden"
       style={{ opacity }}
     >
       {/* Background aurora */}
@@ -120,7 +120,7 @@ export default function HowWeWork() {
                   {t('Proces / Metodologie', 'Process / Methodology')}
                 </span>
               </div>
-              <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[9rem] font-bold space-grotesk leading-[0.85]">
+              <h2 className="text-5xl sm:text-7xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85]">
                 <span className="text-white">{t('Jak', 'How')}</span>
                 <br />
                 <span className="text-white/15">{t('pracujeme', 'we work')}</span>
@@ -226,10 +226,10 @@ export default function HowWeWork() {
             />
             <div className="relative z-10">
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white space-grotesk mb-4">
-                {t('Připraveni začít váš projekt?', 'Ready to start your project?')}
+                {t('Chceš vidět konkrétní návrh pro tvůj projekt?', 'Ready to start your project?')}
               </h3>
               <p className="text-white/50 mb-8 text-base sm:text-lg max-w-xl mx-auto">
-                {t('Pojďme společně vytvořit něco výjimečného.', "Let's create something exceptional together.")}
+                {t('Pošli zadání a do pár dní máš první směr.', "Let's create something exceptional together.")}
               </p>
               <motion.a
                 href="#contact"
@@ -247,3 +247,4 @@ export default function HowWeWork() {
     </motion.section>
   );
 }
+

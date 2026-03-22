@@ -79,16 +79,16 @@ export default function Contact() {
             >
               <Mail className="w-5 h-5 text-purple-400" />
               <span className="text-sm font-medium text-white/50 tracking-[0.2em] uppercase">
-                {t('KONTAKT / SPOJME SE', 'CONTACT / GET IN TOUCH')}
+                {t('KONTAKT', 'CONTACT / GET IN TOUCH')}
               </span>
             </motion.div>
             <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8 px-4">
-              <span className="text-white">{t('Připraveni', 'Ready to')}</span>
+              <span className="text-white">{t('Máš projekt', 'Ready to')}</span>
               <br />
-              <span className="text-white/15">{t('začít?', 'start?')}</span>
+              <span className="text-white/15">{t('který posuneme?', 'start?')}</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/50 leading-relaxed max-w-2xl px-4">
-              {t('Spojme síly a vytvořme něco jedinečného. Začněte svůj projekt ještě dnes.', 'Let\'s join forces and create something unique. Start your project today.')}
+              {t('Napiš pár vět o cíli projektu. Ozveme se s konkrétním návrhem dalšího postupu.', 'Let\'s join forces and create something unique. Start your project today.')}
             </p>
           </div>
         </motion.div>
@@ -163,10 +163,12 @@ export default function Contact() {
             </div>
             
             <p className="text-white/40 text-sm text-center">
-              {t('Konzultace zdarma • Odpověď do 24h • NDA můžeme podepsat', 'Free consultation • Response within 24h • NDA available')}
+              {t('Úvodní call zdarma • Odpověď do 24 h • NDA bez problému', 'Free consultation • Response within 24h • NDA available')}
             </p>
           </motion.div>
       </div>
     </motion.section>
   );
 }
+
+

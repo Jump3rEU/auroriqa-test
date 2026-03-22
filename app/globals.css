@@ -17,26 +17,11 @@
 
   html {
     scroll-behavior: smooth;
-    scroll-padding-top: 80px;
-  }
-
-  /* Cinematic smooth scroll */
-  @supports (scroll-behavior: smooth) {
-    html {
-      scroll-snap-type: y proximity;
-    }
+    scroll-padding-top: 88px;
   }
 
   * {
-    scroll-margin-top: 100px;
-  }
-
-  /* Smooth scroll with easing for better cinematics */
-  @media (prefers-reduced-motion: no-preference) {
-    html {
-      scroll-behavior: smooth;
-      scroll-timeline: --page-scroll;
-    }
+    scroll-margin-top: 96px;
   }
 
   h1, h2, h3, h4, h5, h6 {
@@ -44,8 +29,12 @@
     font-weight: 700;
     letter-spacing: -0.02em;
   }
-}
 
+  :focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.92);
+    outline-offset: 2px;
+  }
+}
 @layer utilities {
   .text-gradient {
     @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-blue via-brand-purple to-brand-pink;
@@ -315,3 +304,14 @@
     animation: shimmer 3s infinite;
   }
 }
+
+@layer utilities {
+  .focus-ring:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.95);
+    outline-offset: 2px;
+  }
+}
+
+
+
+
