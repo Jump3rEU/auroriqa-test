@@ -54,7 +54,7 @@ export default function FreeProposal() {
   return (
     <motion.section 
       ref={containerRef}
-      className="relative overflow-hidden py-32 md:py-40"
+      className="relative overflow-hidden py-20 md:py-28"
       style={{ opacity }}
     >
       {/* Background Aurora - stejný styl jako ostatní sekce */}

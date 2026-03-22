@@ -25,7 +25,7 @@ export default function FAQ() {
     <motion.section 
       ref={containerRef}
       id="faq" 
-      className="py-32 relative overflow-hidden"
+      className="py-20 md:py-28 relative overflow-hidden"
       style={{ opacity }}
     >
       {/* Background Aurora - Seamless */}

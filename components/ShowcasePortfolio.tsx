@@ -176,8 +176,8 @@ export default function ShowcasePortfolio() {
     <section
       ref={sectionRef}
       id="portfolio"
-      className="relative min-h-screen flex items-start justify-center py-16 overflow-hidden scroll-snap-align-start"
-      style={{ perspective: "2500px", scrollSnapType: "y mandatory" }}
+      className="relative flex items-start justify-center py-20 md:py-28 overflow-hidden"
+      style={{ perspective: "2500px" }}
     >
       {/* Dynamic Aurora Background - Smoother Transitions */}
       <AnimatePresence>

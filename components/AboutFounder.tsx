@@ -8,7 +8,7 @@ export default function AboutFounder() {
   const { t } = useLanguage();
 
   return (
-    <section className="py-24 relative overflow-hidden">
+    <section className="py-20 md:py-28 relative overflow-hidden">
       {/* Background aurora */}
       <div className="absolute inset-0 pointer-events-none">
         <motion.div
@@ -33,21 +33,51 @@ export default function AboutFounder() {
               transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
               className="relative"
             >
-              {/* Avatar placeholder */}
+              {/* Founder monogram */}
               <div className="relative w-full max-w-sm mx-auto lg:mx-0">
-                <div className="aspect-square rounded-3xl bg-gradient-to-br from-emerald-500/20 via-teal-500/10 to-transparent border border-white/[0.08] flex items-center justify-center overflow-hidden relative">
-                  {/* Animated background */}
-                  <motion.div
-                    animate={{ rotate: [0, 360] }}
-                    transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
-                    className="absolute inset-0 opacity-30"
+                {/* Outer aurora glow */}
+                <motion.div
+                  animate={{ rotate: [0, 360] }}
+                  transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                  className="absolute -inset-3 rounded-[2rem] opacity-50"
+                  style={{
+                    background:
+                      "conic-gradient(from 0deg, rgba(16,185,129,0.6), rgba(6,182,212,0.3), rgba(139,92,246,0.15), rgba(16,185,129,0.6))",
+                    filter: "blur(16px)",
+                  }}
+                />
+                <div className="aspect-square rounded-3xl bg-gradient-to-br from-emerald-950/70 via-teal-950/50 to-black/80 border border-emerald-500/25 flex items-center justify-center overflow-hidden relative">
+                  {/* Subtle grid */}
+                  <div
+                    className="absolute inset-0 opacity-[0.035]"
                     style={{
-                      background:
-                        "conic-gradient(from 0deg, rgba(16,185,129,0.3), rgba(6,182,212,0.15), rgba(139,92,246,0.1), rgba(16,185,129,0.3))",
+                      backgroundImage:
+                        "linear-gradient(rgba(255,255,255,0.6) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.6) 1px, transparent 1px)",
+                      backgroundSize: "44px 44px",
                     }}
                   />
-                  {/* Initials */}
-                  <span className="relative z-10 text-7xl font-black text-white/20 space-grotesk select-none">
+                  {/* Rotating decorative rings */}
+                  <motion.div
+                    animate={{ rotate: [0, 360] }}
+                    transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-10 rounded-full border border-emerald-400/20"
+                  />
+                  <motion.div
+                    animate={{ rotate: [360, 0] }}
+                    transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
+                    className="absolute inset-[4.5rem] rounded-full border border-teal-400/15"
+                  />
+                  {/* Bottom gradient wash */}
+                  <div className="absolute bottom-0 left-0 right-0 h-2/5 bg-gradient-to-t from-emerald-500/10 to-transparent" />
+                  {/* Monogram */}
+                  <span
+                    className="relative z-10 text-[9rem] font-black space-grotesk select-none leading-none"
+                    style={{
+                      background: "linear-gradient(160deg, rgba(255,255,255,0.85) 0%, rgba(52,211,153,0.6) 60%, rgba(255,255,255,0.2) 100%)",
+                      WebkitBackgroundClip: "text",
+                      WebkitTextFillColor: "transparent",
+                    }}
+                  >
                     S
                   </span>
                 </div>

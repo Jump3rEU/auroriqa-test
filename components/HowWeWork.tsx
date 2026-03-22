@@ -80,7 +80,7 @@ export default function HowWeWork() {
   return (
     <motion.section
       ref={containerRef}
-      id="process" className="py-24 md:py-32 relative overflow-hidden"
+      id="process" className="py-20 md:py-28 relative overflow-hidden"
       style={{ opacity }}
     >
       {/* Background aurora */}

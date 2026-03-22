@@ -22,7 +22,7 @@ export default function Contact() {
     <motion.section 
       ref={containerRef}
       id="contact" 
-      className="py-32 relative overflow-hidden"
+      className="py-20 md:py-28 relative overflow-hidden"
       style={{ opacity }}
     >
       {/* Background - Seamless */}

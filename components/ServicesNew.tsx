@@ -26,7 +26,7 @@ export default function ServicesNew() {
   }));
 
   return (
-    <section id="services" className="py-32 md:py-48 relative overflow-hidden">
+    <section id="services" className="py-20 md:py-28 relative overflow-hidden">
       {/* Aurora Background Effects */}
       <div className="absolute inset-0 pointer-events-none">
         {/* Dynamic aurora that follows active service */}
@@ -114,18 +114,18 @@ export default function ServicesNew() {
               <div className="grid grid-cols-2 gap-4 lg:gap-6">
                 <div>
                   <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent mb-1">
-                    50+
+                    5+
                   </div>
                   <div className="text-sm text-white/40">
-                    {t('Projektů', 'Projects')}
+                    {t('let zkušeností', 'years experience')}
                   </div>
                 </div>
                 <div>
                   <div className="text-3xl lg:text-4xl font-bold bg-gradient-to-r from-violet-400 to-purple-400 bg-clip-text text-transparent mb-1">
-                    100%
+                    5 dní
                   </div>
                   <div className="text-sm text-white/40">
-                    {t('Spokojenost', 'Satisfaction')}
+                    {t('Prototyp', 'Prototype')}
                   </div>
                 </div>
               </div>
