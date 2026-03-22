@@ -3,6 +3,7 @@ import Navigation from "@/components/Navigation";
 import Hero from "@/components/Hero";
 import ServicesNew from "@/components/ServicesNew";
 import ShowcasePortfolio from "@/components/ShowcasePortfolio";
+import AboutFounder from "@/components/AboutFounder";
 import HowWeWork from "@/components/HowWeWork";
 import FAQ from "@/components/FAQ";
 import FreeProposal from "@/components/FreeProposal";
@@ -16,6 +17,7 @@ export default function Home() {
       <Hero />
       <ServicesNew />
       <ShowcasePortfolio />
+      <AboutFounder />
       <HowWeWork />
       <FAQ />
       <FreeProposal />

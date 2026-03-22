@@ -83,12 +83,12 @@ export default function Contact() {
               </span>
             </motion.div>
             <h2 className="text-5xl sm:text-6xl md:text-7xl lg:text-8xl xl:text-[10rem] font-bold space-grotesk leading-[0.85] mb-8 px-4">
-              <span className="text-white">{t('Máš projekt', 'Ready to')}</span>
+              <span className="text-white">{t('Projekt, který', 'A project that')}</span>
               <br />
-              <span className="text-white/15">{t('který posuneme?', 'start?')}</span>
+              <span className="text-white/15">{t('si zaslouží víc.', 'deserves more.')}</span>
             </h2>
             <p className="text-base sm:text-lg md:text-xl text-white/50 leading-relaxed max-w-2xl px-4">
-              {t('Napiš pár vět o cíli projektu. Ozveme se s konkrétním návrhem dalšího postupu.', 'Let\'s join forces and create something unique. Start your project today.')}
+              {t('Napiš mi o cíli. Odpovím s konkrétním návrhem — ne automatickým formulářem.', 'Tell me about the goal. I\'ll reply with a concrete proposal — not an automated response.')}
             </p>
           </div>
         </motion.div>

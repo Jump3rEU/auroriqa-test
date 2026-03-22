@@ -50,7 +50,7 @@ export default function Footer() {
                 </span>
               </h3>
               <p className="text-white/60 text-lg leading-relaxed max-w-md mb-8">
-                {t('Přeměňujeme vize v realitu pomocí moderních technologií a kreativního přístupu', 'Transforming visions into reality with modern technologies and creative approach')}
+                {t('Weby, které svítí. Ne jen existují.', 'Websites that shine. Not just exist.')}
               </p>
               
               {/* Social Links */}

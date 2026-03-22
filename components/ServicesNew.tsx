@@ -93,9 +93,9 @@ export default function ServicesNew() {
               </motion.div>
 
               <h2 className="text-5xl sm:text-7xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85] mb-6">
-                <span className="text-white">Build</span>
+                <span className="text-white">{t('Výsledky,', 'Results,')}</span>
                 <br />
-                <span className="text-white/15">anything</span>
+                <span className="text-white/15">{t('ne sliby.', 'not promises.')}</span>
               </h2>
             </div>
 
@@ -107,7 +107,7 @@ export default function ServicesNew() {
               className="w-full lg:max-w-md lg:pt-12"
             >
               <p className="text-base sm:text-lg lg:text-xl text-white/50 leading-relaxed mb-6 lg:mb-8">
-                {t('Od prvního návrhu po finální launch. Děláme digitální produkty, které fungují.', 'From the first design to the final launch. We build digital products that work.')}
+                {t('Od konceptu po spuštění. Každý projekt dostane to, co potřebuje — ne to, co máme v katalogu.', 'From concept to launch. Every project gets what it needs — not what\'s in the catalogue.')}
               </p>
               
               {/* Quick stats */}
@@ -385,7 +385,7 @@ export default function ServicesNew() {
           className="mt-32 text-center"
         >
           <p className="text-white/40 mb-6">
-            {t('Nevíte si rady? Rádi poradíme.', "Not sure? We're happy to help.")}
+            {t('Máte vizi. My víme, jak ji postavit.', "You have the vision. We know how to build it.")}
           </p>
           <motion.a
             href="#contact"
@@ -394,7 +394,7 @@ export default function ServicesNew() {
             className="inline-flex items-center gap-3 px-8 py-4 rounded-full bg-white/[0.05] border border-white/10 text-white/80 hover:bg-white/[0.08] hover:text-white transition-all backdrop-blur-xl"
           >
             <Zap className="w-5 h-5" />
-            <span className="font-medium">{t('Rezervovat konzultaci', 'Book a consultation')}</span>
+            <span className="font-medium">{t('Začít společně', 'Start together')}</span>
             <ArrowRight className="w-4 h-4" />
           </motion.a>
         </motion.div>

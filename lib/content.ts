@@ -18,12 +18,12 @@
 export const siteSettings = {
   companyName: "Auroriqa",
   tagline: {
-    CS: "Digitální produkty, které fungují.",
-    EN: "Digital products that work.",
+    CS: "Weby, které svítí. Ne jen existují.",
+    EN: "Websites that shine. Not just exist.",
   },
   description: {
-    CS: "Tvoříme moderní weby, aplikace a digitální produkty s důrazem na výkon, design a výsledky.",
-    EN: "We craft modern websites, apps and digital products with a focus on performance, design, and results.",
+    CS: "Navrhujeme a spouštíme weby, e-shopy a SaaS aplikace pro firmy, kde záleží na výsledcích. Praha, dodáváme i do zahraničí.",
+    EN: "We design and ship websites, e-commerce and SaaS apps for businesses where results matter. Prague-based, delivering globally.",
   },
   email: "hello@auroriqa.cz",
   phone: "+420 777 000 000",
@@ -52,8 +52,8 @@ export const services = [
     titleEN: "Websites",
     descriptionCS: "Prezentační weby, landing pages a corporate identity",
     descriptionEN: "Presentation websites, landing pages and corporate identity",
-    longDescCS: "Od jednoduchých landing pages až po komplexní corporate weby s vlastním CMS. Moderní design, který osloví vaše zákazníky.",
-    longDescEN: "From simple landing pages to complex corporate websites with custom CMS. Modern design that reaches your customers.",
+    longDescCS: "Landing pages a firemní weby s CMS. Spuštění za 2–3 týdny od 25 000 Kč. Průměrný load time pod 1 sekundu — Google to pozná, zákazníci taky.",
+    longDescEN: "Landing pages and corporate websites with CMS. Launch in 2–3 weeks from €1 000. Average load time under 1 second — Google notices, customers too.",
     gradient: "from-emerald-500 via-teal-500 to-cyan-500",
     glowColor: "rgba(16, 185, 129, 0.4)",
     stats: [
@@ -70,8 +70,8 @@ export const services = [
     titleEN: "Web Applications",
     descriptionCS: "SaaS platformy, dashboardy a interaktivní aplikace",
     descriptionEN: "SaaS platforms, dashboards and interactive apps",
-    longDescCS: "Komplexní webové aplikace s real-time funkcionalitou. Od MVP po enterprise řešení s tisíci uživateli.",
-    longDescEN: "Complex web applications with real-time functionality. From MVP to enterprise solutions with thousands of users.",
+    longDescCS: "MVP i enterprise. Real-time data, API integrace, cloud. 4–8 týdnů od 60 000 Kč. Škálujete s námi, ne kvůli nám.",
+    longDescEN: "MVP to enterprise. Real-time data, API integrations, cloud. 4–8 weeks from €2 500. You scale with us, not because of us.",
     gradient: "from-violet-500 via-purple-500 to-fuchsia-500",
     glowColor: "rgba(139, 92, 246, 0.4)",
     stats: [
@@ -88,8 +88,8 @@ export const services = [
     titleEN: "Mobile Apps",
     descriptionCS: "Native iOS a Android aplikace pro moderní svět",
     descriptionEN: "Native iOS and Android apps for modern world",
-    longDescCS: "Nativní mobilní aplikace s perfektním výkonem. Push notifikace, offline režim a bezproblémová synchronizace.",
-    longDescEN: "Native mobile apps with perfect performance. Push notifications, offline mode and seamless sync.",
+    longDescCS: "iOS a Android nativně. Push notifikace, offline režim, biometrie. Za 6–12 týdnů od 90 000 Kč. Perfektní výkon, protože na tom záleží.",
+    longDescEN: "iOS and Android natively. Push notifications, offline mode, biometrics. In 6–12 weeks from €3 500. Perfect performance, because it matters.",
     gradient: "from-pink-500 via-rose-500 to-red-500",
     glowColor: "rgba(236, 72, 153, 0.4)",
     stats: [
@@ -106,8 +106,8 @@ export const services = [
     titleEN: "E-commerce",
     descriptionCS: "Online obchody, které skutečně prodávají",
     descriptionEN: "Online stores that actually sell",
-    longDescCS: "Komplexní e-shop řešení s platebními bránami, správou skladu a marketing automation.",
-    longDescEN: "Complete e-shop solution with payment gateways, inventory management and marketing automation.",
+    longDescCS: "E-shop na míru s platební bránou, skladem a automatizací. Za 3–5 týdnů od 45 000 Kč. Víc, než Shoptet kdy nabídne.",
+    longDescEN: "Custom e-shop with payment gateway, inventory and automation. In 3–5 weeks from €1 800. More than Shopify will ever offer.",
     gradient: "from-amber-500 via-orange-500 to-red-500",
     glowColor: "rgba(251, 191, 36, 0.4)",
     stats: [

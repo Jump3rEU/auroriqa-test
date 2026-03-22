@@ -32,19 +32,19 @@ export default function Hero() {
         >
           <div className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-4 py-2 text-xs sm:text-sm text-white/80 mb-6">
             <span className="h-2 w-2 rounded-full bg-emerald-400" />
-            {t('Vývoj webů a aplikací pro firmy, které chtějí růst', 'Web & app development for companies that want to grow')}
+            {t('Pro ty, co chtějí víc než průměr · Praha', 'For brands that refuse to blend in · Prague')}
           </div>
 
           <h1 className="space-grotesk text-4xl sm:text-6xl lg:text-7xl font-bold leading-[1.05] tracking-tight text-white">
-            {t('Web, který vypadá prémiově', 'Premium-looking web')}
+            {t('Záříte, nebo jste jen', 'Are you shining, or just')}
             <br />
-            <span className="text-white/75">{t('a hlavně vydělává.', 'that actually converts.')}</span>
+            <span className="text-white/75">{t('online?', 'online?')}</span>
           </h1>
 
           <p className="mt-6 text-base sm:text-xl text-white/72 leading-relaxed max-w-2xl">
             {t(
-              'Navrhujeme a stavíme weby, e-shopy i SaaS aplikace. Jasný proces, rychlá komunikace a měřitelné výsledky bez zbytečné omáčky.',
-              'We design and build websites, e-commerce and SaaS apps. Clear process, fast communication and measurable outcomes.'
+              'Navrhujeme a spouštíme weby, e-shopy a SaaS aplikace. 80 000+ unikátních návštěv generujeme pro klienty ročně. Prototyp vidíte do 5 dní.',
+              'We design and ship websites, e-commerce and SaaS apps. 80K+ unique visits generated for clients annually. Prototype in 5 days.'
             )}
           </p>
 
@@ -53,12 +53,12 @@ export default function Hero() {
               {t('Domluvit 20min call', 'Book a 20-min call')}
             </Button>
             <Button variant="secondary" size="xl" href="#portfolio">
-              {t('Prohlédnout reference', 'View case studies')}
+              {t('Vidět výsledky', 'See results')}
             </Button>
           </div>
 
           <div className="mt-8 grid sm:grid-cols-3 gap-3 max-w-3xl">
-            {[t('Odpověď do 24 hodin', 'Reply within 24h'), t('Návrh řešení do 5 dní', 'Solution draft in 5 days'), t('Bez závazku na začátku', 'No upfront commitment')].map((item) => (
+            {[t('80 000+ unikátních návštěv', '80K+ unique visits generated'), t('4.4 / 5 spokojenost klientů', '4.4/5 client satisfaction'), t('Cena jasná před startem', 'Price clear before start')].map((item) => (
               <div key={item} className="rounded-xl border border-white/12 bg-white/5 px-4 py-3 text-sm text-white/85 flex items-center gap-2">
                 <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
                 <span>{item}</span>

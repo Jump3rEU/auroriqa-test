@@ -19,34 +19,34 @@ export default function FreeProposal() {
   const benefits = [
     {
       icon: Sparkles,
-      titleCS: "Moderní technologie",
-      titleEN: "Modern Tech",
-      descriptionCS: "React, Next.js, Node.js a nejnovější nástroje",
-      descriptionEN: "React, Next.js, Node.js and latest tools",
+      titleCS: "Next.js + Tailwind",
+      titleEN: "Next.js + Tailwind",
+      descriptionCS: "Stack, co Netflix, Vercel a Linear používají dnes. Žádné WordPressy.",
+      descriptionEN: "The stack Netflix, Vercel and Linear use today. No WordPress.",
       color: "from-emerald-400 to-cyan-500"
     },
     {
       icon: Clock,
-      titleCS: "Rychlé dodání",
-      titleEN: "Fast Delivery",
-      descriptionCS: "První prototyp za 2-3 týdny",
-      descriptionEN: "First prototype in 2-3 weeks",
+      titleCS: "Prototyp za 5 dní",
+      titleEN: "Prototype in 5 days",
+      descriptionCS: "Do týdne vidíte první verzi. Žádné měsíce čekání na wireframy.",
+      descriptionEN: "First version in a week. No months waiting for wireframes.",
       color: "from-cyan-400 to-blue-500"
     },
     {
       icon: MessageSquare,
-      titleCS: "Přímá komunikace",
-      titleEN: "Direct Contact",
-      descriptionCS: "Denní updates a transparentnost",
-      descriptionEN: "Daily updates and transparency",
+      titleCS: "Přímá linka na mě",
+      titleEN: "Direct line to me",
+      descriptionCS: "Slack nebo email — odpovím do 4 hodin. Žádný project manager uprostřed.",
+      descriptionEN: "Slack or email — reply within 4 hours. No PM in the middle.",
       color: "from-blue-400 to-purple-500"
     },
     {
       icon: Shield,
-      titleCS: "Kvalita garantována",
-      titleEN: "Quality Guaranteed",
-      descriptionCS: "100% spokojenost nebo vrácení peněz",
-      descriptionEN: "100% satisfaction or money back",
+      titleCS: "Smluvní záruka",
+      titleEN: "Contractual guarantee",
+      descriptionCS: "Výsledek je ve smlouvě. Pokud nesplníme, peníze vracíme.",
+      descriptionEN: "Results are in the contract. If we don't deliver, you get your money back.",
       color: "from-purple-400 to-pink-500"
     }
   ];
@@ -138,31 +138,31 @@ export default function FreeProposal() {
                 <Sparkles className="w-4 h-4 md:w-5 md:h-5 text-emerald-400" />
               </motion.div>
               <span className="text-sm md:text-base lg:text-lg font-bold text-emerald-400 tracking-widest uppercase">
-                {t('ZDARMA NÁVRH', 'FREE PROPOSAL')}
+                {t('NEZÁVAZNÝ NÁVRH', 'FREE PROPOSAL')}
               </span>
             </div>
           </motion.div>
           
           {/* Main Title */}
           <h2 className="text-3xl sm:text-4xl md:text-6xl lg:text-7xl xl:text-8xl 2xl:text-9xl font-bold space-grotesk leading-tight mb-4 sm:mb-6 md:mb-8 lg:mb-10 px-4">
-            <motion.span 
+            <motion.span
               className="text-white"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.3, duration: 0.6 }}
             >
-              {t('Postaveno', 'Built for')}
+              {t('Pošlete brief.', 'Send a brief.')}
             </motion.span>
             <br />
-            <motion.span 
+            <motion.span
               className="bg-gradient-to-r from-emerald-500 via-cyan-500 to-blue-500 bg-clip-text text-transparent"
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: 0.4, duration: 0.6 }}
             >
-              {t('pro budoucnost', 'the future')}
+              {t('Dostanete návrh.', 'Get a proposal.')}
             </motion.span>
           </h2>
           
@@ -174,7 +174,7 @@ export default function FreeProposal() {
             viewport={{ once: true }}
             transition={{ delay: 0.5, duration: 0.8 }}
           >
-            {t('Získejte profesionální návrh zdarma. Bez závazků. Odpověď do 24h.', 'Get a professional proposal free. No obligations. Response within 24h.')}
+            {t('Napište mi pár vět o projektu. Dostanete reálný návrh — ne automatický ceník.', 'Write me a few lines about your project. You\'ll get a real proposal — not an automated price list.')}
           </motion.p>
         </motion.div>
 
@@ -276,12 +276,12 @@ export default function FreeProposal() {
         >
           {/* CTA Title */}
           <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl xl:text-6xl 2xl:text-7xl font-bold text-white mb-4 sm:mb-6 md:mb-8 space-grotesk leading-tight px-4">
-            {t('Připraveni začít?', 'Ready to start?')}
+            {t('Začínáme teď?', 'Start now?')}
           </h3>
-          
+
           {/* CTA Subtitle */}
           <p className="text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl text-white/70 mb-6 sm:mb-8 md:mb-10 lg:mb-12 max-w-4xl mx-auto leading-relaxed font-light px-4">
-            {t('Jeden krok k vašemu novému projektu. Kontaktujeme vás do 24h.', 'One step to your new project. We contact you within 24h.')}
+            {t('Ozveme se do 24 hodin s konkrétním postupem.', 'We\'ll reply within 24 hours with a concrete plan.')}
           </p>
 
           {/* CTA Buttons */}
