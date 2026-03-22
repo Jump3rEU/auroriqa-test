@@ -1,8 +1,7 @@
 "use client";
 
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Mail, ArrowRight } from "lucide-react";
-import { useRef } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContactPopup } from "@/contexts/ContactPopupContext";
 import Button from "@/components/Button";
@@ -10,21 +9,15 @@ import Button from "@/components/Button";
 export default function Contact() {
   const { t } = useLanguage();
   const { openPopup } = useContactPopup();
-  const containerRef = useRef<HTMLElement>(null);
-  const { scrollYProgress } = useScroll({
-    target: containerRef,
-    offset: ["start end", "end start"]
-  });
-
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
 
   return (
-    <motion.section 
-      ref={containerRef}
-      id="contact" 
-      className="py-20 md:py-28 relative overflow-hidden"
-      style={{ opacity }}
+    <section
+      id="contact"
+      className="py-14 md:py-20 relative overflow-hidden"
     >
+      {/* Section top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-500/30 to-transparent" />
+
       {/* Background - Seamless */}
       <div className="absolute inset-0 opacity-40">
         <motion.div
@@ -68,7 +61,7 @@ export default function Contact() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto mb-20"
+          className="max-w-7xl mx-auto mb-10"
         >
           <div className="flex flex-col items-center text-center">
             <motion.div
@@ -99,7 +92,7 @@ export default function Contact() {
             whileInView={{ scale: 1, opacity: 1 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ delay: 0.2, duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-            className="mb-20 flex justify-center"
+            className="mb-10 flex justify-center"
           >
             <a
               href="mailto:hello@auroriqa.cz"
@@ -167,7 +160,7 @@ export default function Contact() {
             </p>
           </motion.div>
       </div>
-    </motion.section>
+    </section>
   );
 }
 

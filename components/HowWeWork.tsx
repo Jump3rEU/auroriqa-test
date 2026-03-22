@@ -72,7 +72,7 @@ export default function HowWeWork() {
 
   return (
     <section
-      id="process" className="py-20 md:py-28 relative overflow-hidden"
+      id="process" className="py-14 md:py-20 relative overflow-hidden"
     >
       {/* Background aurora */}
       <div className="absolute inset-0 pointer-events-none">
@@ -101,7 +101,7 @@ export default function HowWeWork() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-          className="max-w-7xl mx-auto mb-16 md:mb-24"
+          className="max-w-7xl mx-auto mb-10 md:mb-14"
         >
           <div className="flex flex-col md:flex-row items-start justify-between gap-10 md:gap-16">
             <div className="flex-1">
@@ -143,7 +143,7 @@ export default function HowWeWork() {
         </motion.div>
 
         {/* Steps Grid */}
-        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-16 md:mb-20">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-4 gap-4 sm:gap-5 lg:gap-6 mb-10 md:mb-14">
           {steps.map((step, index) => {
             const Icon = step.icon;
             return (

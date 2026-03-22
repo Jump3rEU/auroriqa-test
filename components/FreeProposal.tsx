@@ -45,7 +45,7 @@ export default function FreeProposal() {
 
   return (
     <section
-      className="relative overflow-hidden py-20 md:py-28"
+      className="relative overflow-hidden py-14 md:py-20"
     >
       {/* Light-contrast block #2 — premium section lift before final CTA */}
       <div className="absolute inset-0 bg-gradient-to-b from-white/[0.025] via-white/[0.016] to-transparent pointer-events-none" />

@@ -16,10 +16,13 @@ export default function FAQ() {
   return (
     <section
       id="faq"
-      className="py-20 md:py-28 relative overflow-hidden"
+      className="py-14 md:py-20 relative overflow-hidden"
     >
+      {/* Section top border */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-cyan-500/30 to-transparent" />
+
       {/* Background Aurora - Seamless */}
-      <div className="absolute inset-0 opacity-40">
+      <div className="absolute inset-0 opacity-70">
         <motion.div
           animate={{
             scale: [1, 1.2, 1],
@@ -61,7 +64,7 @@ export default function FAQ() {
           initial={{ opacity: 0, y: -20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="max-w-7xl mx-auto mb-20"
+          className="max-w-7xl mx-auto mb-12 md:mb-14"
         >
           <div className="flex flex-col md:flex-row items-start justify-between gap-12">
             <div className="flex-1">
@@ -128,8 +131,8 @@ export default function FAQ() {
                   onClick={() => setOpenIndex(isOpen ? null : index)}
                   whileHover={{ scale: 1.01, y: -2 }}
                   whileTap={{ scale: 0.99 }}
-                  className={`w-full card-modern p-8 md:p-10 text-left group relative overflow-hidden transition-all duration-300 ${
-                    isOpen ? 'bg-white/[0.08] border-l-4 border-l-cyan-500/50' : 'border-l-4 border-l-transparent'
+                  className={`w-full bg-white/[0.06] backdrop-blur-xl rounded-3xl border border-white/[0.12] p-8 md:p-10 text-left group relative overflow-hidden transition-all duration-300 ${
+                    isOpen ? 'bg-white/[0.10] border-l-4 border-l-cyan-500/60' : 'border-l-4 border-l-transparent hover:bg-white/[0.08] hover:border-white/[0.18]'
                   }`}
                 >
                   {/* Hover aurora effect */}
@@ -225,7 +228,7 @@ export default function FAQ() {
           whileInView={{ y: 0, opacity: 1 }}
           viewport={{ once: true, amount: 0.3 }}
           transition={{ delay: 0.5, duration: 0.6 }}
-          className="mt-12 max-w-3xl mx-auto"
+          className="mt-10 max-w-3xl mx-auto"
         >
           <div className="relative card-modern p-10 text-center overflow-hidden group">
             <motion.div
