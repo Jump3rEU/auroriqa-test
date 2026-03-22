@@ -42,16 +42,17 @@ export default function Navigation() {
         }`}
       >
         <div className="flex h-16 items-center justify-between px-4 sm:px-6">
-          <a href="/" aria-label="Auroriqa domů" className="text-lg sm:text-xl font-bold tracking-tight text-white space-grotesk focus-ring rounded-md">AURORIQA</a>
+          <a href="/" aria-label="Auroriqa domů" className="text-lg sm:text-xl font-bold tracking-tight space-grotesk focus-ring rounded-md bg-gradient-to-r from-white via-emerald-200 to-cyan-200 bg-clip-text text-transparent hover:from-white hover:via-emerald-100 hover:to-white transition-all duration-300">AURORIQA</a>
 
           <nav className="hidden lg:flex items-center gap-7">
             {navItems.map((item) => (
               <a
                 key={item.href}
                 href={item.href}
-                className="text-sm font-medium text-white/70 hover:text-white transition-colors focus-ring rounded-md"
+                className="text-sm font-medium text-white/55 hover:text-white/90 transition-colors duration-200 focus-ring rounded-md relative group"
               >
                 {t(item.cs, item.en)}
+                <span className="absolute -bottom-0.5 left-0 w-0 h-px bg-gradient-to-r from-emerald-400 to-cyan-400 group-hover:w-full transition-all duration-300" />
               </a>
             ))}
           </nav>

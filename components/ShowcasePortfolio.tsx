@@ -151,24 +151,21 @@ export default function ShowcasePortfolio() {
 
   const slideVariants = {
     enter: (direction: number) => ({
-      x: direction > 0 ? 1200 : -1200,
+      x: direction > 0 ? 80 : -80,
       opacity: 0,
-      scale: 0.85,
-      rotateY: direction > 0 ? 35 : -35,
+      scale: 0.97,
     }),
     center: {
       zIndex: 1,
       x: 0,
       opacity: 1,
       scale: 1,
-      rotateY: 0,
     },
     exit: (direction: number) => ({
       zIndex: 0,
-      x: direction < 0 ? 1200 : -1200,
+      x: direction < 0 ? 80 : -80,
       opacity: 0,
-      scale: 0.85,
-      rotateY: direction < 0 ? 35 : -35,
+      scale: 0.97,
     })
   };
 
@@ -179,7 +176,6 @@ export default function ShowcasePortfolio() {
       ref={sectionRef}
       id="portfolio"
       className="relative flex items-start justify-center py-20 md:py-28 overflow-hidden"
-      style={{ perspective: "2500px" }}
     >
       {/* Dynamic Aurora Background - Smoother Transitions */}
       <AnimatePresence>
@@ -189,19 +185,13 @@ export default function ShowcasePortfolio() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
-          transition={{ duration: 1.5, ease: "easeInOut" }}
+          transition={{ duration: 1.2, ease: "easeInOut" }}
         >
-          <motion.div
-            className={`absolute inset-0 bg-gradient-to-br ${currentProject.gradient} opacity-20 blur-3xl`}
-            animate={{
-              scale: [1, 1.3, 1.1, 1],
-              rotate: [0, 90, 180, 0],
-            }}
-            transition={{
-              duration: 25,
-              repeat: Infinity,
-              ease: "linear",
-            }}
+          <div
+            className={`absolute top-0 left-1/4 w-2/3 h-2/3 bg-gradient-to-br ${currentProject.gradient} opacity-10 blur-[120px] rounded-full`}
+          />
+          <div
+            className={`absolute bottom-0 right-1/4 w-1/2 h-1/2 bg-gradient-to-tl ${currentProject.gradient} opacity-7 blur-[100px] rounded-full`}
           />
         </motion.div>
       </AnimatePresence>
@@ -228,9 +218,9 @@ export default function ShowcasePortfolio() {
                 </span>
               </motion.div>
               <h2 className="text-5xl sm:text-7xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85] mb-4 md:mb-8">
-                <span className="text-white">Naše</span>
+                <span className="text-white/50 font-light">Naše</span>
                 <br />
-                <span className="text-white/15">práce</span>
+                <span className="text-white">práce</span>
               </h2>
             </div>
 
@@ -301,23 +291,6 @@ export default function ShowcasePortfolio() {
           )}
         </AnimatePresence>
 
-        {/* Progress Counter - Top Center */}
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="flex justify-center items-center mb-8"
-        >
-          <div className="px-6 py-3 rounded-2xl bg-white/[0.05] backdrop-blur-xl border border-white/10 shadow-lg">
-            <span className="text-2xl font-bold text-white">
-              {selectedProject + 1}
-            </span>
-            <span className="text-white/40 mx-2">/</span>
-            <span className="text-lg text-white/60">
-              {projects.length}
-            </span>
-          </div>
-        </motion.div>
 
         {/* Carousel */}
         <div className="relative max-w-7xl mx-auto">
@@ -347,10 +320,9 @@ export default function ShowcasePortfolio() {
               animate="center"
               exit="exit"
               transition={{
-                x: { type: "spring", stiffness: 500, damping: 35 },
-                opacity: { duration: 0.15 },
-                scale: { duration: 0.15 },
-                rotateY: { duration: 0.2 },
+                x: { type: "spring", stiffness: 400, damping: 38 },
+                opacity: { duration: 0.2 },
+                scale: { duration: 0.2 },
               }}
               className="grid lg:grid-cols-5 gap-8 items-start"
             >
