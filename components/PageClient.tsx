@@ -58,7 +58,12 @@ export default function PageClient({ children }: { children: React.ReactNode }) 
   return (
     <>
       <LoadingScreen onLoadingComplete={handleLoadingComplete} />
-      <main className="relative overflow-x-clip">
+      <main
+        aria-busy={isLoading}
+        className={`relative overflow-x-clip transition-opacity duration-500 ${
+          isLoading ? 'opacity-0 pointer-events-none select-none' : 'opacity-100'
+        }`}
+      >
         {!isLoading && allowVisualEffects && (
           <>
             <AuroraCurtains />
