@@ -1,199 +1,126 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { Menu, X } from "lucide-react";
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/LanguageContext";
 import { useContactPopup } from "@/contexts/ContactPopupContext";
-// import { useState } from "react";
-// import { Menu, X } from "lucide-react";
+
+const navItems = [
+  { href: "#services", cs: "Služby", en: "Services" },
+  { href: "#portfolio", cs: "Reference", en: "Work" },
+  { href: "#process", cs: "Proces", en: "Process" },
+  { href: "#faq", cs: "FAQ", en: "FAQ" },
+  { href: "#contact", cs: "Kontakt", en: "Contact" },
+];
 
 export default function Navigation() {
   const { language, setLanguage, t } = useLanguage();
   const { openPopup } = useContactPopup();
-  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 24);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
-    <motion.nav
-      initial={{ y: -100, opacity: 0 }}
+    <motion.header
+      initial={{ y: -20, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
-      transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      className="fixed top-0 left-0 right-0 z-50 py-6"
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+      className="fixed top-0 left-0 right-0 z-50 px-4 sm:px-6 pt-4"
     >
-      <div className="container mx-auto px-4 sm:px-6">
-        <div className="flex items-center justify-between h-16 sm:h-20">
-          {/* Logo with STRONG aurora - visible on white */}
-          <motion.a
-            href="#"
-            className="relative group z-50"
-            whileHover={{ scale: 1.05 }}
-          >
-            <div className="relative">
-              {/* ENHANCED Aurora Background - Super visible */}
-              <motion.div
-                className="absolute -inset-8"
-                animate={{
-                  background: [
-                    "radial-gradient(circle at 30% 50%, rgba(16, 185, 129, 0.65), rgba(6, 182, 212, 0.45) 40%, transparent 70%)",
-                    "radial-gradient(circle at 70% 50%, rgba(6, 182, 212, 0.65), rgba(99, 102, 241, 0.5) 40%, transparent 70%)",
-                    "radial-gradient(circle at 30% 50%, rgba(99, 102, 241, 0.6), rgba(139, 92, 246, 0.5) 40%, transparent 70%)",
-                    "radial-gradient(circle at 50% 30%, rgba(139, 92, 246, 0.65), rgba(16, 185, 129, 0.45) 40%, transparent 70%)",
-                    "radial-gradient(circle at 30% 50%, rgba(16, 185, 129, 0.65), rgba(6, 182, 212, 0.45) 40%, transparent 70%)"
-                  ],
-                  scale: [1, 1.2, 1],
-                  opacity: [0.95, 1, 0.95]
-                }}
-                transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
-                style={{ filter: "blur(35px)" }}
-              />
+      <div
+        className={`mx-auto max-w-7xl rounded-2xl border transition-all duration-300 ${
+          scrolled
+            ? "bg-black/70 border-white/15 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.35)]"
+            : "bg-black/35 border-white/10 backdrop-blur-md"
+        }`}
+      >
+        <div className="flex h-16 items-center justify-between px-4 sm:px-6">
+          <a href="/" aria-label="Auroriqa domů" className="text-lg sm:text-xl font-bold tracking-tight text-white space-grotesk focus-ring rounded-md">AURORIQA</a>
 
-              {/* Extra glow layer - always visible */}
-              <motion.div
-                className="absolute -inset-10"
-                animate={{
-                  background: [
-                    "radial-gradient(circle, rgba(16, 185, 129, 0.4), rgba(6, 182, 212, 0.3) 50%, transparent 70%)",
-                    "radial-gradient(circle, rgba(6, 182, 212, 0.4), rgba(139, 92, 246, 0.3) 50%, transparent 70%)",
-                    "radial-gradient(circle, rgba(139, 92, 246, 0.4), rgba(16, 185, 129, 0.3) 50%, transparent 70%)"
-                  ],
-                  scale: [1, 1.3, 1]
-                }}
-                transition={{ duration: 7, repeat: Infinity, ease: "easeInOut", delay: 1 }}
-                style={{ filter: "blur(45px)" }}
-              />
-
-              {/* Mega glow on hover */}
-              <motion.div
-                className="absolute -inset-12 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{
-                  background: "radial-gradient(circle, rgba(16, 185, 129, 0.6), rgba(6, 182, 212, 0.4) 50%, transparent 70%)",
-                  filter: "blur(50px)"
-                }}
-              />
-
-              {/* Orbiting elements - multiple particles */}
-              <motion.div
-                className="absolute -inset-4 opacity-90"
-                animate={{ rotate: 360 }}
-                transition={{ duration: 12, repeat: Infinity, ease: "linear" }}
+          <nav className="hidden lg:flex items-center gap-7">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                className="text-sm font-medium text-white/70 hover:text-white transition-colors focus-ring rounded-md"
               >
-                <div className="absolute top-0 left-1/2 w-2 h-2 -translate-x-1/2">
-                  <motion.div 
-                    className="w-full h-full rounded-full"
-                    animate={{
-                      backgroundColor: [
-                        "rgba(16, 185, 129, 1)",
-                        "rgba(6, 182, 212, 1)",
-                        "rgba(99, 102, 241, 1)",
-                        "rgba(139, 92, 246, 1)",
-                        "rgba(16, 185, 129, 1)"
-                      ],
-                      boxShadow: [
-                        "0 0 20px rgba(16, 185, 129, 1)",
-                        "0 0 20px rgba(6, 182, 212, 1)",
-                        "0 0 20px rgba(99, 102, 241, 1)",
-                        "0 0 20px rgba(139, 92, 246, 1)",
-                        "0 0 20px rgba(16, 185, 129, 1)"
-                      ]
-                    }}
-                    transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
-                  />
-                </div>
-              </motion.div>
-              <motion.div
-                className="absolute -inset-4 opacity-90"
-                animate={{ rotate: -360 }}
-                transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-              >
-                <div className="absolute bottom-0 left-1/2 w-1.5 h-1.5 -translate-x-1/2">
-                  <motion.div 
-                    className="w-full h-full rounded-full"
-                    animate={{
-                      backgroundColor: [
-                        "rgba(6, 182, 212, 1)",
-                        "rgba(139, 92, 246, 1)",
-                        "rgba(16, 185, 129, 1)",
-                        "rgba(6, 182, 212, 1)"
-                      ],
-                      boxShadow: [
-                        "0 0 15px rgba(6, 182, 212, 1)",
-                        "0 0 15px rgba(139, 92, 246, 1)",
-                        "0 0 15px rgba(16, 185, 129, 1)",
-                        "0 0 15px rgba(6, 182, 212, 1)"
-                      ]
-                    }}
-                    transition={{ duration: 5, repeat: Infinity, ease: "easeInOut", delay: 2 }}
-                  />
-                </div>
-              </motion.div>
+                {t(item.cs, item.en)}
+              </a>
+            ))}
+          </nav>
 
-              {/* Logo text with shadow for visibility */}
-              <div className="text-2xl font-bold space-grotesk relative z-10">
-                <span className="text-white drop-shadow-[0_2px_10px_rgba(0,0,0,0.3)]">AURORIQA</span>
-              </div>
-            </div>
-          </motion.a>
-
-          {/* Spacer */}
-          <div className="flex-1" />
-
-          {/* Language + Connect */}
-          <div className="flex items-center gap-4">
-            {/* Language Switcher */}
-            <div className="relative glass rounded-full px-1 py-1">
-              <div className="relative flex gap-1">
-                <motion.button
-                  onClick={() => setLanguage("CS")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-5 py-2 rounded-full text-sm font-bold transition-colors duration-300 ${
-                    language === "CS"
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/70"
+          <div className="hidden sm:flex items-center gap-3">
+            <div className="flex items-center rounded-full border border-white/15 bg-white/5 p-1">
+              {(["CS", "EN"] as const).map((lang) => (
+                <button
+                  key={lang}
+                  onClick={() => setLanguage(lang)}
+                  className={`h-8 min-w-10 rounded-full px-3 text-xs font-semibold transition-colors focus-ring ${
+                    language === lang
+                      ? "bg-white text-black"
+                      : "text-white/65 hover:text-white"
                   }`}
                 >
-                  {language === "CS" && (
-                    <motion.div
-                      layoutId="language-bg"
-                      className="absolute inset-0 glass bg-white/10 rounded-full border border-white/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <span className="relative z-10">CS</span>
-                </motion.button>
-                <motion.button
-                  onClick={() => setLanguage("EN")}
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.95 }}
-                  className={`relative px-5 py-2 rounded-full text-sm font-bold transition-colors duration-300 ${
-                    language === "EN"
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/70"
-                  }`}
-                >
-                  {language === "EN" && (
-                    <motion.div
-                      layoutId="language-bg"
-                      className="absolute inset-0 glass bg-white/10 rounded-full border border-white/20"
-                      transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
-                    />
-                  )}
-                  <span className="relative z-10">EN</span>
-                </motion.button>
-              </div>
+                  {lang}
+                </button>
+              ))}
             </div>
 
-            {/* Connect Button */}
-            <motion.button
+            <button
               onClick={() => openPopup()}
-              whileHover={{ scale: 1.03, y: -1 }}
-              whileTap={{ scale: 0.97 }}
-              className="btn-modern px-6 py-2.5 font-semibold text-white"
+              className="h-10 rounded-full bg-white text-black px-5 text-sm font-semibold hover:bg-white/90 transition-colors focus-ring"
             >
-              {t('Kontakt', 'Contact')}
-            </motion.button>
+              {t("Nezávazná konzultace", "Free consultation")}
+            </button>
           </div>
 
+          <button
+            onClick={() => setMobileOpen((v) => !v)}
+            className="sm:hidden inline-flex items-center justify-center h-10 w-10 rounded-lg border border-white/20 bg-white/5 text-white focus-ring"
+            aria-label="Menu"
+            aria-expanded={mobileOpen}
+          >
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+          </button>
         </div>
+
+        {mobileOpen && (
+          <div className="sm:hidden border-t border-white/10 px-4 py-4 space-y-2">
+            {navItems.map((item) => (
+              <a
+                key={item.href}
+                href={item.href}
+                onClick={() => setMobileOpen(false)}
+                className="block rounded-lg px-3 py-2 text-white/80 hover:text-white hover:bg-white/10 focus-ring"
+              >
+                {t(item.cs, item.en)}
+              </a>
+            ))}
+            <button
+              onClick={() => {
+                setMobileOpen(false);
+                openPopup();
+              }}
+              className="mt-3 h-11 w-full rounded-xl bg-white text-black font-semibold focus-ring"
+            >
+              {t("Nezávazná konzultace", "Free consultation")}
+            </button>
+          </div>
+        )}
       </div>
-    </motion.nav>
+    </motion.header>
   );
 }
+
+
+
+
+
+

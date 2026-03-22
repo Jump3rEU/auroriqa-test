@@ -92,7 +92,7 @@ export default function ServicesNew() {
                 </span>
               </motion.div>
 
-              <h2 className="text-5xl sm:text-7xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-6">
+              <h2 className="text-5xl sm:text-7xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85] mb-6">
                 <span className="text-white">Build</span>
                 <br />
                 <span className="text-white/15">anything</span>
@@ -402,3 +402,4 @@ export default function ServicesNew() {
     </section>
   );
 }
+

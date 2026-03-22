@@ -86,7 +86,7 @@ export default function FAQ() {
                   {t('PODPORA / OTÁZKY', 'SUPPORT / QUESTIONS')}
                 </span>
               </motion.div>
-              <h2 className="text-6xl md:text-8xl lg:text-[10rem] font-bold space-grotesk leading-[0.85] mb-6">
+              <h2 className="text-6xl md:text-6xl lg:text-7xl font-bold space-grotesk leading-[0.85] mb-6">
                 <span className="text-white">{t('Časté', 'Common')}</span>
                 <br />
                 <span className="text-white/15">{t('dotazy', 'questions')}</span>
@@ -269,3 +269,4 @@ export default function FAQ() {
     </motion.section>
   );
 }
+
