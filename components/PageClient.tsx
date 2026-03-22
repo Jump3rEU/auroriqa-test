@@ -11,7 +11,27 @@ import MeshGradientOverlay from "@/components/MeshGradientOverlay";
 
 export default function PageClient({ children }: { children: React.ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
+  const [allowVisualEffects, setAllowVisualEffects] = useState(true);
   const handleLoadingComplete = useCallback(() => setIsLoading(false), []);
+
+  useEffect(() => {
+    const mediaReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+    const mediaMobile = window.matchMedia('(max-width: 768px)');
+
+    const update = () => {
+      // Keep the experience premium on desktop, but reduce animation/GPU cost on constrained devices.
+      setAllowVisualEffects(!mediaReduced.matches && !mediaMobile.matches);
+    };
+
+    update();
+    mediaReduced.addEventListener('change', update);
+    mediaMobile.addEventListener('change', update);
+
+    return () => {
+      mediaReduced.removeEventListener('change', update);
+      mediaMobile.removeEventListener('change', update);
+    };
+  }, []);
 
   useEffect(() => {
     const handleAnchorClick = (e: MouseEvent) => {
@@ -19,7 +39,7 @@ export default function PageClient({ children }: { children: React.ReactNode }) 
       const anchor = target.closest('a[href^="#"]');
       if (anchor) {
         const href = anchor.getAttribute('href');
-        if (href && href.startsWith('#')) {
+        if (href && href.startsWith('#') && href.length > 1) {
           e.preventDefault();
           const element = document.querySelector(href);
           if (element) {
@@ -39,7 +59,7 @@ export default function PageClient({ children }: { children: React.ReactNode }) 
     <>
       <LoadingScreen onLoadingComplete={handleLoadingComplete} />
       <main className="relative overflow-x-clip">
-        {!isLoading && (
+        {!isLoading && allowVisualEffects && (
           <>
             <AuroraCurtains />
             <StarField />

@@ -1,40 +1,45 @@
 import { NextRequest, NextResponse } from "next/server";
 
-/**
- * Lightweight page-view analytics API.
- *
- * ─── Storage options ───────────────────────────────────────────────────────
- * Development  : in-memory Map (resets on server restart – OK for local dev)
- * Production   : add Vercel KV (upstash/redis) and swap the helpers below.
- *                npm install @vercel/kv → replace Map usage with kv.hincrby / kv.hgetall
- * ──────────────────────────────────────────────────────────────────────────
- */
+const pageStore: Map<string, number> = new Map();
+const eventStore: Map<string, number> = new Map();
 
-// In-memory store – works for local dev, resets on Vercel cold start.
-// Replace with Vercel KV for persistence in production.
-const store: Map<string, number> = new Map();
-
-function allowed(page: string): boolean {
+function allowedPage(page: string): boolean {
   return typeof page === "string" && page.startsWith("/") && page.length < 128;
 }
 
-// GET /api/analytics → { pages: { "/": 42, "/blog": 7, ... } }
-export async function GET() {
-  const pages: Record<string, number> = {};
-  store.forEach((count, page) => {
-    pages[page] = count;
-  });
-  return NextResponse.json({ pages }, { status: 200 });
+function allowedEvent(event: string): boolean {
+  return typeof event === "string" && /^[a-z0-9_:-]{3,64}$/i.test(event);
 }
 
-// POST /api/analytics  { page: "/blog" }  → 204
+export async function GET() {
+  const pages: Record<string, number> = {};
+  const events: Record<string, number> = {};
+
+  pageStore.forEach((count, page) => {
+    pages[page] = count;
+  });
+  eventStore.forEach((count, event) => {
+    events[event] = count;
+  });
+
+  return NextResponse.json({ pages, events }, { status: 200 });
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const page: string = body?.page ?? "/";
-    if (!allowed(page)) return NextResponse.json({ error: "invalid" }, { status: 400 });
 
-    store.set(page, (store.get(page) ?? 0) + 1);
+    if (body?.type === "event") {
+      const event = String(body?.event || "").trim();
+      if (!allowedEvent(event)) return NextResponse.json({ error: "invalid event" }, { status: 400 });
+      eventStore.set(event, (eventStore.get(event) ?? 0) + 1);
+      return new NextResponse(null, { status: 204 });
+    }
+
+    const page: string = body?.page ?? "/";
+    if (!allowedPage(page)) return NextResponse.json({ error: "invalid page" }, { status: 400 });
+
+    pageStore.set(page, (pageStore.get(page) ?? 0) + 1);
     return new NextResponse(null, { status: 204 });
   } catch {
     return NextResponse.json({ error: "bad request" }, { status: 400 });
